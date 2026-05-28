@@ -1,0 +1,48 @@
+# Node & build
+node_modules/
+dist/
+build/
+.vite/
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+secrets/
+# explicitly exclude internal agent folders
+.agent/
+.agents/
+.skills-lock.json
+
+# macOS
+.DS_Store
+
+# Python venv (if present)
+venv/
+
+# keep potential envs ignored
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# Lockfiles - keep the actual lockfile committed; ignore workspace files
+.pnp.*
+
+# coverage and test artifacts
+coverage/
+*.lcov
+
+# local env overrides
+.env.local
+.env.*.local
+
+# caches
+.cache/
