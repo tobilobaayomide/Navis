@@ -5,9 +5,9 @@ export type NavIcon = ComponentType<SVGProps<SVGSVGElement>>;
 export type NavItem = {
   id: string;
   label: string;
-  href: string;
+  path: string;
   icon: NavIcon;
-  badge?: number;
+  badge?: number | string;
   disabled?: boolean;
 };
 
