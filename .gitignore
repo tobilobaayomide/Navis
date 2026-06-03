@@ -18,7 +18,7 @@ secrets/
 # explicitly exclude internal agent folders
 .agent/
 .agents/
-.skills-lock.json
+skills-lock.json
 
 # macOS
 .DS_Store
