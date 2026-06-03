@@ -1,8 +1,8 @@
-# Navis
+# Navis UI
 
 ## Product Purpose
 
-Navis is a study in responsive dashboard navigation. The product exists to help developers choose and reuse polished mobile bottom navigation patterns that map cleanly from an existing desktop sidebar.
+Navis UI is a study in responsive dashboard navigation. The product exists to help developers choose and reuse polished mobile bottom navigation patterns that map cleanly from an existing desktop sidebar.
 
 ## Users
 
@@ -32,4 +32,3 @@ Precise, calm, premium, and technical. The interface should feel designed by som
 - Generic card dashboards with repeated icon-heading-copy blocks
 - Overuse of glass, gradients, and ornamental blur
 - Crowded mobile nav bars with weak label legibility
-
