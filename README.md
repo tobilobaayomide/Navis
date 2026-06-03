@@ -1,77 +1,56 @@
-# Navis
+# Navis UI
 
-Small frontend project scaffolded with Vite + TypeScript. This README contains minimal quickstart, safety notes, and where to run common tasks.
+Navis UI is a Vite + React + TypeScript playground for exploring polished bottom navigation patterns, a component gallery, and a docs experience wrapped in a clean product shell.
 
-Quickstart
+## What’s Inside
 
-1. Install dependencies
+- A landing page with a strong hero, feature showcase, and footer
+- A component gallery for browsing bottom navigation variants
+- A docs section with a sidebar, article pages, and on-page navigation
+- An immersive playground with live previews, code artifacts, and theme switching
+- Shared navigation data so the site, docs, and playground stay in sync
 
-```bash
-npm ci
-```
-
-2. Run dev server
-
-```bash
-npm run dev
-```
-
-3. Build
-
-```bash
-npm run build
-```
-
-4. Tests (if present)
-
-```bash
-npm test
-```
-
-Security & repo hygiene
-
-- Do not commit secrets or `.env` files. Use GitHub Secrets for CI.
-- `node_modules/`, `dist/`, `.agent/`, and `.agents/` are ignored via `.gitignore`.
-- If you find large files committed historically, use `git filter-repo` or BFG to remove them before making the repo public.
-
-Contributing
-
-Create issues/PRs. Add tests for new features. If you'd like, open a PR and I can help review.
-# Navis Bottom Navigation Playground
-
-A React + Tailwind playground for exploring reusable mobile bottom navigation patterns for responsive dashboard web apps.
-
-## What is inside
-
-- A responsive dashboard shell with a desktop sidebar
-- Five mobile-first bottom navigation variants
-- A shared navigation schema so desktop and mobile stay in sync
-- A white and royal-blue visual system
-
-## Variants
-
-- Minimal
-- Floating
-- Pill
-- Indicator
-- Glass
-
-## Development
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Project shape
+Open the local Vite URL printed in your terminal.
+
+## Available Scripts
+
+- `npm run dev` - start the local development server
+- `npm run build` - create a production build
+- `npm run preview` - preview the production build locally
+- `npm run typecheck` - run TypeScript without emitting files
+- `npm run check` - run typecheck and then build
+
+## Routes
+
+- `/` - landing page
+- `/components` - bottom navigation gallery
+- `/docs/:docSlug` - documentation pages
+- `/playground` - immersive playground
+
+## Project Structure
 
 ```txt
 src/
   bottom-nav/
   components/
+  context/
   data/
+  hooks/
   icons/
-  lib/
   nav/
+  pages/
+  variants/
 ```
 
+## Notes
+
+- The app supports light and dark themes.
+- The playground hides the global navbar so the preview area stays immersive.
+- The docs and landing experience share the same design language for a consistent feel.
