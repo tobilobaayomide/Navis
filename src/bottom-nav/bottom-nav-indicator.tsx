@@ -1,7 +1,7 @@
 import { type CSSProperties } from "react";
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
-import { NavBadge } from "./shared";
+
 
 export function BottomNavIndicator({
   items,
@@ -19,17 +19,15 @@ export function BottomNavIndicator({
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
-        "indicator-nav-shell mx-auto w-full rounded-[2.1rem] border border-[rgba(255,255,255,0.12)] bg-[var(--indicator-nav-bg,rgba(10,14,23,0.88))] p-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.2)] backdrop-blur-[16px] transition-[transform,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+        "indicator-nav-shell mobile-scale-nav relative isolate mx-auto w-full overflow-hidden rounded-[2.1rem] border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 px-2 py-1.5 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
         className
       )}
       style={{
         maxWidth: `${maxWidth}px`,
         width: "100%",
-        "--active-icon-color": "var(--accent)",
         ...style
       } as any}
     >
-      <div className="indicator-nav-inner relative rounded-[1.8rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0.01)_100%)] p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),inset_0_-1px_0_rgba(0,0,0,0.48),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
         <ul
           className="relative grid gap-1.5"
           style={
@@ -38,22 +36,20 @@ export function BottomNavIndicator({
             } as CSSProperties
           }
         >
-          {/* Hardware-accelerated sliding active indicator line at the bottom */}
+          {/* Hardware-accelerated sliding active indicator line at the top */}
           <li
             aria-hidden="true"
-            className="indicator-nav-slider pointer-events-none absolute bottom-0 left-0 z-0 h-[3px] rounded-full bg-white/20 shadow-[0_2px_6px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+            className="indicator-nav-slider pointer-events-none absolute top-0 left-0 z-0 h-[3px] rounded-full transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transform-none motion-reduce:transition-none"
             style={{
-              width: `calc((100% - ${(items.length - 1) * 0.375}rem) / ${items.length})`,
-              transform: `translate3d(calc(${Math.max(activeIndex, 0)} * (100% + 0.375rem)), 0, 0)`
+              width: `calc(100% / ${items.length})`,
+              transform: `translate3d(calc(${Math.max(activeIndex, 0)} * 100%), 0, 0)`
             }}
           >
             <span
               aria-hidden="true"
-              className="absolute inset-0 left-1/2 w-[60%] -translate-x-1/2 rounded-full bg-inherit"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute bottom-0 left-1/2 h-[2.2rem] w-[2.8rem] -translate-x-1/2 bg-[radial-gradient(circle_at_center,var(--indicator-nav-ambient-orb,rgba(var(--indicator-nav-accent-rgb,111,140,255),0.16))_0%,transparent_80%)] blur-[4px]"
+              className="absolute inset-0 left-1/2 w-[32px] -translate-x-1/2 rounded-full"
+              style={{
+                backgroundColor: "rgb(var(--indicator-nav-accent-rgb, 79, 70, 229))",              }}
             />
           </li>
 
@@ -74,10 +70,11 @@ export function BottomNavIndicator({
                 <button
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "pressable indicator-nav-hit group relative flex w-full flex-col items-center justify-center gap-1 rounded-[1.4rem] pb-3.5 pt-2.5 text-[10px] font-medium tracking-[-0.01em] transition-[color,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] [touch-action:manipulation] motion-reduce:transform-none motion-reduce:transition-none active:scale-[0.965]",
-                    isActive ? "text-slate-100 font-semibold" : "text-slate-400 hover:text-slate-200 motion-safe:hover:-translate-y-[1px]",
+                    "pressable indicator-nav-hit group relative flex w-full flex-col items-center justify-center gap-1 rounded-[1.4rem] pb-3.5 pt-3.5 text-[10px] font-medium tracking-[-0.01em] transition-[color,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] [touch-action:manipulation] motion-reduce:transform-none motion-reduce:transition-none active:scale-[0.965]",
+                    isActive ? "font-semibold" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 motion-safe:hover:-translate-y-[1px]",
                     item.disabled && "cursor-not-allowed opacity-40"
                   )}
+                  style={isActive ? { color: "rgb(var(--indicator-nav-accent-rgb, 79, 70, 229))" } : undefined}
                   disabled={item.disabled}
                   onClick={() => onItemClick?.(item)}
                   type="button"
@@ -87,19 +84,14 @@ export function BottomNavIndicator({
                       className={cn(
                         "relative z-[1] h-[1.28rem] w-[1.28rem] transition-[transform,color] duration-220 ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:group-hover:-translate-y-[2px] motion-safe:group-hover:scale-[1.05]"
                       )}
-                      style={{ color: isActive ? "var(--active-icon-color)" : "currentColor" }}
+                      style={{ color: isActive ? "rgb(var(--indicator-nav-accent-rgb, 79, 70, 229))" : "currentColor" }}
                     />
-                    {typeof item.badge === "number" ? (
-                      <NavBadge
-                        className="absolute -right-2.5 -top-2 z-[2] flex h-[1.12rem] min-w-[1.12rem] items-center justify-center rounded-full border border-white/20 bg-slate-50 px-0 text-[8px] text-slate-950 shadow-[0_6px_12px_-6px_rgba(0,0,0,0.6)] [font-variant-numeric:tabular-nums]"
-                        value={item.badge}
-                      />
-                    ) : null}
+
                   </span>
                   <span
                     className={cn(
                       "text-[0.68rem] leading-none transition-[opacity,color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                      isActive ? "text-slate-100" : "text-current opacity-[0.84]"
+                      isActive ? "" : "opacity-[0.84]"
                     )}
                   >
                     {item.label}
@@ -109,7 +101,6 @@ export function BottomNavIndicator({
             );
           })}
         </ul>
-      </div>
     </nav>
   );
 }
