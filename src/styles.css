@@ -456,36 +456,6 @@ a {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
 }
 
-/* Copy Toast Notification */
-.toast-notification {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 50;
-  background: rgba(13, 17, 24, 0.95);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  box-shadow: 
-    0 24px 48px -12px rgba(0, 0, 0, 0.5),
-    0 0 16px rgba(16, 185, 129, 0.1);
-  border-radius: 1rem;
-  padding: 0.85rem 1.35rem;
-  display: flex;
-  align-items: center;
-  gap: 0.68rem;
-  animation: slideInUp 350ms var(--ease-premium);
-}
-
-@keyframes slideInUp {
-  from {
-    transform: translateY(1.5rem);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -499,4 +469,30 @@ a {
 
 .animate-fade-in {
   animation: fadeIn 600ms var(--ease-premium) forwards;
+}
+
+/* Component Bottom Navbar Scaling Utility */
+@media (max-width: 640px) {
+  .mobile-scale-nav {
+    /* Scale bottom navbars dynamically so they maintain desktop layout */
+    zoom: min(1, calc(100vw / 500));
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-scale-nav {
+    zoom: min(1, calc(100vw / 420));
+  }
+}
+
+
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
