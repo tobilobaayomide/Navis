@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
-import { NavBadge } from "./shared";
+
 
 /**
  * ============================================================================
@@ -27,7 +27,7 @@ import { NavBadge } from "./shared";
  * 3. Route-Aware Synchronization:
  *    For active tab tracking, NEVER use standalone local state inside the component in production.
  *    Instead, bind `activeId` directly to your router's location segment (e.g., `location.pathname`).
- *    Set `onItemClick` to trigger your router's navigation handler (e.g., `navigate(item.href)`).
+ *    Set `onItemClick` to trigger your router's navigation handler (e.g., `navigate(item.path)`).
  * 
  * 4. Content Cutoff Prevention:
  *    Place a spacer at the bottom of your layout view to prevent the floating bar from overlapping
@@ -65,21 +65,22 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
 
       if (!list || !itemElement) return;
 
-      const listBounds = list.getBoundingClientRect();
-      const itemBounds = itemElement.getBoundingClientRect();
+      const listWidth = list.offsetWidth;
+      const itemWidth = itemElement.offsetWidth;
+      const itemLeft = itemElement.offsetLeft;
 
       // Measure the exact rendered content width
-      const contentEl = list.querySelector(".floating-nav-capsule-content");
-      const contentWidth = contentEl ? contentEl.getBoundingClientRect().width : itemBounds.width;
+      const contentEl = list.querySelector(".floating-nav-capsule-content") as HTMLElement | null;
+      const contentWidth = contentEl ? contentEl.offsetWidth : itemWidth;
 
       // Position the capsule: flush-left on first tab, flush-right on last tab, centered on middle tabs
       let capsuleX = 0;
       if (activeIndex === 0) {
         capsuleX = 0;
       } else if (activeIndex === items.length - 1) {
-        capsuleX = listBounds.width - contentWidth;
+        capsuleX = listWidth - contentWidth;
       } else {
-        capsuleX = itemBounds.left - listBounds.left + (itemBounds.width - contentWidth) / 2;
+        capsuleX = itemLeft + (itemWidth - contentWidth) / 2;
       }
 
       setCapsule({
@@ -112,14 +113,14 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
-        "floating-nav-shell relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-white/35 bg-[rgba(255,255,255,0.22)] p-[0.48rem] shadow-[0_26px_60px_-28px_rgba(15,23,42,0.34)] backdrop-blur-[22px] transition-[transform,opacity,box-shadow,backdrop-filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+        "floating-nav-shell mobile-scale-nav relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
         className
       )}
       style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.08)_36%,rgba(255,255,255,0.16)_100%)] opacity-95"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.08)_36%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_36%,rgba(255,255,255,0)_100%)] opacity-95"
       />
       <ul
         ref={listRef}
@@ -131,19 +132,13 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
           className="floating-nav-capsule pointer-events-none absolute inset-y-0 left-0 z-0 transition-[transform,width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transform-none motion-reduce:transition-none"
           style={{ width: `${capsule.width}px`, transform: `translate3d(${capsule.x}px, 0, 0)` }}
         >
-          <div className="floating-nav-capsule-surface absolute inset-0 flex items-center overflow-hidden rounded-full bg-[rgba(255,255,255,0.98)] shadow-[0_20px_36px_-24px_rgba(15,23,42,0.42),inset_0_1px_0_rgba(255,255,255,0.92)]">
+          <div className="floating-nav-capsule-surface absolute inset-0 flex items-center overflow-hidden rounded-full border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/10 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
             <span
               key={activeItem?.id}
-              className="floating-nav-capsule-content flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 motion-reduce:transform-none motion-reduce:transition-none"
+              className="floating-nav-capsule-content flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 dark:text-white motion-reduce:transform-none motion-reduce:transition-none"
             >
               <span className="floating-nav-capsule-icon relative inline-flex h-[1.6rem] w-[1.6rem] shrink-0 items-center justify-center">
                 {ActiveIcon ? <ActiveIcon className="h-[1.45rem] w-[1.45rem]" /> : null}
-                {activeItem && typeof activeItem.badge === "number" ? (
-                  <NavBadge
-                    className="absolute -right-1.5 -top-1.5 flex h-[1.1rem] min-w-[1.1rem] items-center justify-center rounded-full border border-white/80 bg-slate-950 px-0 text-[8px] text-white shadow-[0_8px_18px_-12px_rgba(15,23,42,0.48)] [font-variant-numeric:tabular-nums]"
-                    value={activeItem.badge}
-                  />
-                ) : null}
               </span>
               <span className="floating-nav-capsule-label whitespace-nowrap text-[0.88rem] font-semibold tracking-[-0.025em] [font-family:Outfit,Geist,'SF_Pro_Display',sans-serif]">
                 {activeItem?.label}
@@ -170,7 +165,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
                 aria-label={item.label}
                 className={cn(
                   "floating-nav-hit pressable relative flex h-[3.15rem] w-full items-center justify-center rounded-full border border-transparent bg-transparent transition-[transform,color,opacity,filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] [touch-action:manipulation] motion-reduce:transform-none motion-reduce:transition-none active:scale-[0.985]",
-                  isActive ? "text-transparent" : "text-slate-400 hover:-translate-y-px hover:bg-white/35 hover:text-slate-700 hover:opacity-95",
+                  isActive ? "text-transparent" : "text-slate-500 dark:text-slate-400 hover:-translate-y-px hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white",
                   item.disabled && "cursor-not-allowed opacity-40"
                 )}
                 disabled={item.disabled}
@@ -189,12 +184,6 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
                       isActive ? "scale-[0.92] opacity-0 blur-[2px]" : "scale-100 group-hover:-translate-y-[0.5px] group-hover:scale-[1.035]"
                     )}
                   />
-                  {!isActive && typeof item.badge === "number" ? (
-                    <NavBadge
-                      className="absolute -right-1.5 -top-1.5 flex h-[1.1rem] min-w-[1.1rem] items-center justify-center rounded-full border border-white/70 bg-slate-950 px-0 text-[8px] text-white shadow-[0_8px_18px_-12px_rgba(15,23,42,0.42)] [font-variant-numeric:tabular-nums]"
-                      value={item.badge}
-                    />
-                  ) : null}
                 </span>
               </button>
             </li>
