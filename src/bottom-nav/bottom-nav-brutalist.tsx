@@ -1,0 +1,67 @@
+import { type CSSProperties } from "react";
+import { cn } from "../lib/cn";
+import type { BottomNavProps } from "../nav/nav.types";
+
+export function BottomNavBrutalist({ items, activeId, onItemClick, className, style }: BottomNavProps) {
+  const resolvedActiveId = activeId ?? items[0]?.id;
+  const maxWidth = items.length === 3 ? 320 : items.length === 4 ? 385 : 440;
+
+  return (
+    <nav
+      aria-label="Mobile primary navigation"
+      className={cn(
+        "brutalist-nav-shell mobile-scale-nav mx-auto w-full border-[2px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
+        className
+      )}
+      style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
+    >
+      <ul
+        className="grid w-full"
+        style={
+          {
+            gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`
+          } as CSSProperties
+        }
+      >
+        {items.map((item, index) => {
+          const isActive = item.id === resolvedActiveId;
+          const Icon = item.icon;
+
+          return (
+            <li
+              key={item.id}
+              className={cn(
+                "relative flex h-[4.2rem] items-center justify-center border-black dark:border-white",
+                index !== items.length - 1 && "border-r-[2px]"
+              )}
+            >
+              <button
+                aria-current={isActive ? "page" : undefined}
+                aria-label={item.label}
+                className={cn(
+                  "pressable group flex h-full w-full flex-col items-center justify-center gap-1 transition-colors duration-150 motion-reduce:transition-none active:bg-black/10 dark:active:bg-white/10",
+                  isActive ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black hover:bg-black/5 dark:text-white dark:hover:bg-white/10",
+                  item.disabled && "cursor-not-allowed opacity-40"
+                )}
+                disabled={item.disabled}
+                onClick={() => onItemClick?.(item)}
+                type="button"
+              >
+                <Icon
+                  className={cn(
+                    "h-5 w-5 transition-transform duration-150 motion-reduce:transition-none group-hover:scale-110",
+                    isActive && "scale-110"
+                  )}
+                  fill={isActive ? "currentColor" : "none"}
+                />
+                <span className="text-[9px] font-bold uppercase tracking-[0.1em] [font-family:'IBM_Plex_Mono',monospace]">
+                  {item.label}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
