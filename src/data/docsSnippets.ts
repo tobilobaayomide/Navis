@@ -65,13 +65,12 @@ export const badge = `export const NAV_ITEMS = [
 ];
 `;
 
-export const accent = `// Indicator and Glass expose a few CSS variables inside the copied source.
-// You can change them directly in the component.
+export const accent = `// Indicator and Cyber expose a small accent hook.
+// Most other variants are edited directly in the copied source.
 
 "--indicator-nav-accent-rgb": "14, 165, 233"
 "--indicator-nav-bg": "rgba(12, 74, 110, 0.12)"
-"--glass-nav-center-bg-start": "#0f172a"
-"--glass-nav-center-bg-end": "#1e293b"
+"--cyber-accent": "0, 255, 255"
 `;
 
 export const sidebar = `import { NAV_ITEMS } from "@/constants/navigation";
@@ -166,6 +165,19 @@ export const background = `// bottom-nav-floating.jsx
 
 "text-slate-400 hover:text-slate-700"
 -> "text-slate-300 hover:text-white"
+`;
+
+export const styling = `// Typical edits happen directly in the copied component source.
+// Change the rail height, icon size, label size, and shell tone together.
+
+// Example: bottom-nav-minimal.jsx
+"min-h-[64px]" -> "min-h-[72px]"
+"h-10 w-10"    -> "h-11 w-11"
+"text-[11px]"  -> "text-[12px]"
+
+// For accent-heavy variants, keep the runtime hooks in place:
+"--indicator-nav-accent-rgb": "79, 70, 229"
+"--cyber-accent": "79, 70, 229"
 `;
 
 export function tokenize(source: string) {
