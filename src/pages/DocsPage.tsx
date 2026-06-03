@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Docs } from "../components/docs";
+import Docs from "../components/docs";
 import { usePlayground } from "../context/PlaygroundContext";
 
 export function DocsPage() {
