@@ -1,186 +1,152 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { CopyIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { MobilePreview } from "./mobile-preview";
-import { BottomNavFloating } from "../bottom-nav/bottom-nav-floating";
-import { FLOATING_NAV_ITEMS } from "../data/nav-items";
+import { HeroPhoneMockup } from "./hero-phone-mockup";
+import { NAV_ITEMS } from "../data/nav-items";
 import { cn } from "../lib/cn";
 
 type LandingHeroProps = {
   isLight: boolean;
-  onPlaygroundClick: () => void;
+  onComponentsClick: () => void;
   onDocsClick: () => void;
   installCommand: string;
-  copyToClipboard: (text: string) => void;
-  copiedState: boolean;
+  copyToClipboard: (text: string, id: string) => void;
+  copiedState: string | null;
 };
 
 export function LandingHero({
   isLight,
-  onPlaygroundClick,
+  onComponentsClick,
   onDocsClick,
   installCommand,
   copyToClipboard,
   copiedState
 }: LandingHeroProps) {
-  const [mockActiveId, setMockActiveId] = useState("home");
-  const cycleItems = FLOATING_NAV_ITEMS;
+  const [activeId, setActiveId] = useState("home");
 
+  // Cycle the active tab every 3 seconds for the hero presentation
   useEffect(() => {
     const interval = setInterval(() => {
-      setMockActiveId((prev) => {
-        const currentIndex = cycleItems.findIndex((item) => item.id === prev);
-        const nextIndex = (currentIndex + 1) % cycleItems.length;
-        return cycleItems[nextIndex].id;
+      setActiveId((prev) => {
+        const idx = NAV_ITEMS.findIndex((item) => item.id === prev);
+        const nextIdx = (idx + 1) % NAV_ITEMS.length;
+        return NAV_ITEMS[nextIdx].id;
       });
     }, 3000);
-
     return () => clearInterval(interval);
-  }, [cycleItems]);
-
-  const mockNav = useMemo(() => {
-    return (
-      <BottomNavFloating
-        activeId={mockActiveId}
-        items={cycleItems}
-        onItemClick={(item) => setMockActiveId(item.id)}
-      />
-    );
-  }, [mockActiveId, cycleItems]);
+  }, []);
 
   return (
-    <section className="relative py-24 md:py-32">
-      <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_420px]">
-        <div className="space-y-10">
-          <div className="space-y-5">
+    <section className="relative py-28 md:py-22">
+      <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+        
+        {/* Left Copy Side */}
+        <div className="space-y-12">
+          <div className="space-y-6">
             <span
               className={cn(
-                "inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                "inline-flex rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em]",
                 isLight
-                  ? "border-[rgba(15,23,42,0.08)] bg-[rgba(225,243,254,0.7)] text-[#1f6c9f]"
-                  : "border-white/[0.08] bg-[rgba(255,255,255,0.04)] text-slate-300"
+                  ? "border-slate-200 bg-slate-50 text-slate-800"
+                  : "border-white/10 bg-white/5 text-slate-200"
               )}
             >
-              Bottom navigation rails
+              Navis UI
             </span>
 
-            <div className="max-w-5xl space-y-5">
+            <div className="max-w-2xl space-y-6">
               <h1
                 className={cn(
-                  "max-w-[18ch] text-[3.35rem] font-semibold tracking-[0.03em] leading-[0.94] sm:text-[4.4rem] md:text-[5.4rem]",
-                  isLight ? "text-[#171717]" : "text-[#f5f5f4]"
+                  "text-[2.75rem] font-medium tracking-[0.02em] leading-[1.05] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem]",
+                  isLight ? "text-slate-950" : "text-white"
                 )}
+                style={{ fontFamily: "Outfit, sans-serif" }}
               >
-                Pick a rail that already feels finished.
+                Stop building generic <span className="text-blue-600">mobile navs</span>
               </h1>
               <p
                 className={cn(
-                  "max-w-[56ch] text-[15px] font-light leading-8 md:text-[24px] md:leading-8",
-                  isLight ? "text-[#787774]" : "text-slate-300"
+                  "max-w-[48ch] text-[16px] font-light leading-relaxed sm:text-[18px] md:text-[22px]",
+                  isLight ? "text-slate-600" : "text-slate-400"
                 )}
               >
-                Navis gives you a small set of polished bottom navigation patterns with real motion, stable layout behavior, and source code you can actually use.
+                Copy-and-paste bottom navigation rails with premium motion, precise layouts, and zero bloat. Pick one that actually feels finished.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3.5">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <button
               className={cn(
-                "rounded-[35px] border px-7 py-5 text-[16px] font-normal transition-all active:scale-[0.98]",
+                "rounded-full border px-8 py-4 sm:py-5 text-[16px] font-medium transition-all active:scale-[0.98] w-full sm:w-auto",
                 isLight
-                  ? "border-[#171717] bg-[#171717] text-white hover:bg-[#2b2b2b]"
-                  : "border-white/[0.08] bg-white text-[#111111] hover:bg-[#ececea]"
+                  ? "border-slate-900 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20"
+                  : "border-white bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-white/10"
               )}
-              onClick={onPlaygroundClick}
+              onClick={onComponentsClick}
               type="button"
             >
-              Open Playground
+              Browse Components
             </button>
 
             <button
-                        className={cn(
-                          "group relative flex items-center justify-between gap-3.5 rounded-full border px-7 py-5 text-[16px] font-normal transition-all active:scale-[0.98]",
-                        isLight
-                            ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-900 shadow-[0_18px_34px_-24px_rgba(15,23,42,0.2)] hover:bg-[rgba(15,23,42,0.05)]"
-                            : "border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.035)_100%)] text-white shadow-[0_20px_38px_-24px_rgba(0,0,0,0.62),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.05)_100%)]"
-                        )}
-                        onClick={onDocsClick}
-                        type="button"
-                      >
-                        Documentation
-                      </button>
-          </div>
-
-          <div className="max-w-[25rem]">
-            <button
               className={cn(
-                "flex w-full items-center justify-between gap-4 rounded-[28px] border px-4 py-3 text-left transition-all active:scale-[0.98]",
+                "rounded-full border px-8 py-4 sm:py-5 text-[16px] font-medium transition-all active:scale-[0.98] w-full sm:w-auto",
                 isLight
-                  ? "border-[rgba(15,23,42,0.08)] bg-[#fbfbfa] text-[#171717] hover:bg-white"
-                  : "border-white/[0.08] bg-[rgba(255,255,255,0.03)] text-slate-100 hover:bg-[rgba(255,255,255,0.05)]"
+                  ? "border-slate-200 bg-white text-slate-900 hover:bg-slate-50 shadow-sm"
+                  : "border-white/10 bg-white/5 text-white hover:bg-white/10"
               )}
-              onClick={() => copyToClipboard(installCommand)}
+              onClick={onDocsClick}
               type="button"
             >
-              <div className="space-y-1">
-             
-                <code className={cn("code-face text-[16px] font-normal", isLight ? "text-[#171717]" : "text-slate-100")}>
-                  {installCommand}
-                </code>
-              </div>
+              Documentation
+            </button>
+          </div>
+
+          {/* Quick CLI Copy */}
+          <div className="max-w-[28rem] pt-4">
+            <button
+              className={cn(
+                "flex w-full items-center justify-between gap-4 rounded-[20px] border px-6 sm:py-2 py-2 text-left transition-all active:scale-[0.98]",
+                isLight
+                  ? "border-slate-200 bg-slate-50 hover:bg-slate-100"
+                  : "border-white/10 bg-white/5 hover:bg-white/10"
+              )}
+              onClick={() => copyToClipboard(installCommand, "hero")}
+              type="button"
+            >
+              <code className={cn("font-mono sm:text-[15px] text-[12px]", isLight ? "text-slate-900" : "text-slate-200")}>
+                {installCommand}
+              </code>
               <span
                 className={cn(
-                  "inline-flex h-8 min-w-8 items-center justify-center rounded-[6px] border px-2",
+                  "flex h-6 w-6 items-center justify-center rounded-lg border transition-colors",
                   isLight
-                    ? "border-[rgba(15,23,42,0.08)] bg-white text-[#787774]"
-                    : "border-white/[0.08] bg-[rgba(255,255,255,0.04)] text-slate-300"
+                    ? "border-slate-200 bg-white text-slate-500"
+                    : "border-white/10 bg-white/5 text-slate-400"
                 )}
               >
                 <HugeiconsIcon
-                  absoluteStrokeWidth
-                  className={cn("h-4 w-4 transition-opacity", copiedState ? "opacity-100" : "opacity-80")}
+                  className={cn("h-4 w-4 transition-all duration-300", copiedState === "hero" ? "opacity-100 text-emerald-500 scale-110" : "opacity-80 scale-100")}
                   icon={CopyIcon}
                   size={16}
-                  strokeWidth={1.7}
+                  strokeWidth={2}
                 />
               </span>
             </button>
           </div>
         </div>
 
-        <div className="xl:pt-6">
-          <div
-            className={cn(
-              "rounded-[12px] border p-3",
-              isLight
-                ? "border-[rgba(15,23,42,0.08)] bg-[#fbfbfa]"
-                : "border-white/[0.08] bg-[rgba(17,20,27,0.9)]"
-            )}
-          >
-            <div
-              className={cn(
-                "mb-2 flex items-center gap-2 border-b pb-3",
-                isLight ? "border-[rgba(15,23,42,0.08)]" : "border-white/[0.08]"
-              )}
-            >
-              <span className={cn("h-2.5 w-2.5 rounded-full", isLight ? "bg-[#d6d3d1]" : "bg-white/15")} />
-              <span className={cn("h-2.5 w-2.5 rounded-full", isLight ? "bg-[#d6d3d1]" : "bg-white/15")} />
-              <span className={cn("h-2.5 w-2.5 rounded-full", isLight ? "bg-[#d6d3d1]" : "bg-white/15")} />
-              <span className={cn("ml-2 text-[11px] font-medium uppercase tracking-[0.16em]", isLight ? "text-[#787774]" : "text-slate-400")}>
-                Preview
-              </span>
-            </div>
-
-            <MobilePreview
-              className="w-full max-w-[400px]"
-              flushBottom={false}
-              label="Floating rail"
-              lightStage={isLight}
-              nav={mockNav}
-            />
-          </div>
+        {/* Right Side Phone Mockup */}
+        <div className="relative z-10 hidden items-end justify-center md:flex lg:h-[640px]">
+          <HeroPhoneMockup
+            isLight={isLight}
+            activeId={activeId}
+            onNavItemClick={(id) => setActiveId(id)}
+          />
         </div>
+
       </div>
     </section>
   );
