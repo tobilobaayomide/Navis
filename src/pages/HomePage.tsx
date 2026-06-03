@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { usePlayground } from "../context/PlaygroundContext";
 import { LandingHero } from "../components/landing-hero";
-import { BentoFeatures } from "../components/bento-features";
+import { BentoGallery } from "../components/bento-gallery";
+import { LandingFeatures } from "../components/landing-features";
+import { LandingFooter } from "../components/landing-footer";
 
 export function HomePage() {
-  const { isLight, goToPlayground, goToDocs, installCommand, copyToClipboard, copiedState } =
+  const { isLight, goToComponents, goToDocs, installCommand, copyToClipboard, copiedState } =
     usePlayground();
 
   useEffect(() => {
@@ -12,16 +14,18 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-0 mx-auto w-full max-w-max ">
       <LandingHero
         isLight={isLight}
-        onPlaygroundClick={goToPlayground}
+        onComponentsClick={goToComponents}
         onDocsClick={goToDocs}
         installCommand={installCommand}
         copyToClipboard={copyToClipboard}
         copiedState={copiedState}
       />
-      <BentoFeatures isLight={isLight} />
+      <BentoGallery isLight={isLight} />
+      <LandingFeatures isLight={isLight} />
+      <LandingFooter isLight={isLight} />
     </div>
   );
 }
