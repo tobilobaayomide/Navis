@@ -5,21 +5,13 @@ import { usePlayground } from "../context/PlaygroundContext";
 export function PlaygroundPage() {
   const {
     activeVariant,
-    badgesEnabled,
     copiedState,
     copyToClipboard,
-    customAccent,
     implementationArtifacts,
-    implementationBundleString,
     installCommand,
     isLight,
-    itemsCount,
     previewNav,
-    selectedVariant,
-    setBadgesEnabled,
-    setCustomAccent,
-    setItemsCount,
-    setSelectedVariant
+    toggleTheme
   } = usePlayground();
 
   useEffect(() => {
@@ -29,21 +21,13 @@ export function PlaygroundPage() {
   return (
     <Playground
       activeVariant={activeVariant}
-      badgesEnabled={badgesEnabled}
       copiedState={copiedState}
       copyToClipboard={copyToClipboard}
-      customAccent={customAccent}
       implementationArtifacts={implementationArtifacts}
-      implementationBundleString={implementationBundleString}
       installCommand={installCommand}
       isLight={isLight}
-      itemsCount={itemsCount}
-      onAccentChange={setCustomAccent}
-      onBadgesEnabledChange={setBadgesEnabled}
-      onItemsCountChange={setItemsCount}
-      onVariantChange={setSelectedVariant}
+      toggleTheme={toggleTheme}
       previewNav={previewNav}
-      selectedVariant={selectedVariant}
     />
   );
 }
