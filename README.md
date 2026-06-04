@@ -27,6 +27,13 @@ Open the local Vite URL printed in your terminal.
 - `npm run typecheck` - run TypeScript without emitting files
 - `npm run check` - run typecheck and then build
 
+## CLI
+
+- `npx navis-ui add bottom-nav-minimal` - copy the minimal bottom navigation source file into `src/components/ui/bottom-nav-minimal.jsx`
+- `npx navis-ui add bottom-nav-floating` - copy the floating bottom navigation source file into `src/components/ui/bottom-nav-floating.jsx`
+
+The copied components accept an `items` prop, so your nav data can live anywhere in your app. If you use Next.js App Router, the installed files already include `"use client"`.
+
 ## Routes
 
 - `/` - landing page
