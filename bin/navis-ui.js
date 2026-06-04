@@ -11,7 +11,7 @@ const cwd = process.cwd();
 const HELP_TEXT = `Navis UI
 
 Usage:
-  npx navisui add bottom-nav-minimal
+  npx navisinit add bottom-nav-minimal
 
 Options:
   --force   overwrite an existing file

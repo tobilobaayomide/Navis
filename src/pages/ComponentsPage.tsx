@@ -166,7 +166,7 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
 
   const SelectedBottomNav = navRenderers[variant.id];
 
-  const installCommand = `npx navisui add ${variant.fileName}`;
+  const installCommand = `npx navisinit add ${variant.fileName}`;
 
   const handleCopy = () => {
     copyToClipboard(installCommand, "drawer");
