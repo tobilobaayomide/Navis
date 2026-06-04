@@ -2,6 +2,7 @@ import { tokenizeSnippet } from "../components/syntax-snippet";
 
 export const quickStart = `import { useLocation, useNavigate } from "react-router-dom";
 import BottomNavMinimal from "@/components/ui/bottom-nav-minimal";
+import { items } from "./navigation-data";
 
 export default function AppLayout({ children }) {
   const location = useLocation();
@@ -12,6 +13,7 @@ export default function AppLayout({ children }) {
       {children}
 
       <BottomNavMinimal
+        items={items}
         activePath={location.pathname}
         onItemClick={(path) => navigate(path)}
       />
@@ -22,10 +24,10 @@ export default function AppLayout({ children }) {
 }
 `;
 
-export const installLayout = `// src/constants/navigation.js
+export const installLayout = `// navigation-data.js
 import { HomeIcon, DiscoverIcon, BellIcon, ProfileIcon } from "@/components/icons/dashboard-icons";
 
-export const NAV_ITEMS = [
+export const items = [
   { id: "home", label: "Home", path: "/home", icon: HomeIcon },
   { id: "discover", label: "Discover", path: "/discover", icon: DiscoverIcon },
   { id: "alerts", label: "Alerts", path: "/alerts", icon: BellIcon, badge: 3 },
@@ -34,21 +36,21 @@ export const NAV_ITEMS = [
 `;
 
 export const routing = `const activePath =
-  NAV_ITEMS.find((item) => {
+  items.find((item) => {
     if (item.path === "/") return location.pathname === "/";
     return location.pathname === item.path || location.pathname.startsWith(\"\${item.path}/\");
-  })?.path ?? NAV_ITEMS[0].path;
+  })?.path ?? items[0].path;
 
 // Example usage (JSX shown as string)
-// <BottomNavMinimal activePath={activePath} onItemClick={(path) => navigate(path)} />
+// <BottomNavMinimal items={items} activePath={activePath} onItemClick={(path) => navigate(path)} />
 `;
 
-export const usage = `import { NAV_ITEMS } from "@/constants/navigation";
+export const usage = `import { items } from "./navigation-data";
 
 export function Sidebar() {
   return (
     <aside className="hidden md:block">
-      {NAV_ITEMS.map((item) => (
+      {items.map((item) => (
         <a key={item.id} href={item.path}>
           {item.label}
         </a>
@@ -58,7 +60,7 @@ export function Sidebar() {
 }
 `;
 
-export const badge = `export const NAV_ITEMS = [
+export const badge = `export const items = [
   { id: "home", label: "Home", path: "/home", icon: HomeIcon },
   { id: "updates", label: "Updates", path: "/updates", icon: BellIcon, badge: 3 },
   { id: "billing", label: "Billing", path: "/billing", icon: WalletIcon, disabled: true },
@@ -73,12 +75,12 @@ export const accent = `// Indicator and Cyber expose a small accent hook.
 "--cyber-accent": "0, 255, 255"
 `;
 
-export const sidebar = `import { NAV_ITEMS } from "@/constants/navigation";
+export const sidebar = `import { items } from "./navigation-data";
 
 export default function Sidebar({ pathname }) {
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col">
-      {NAV_ITEMS.map((item) => {
+      {items.map((item) => {
         const isActive =
           pathname === item.path || pathname.startsWith(item.path + "/");
 
@@ -100,6 +102,7 @@ export default function Sidebar({ pathname }) {
 
 export const nextRouter = `import { usePathname, useRouter } from "next/navigation";
 import BottomNavPill from "@/components/ui/bottom-nav-pill";
+import { items } from "./navigation-data";
 
 export default function AppShell({ children }) {
   const pathname = usePathname();
@@ -110,6 +113,7 @@ export default function AppShell({ children }) {
       {children}
 
       <BottomNavPill
+        items={items}
         activePath={pathname}
         onItemClick={(path) => router.push(path)}
       />
@@ -122,12 +126,14 @@ export default function AppShell({ children }) {
 
 export const localState = `import { useState } from "react";
 import BottomNavIndicator from "@/components/ui/bottom-nav-indicator";
+import { items } from "./navigation-data";
 
 export default function DemoShell() {
   const [activePath, setActivePath] = useState("/home");
 
   return (
     <BottomNavIndicator
+      items={items}
       activePath={activePath}
       onItemClick={(path) => setActivePath(path)}
     />
@@ -145,10 +151,10 @@ export const height = `// bottom-nav-minimal.jsx
 // <div className="md:hidden h-28" aria-hidden="true" />
 `;
 
-export const icon = `// navigation.js
+export const icon = `// navigation-data.js
 import { HomeIcon, WalletIcon, BellIcon } from "@/components/icons/dashboard-icons";
 
-export const NAV_ITEMS = [
+export const items = [
   { id: "home", label: "Home", path: "/home", icon: HomeIcon },
   { id: "wallet", label: "Wallet", path: "/wallet", icon: WalletIcon },
   { id: "alerts", label: "Alerts", path: "/alerts", icon: BellIcon, badge: 2 },
