@@ -1,12 +1,20 @@
 {
   "name": "navis-ui",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "bin": {
+    "navis-ui": "./bin/navis-ui.js"
+  },
+  "files": [
+    "bin",
+    "packages/registry"
+  ],
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run build",
+    "generate:registry": "node scripts/generate-registry-files.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
