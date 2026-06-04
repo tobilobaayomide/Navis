@@ -19,6 +19,7 @@ secrets/
 .agent/
 .agents/
 skills-lock.json
+PRODUCT.md
 
 # macOS
 .DS_Store
