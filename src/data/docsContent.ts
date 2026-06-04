@@ -14,6 +14,12 @@ import type { DocGroup } from "../components/docs/types";
 
 export const apiRows = [
   {
+    property: "items",
+    type: "NavItem[]",
+    required: "Yes",
+    description: "The navigation items the rail should render. Keep this array in your app and pass it in from the parent."
+  },
+  {
     property: "activePath",
     type: "string",
     required: "Yes",
@@ -106,7 +112,7 @@ export const DOC_GROUPS: DocGroup[] = [
                 type: "infoCards",
                 cards: [
                   { title: "Own the source", body: "Every rail is delivered as editable component source you can paste into your project and change directly." },
-                  { title: "Keep one route model", body: "The same NAV_ITEMS array should power desktop and mobile navigation, while the parent owns activePath and onItemClick." },
+                  { title: "Keep one route model", body: "The same items array should power desktop and mobile navigation, while the parent owns activePath and onItemClick." },
                   { title: "Fifteen variants", body: "The catalog now spans 15 rails, from quiet baselines like Minimal to more expressive options like Aura, Cyber, Expand, and Tactile." }
                 ]
               }
@@ -120,7 +126,7 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "bulletList",
                 items: [
-                  "Keep navigation data in one place. The same `NAV_ITEMS` array should power your sidebar and your mobile bottom nav.",
+                  "Keep navigation data in one place. The same `items` array should power your sidebar and your mobile bottom nav.",
                   "Let the parent own routing. The public rail receives the current route as `activePath` and sends back the clicked path through `onItemClick(path)`.",
                   "Prefer source edits over override hacks. If you want a taller bar, different spacing, new colors, or different icon sizing, edit the copied component directly.",
                   "Treat safe-area spacing, touch targets, reduced motion, and route matching as real product behavior, not visual extras."
@@ -233,18 +239,18 @@ export const DOC_GROUPS: DocGroup[] = [
         sections: [
           {
             id: "create-items",
-            label: "Create navigation.js",
-            summary: "Start with navigation.js. This file is the one place where you define labels, icons, paths, badges, and disabled states.",
+            label: "Create nav data",
+            summary: "Start with a nav-data file. This file is the one place where you define labels, icons, paths, badges, and disabled states.",
             elements: [
               {
                 type: "noteCard",
                 noteTitle: "You own this file",
-                noteText: "Navis UI does not install navigation.js for you. Keep your route data in one shared place, then import that same array into sidebars, top navs, and the copied bottom navigation component."
+                noteText: "Navis UI does not install a nav-data file for you. Keep your route data in one shared place, then import that same array into sidebars, top navs, and the copied bottom navigation component."
               },
               {
                 type: "syntaxSnippet",
                 snippetKey: "installLayout",
-                title: "src/constants/navigation.js",
+                title: "navigation-data.js",
                 hint: "One shared array for every navigation surface"
               }
             ]
@@ -289,7 +295,7 @@ export const DOC_GROUPS: DocGroup[] = [
                 type: "bulletList",
                 items: [
                   "Reserve enough bottom padding or a spacer so the rail never hides the end of a scroll view.",
-                  "Keep icon imports next to navigation.js so the same array can also power a sidebar.",
+                  "Keep icon imports next to your nav-data file so the same array can also power a sidebar.",
                   "Prefer route-derived activePath over local state whenever the tabs represent real destinations.",
                   "Leave the component source unchanged first, then edit only what your product actually needs."
                 ]
@@ -396,7 +402,7 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "noteCard",
                 noteTitle: "Low-risk swap",
-                noteText: "If you keep your route data in `navigation.js` and keep your parent layout on the `activePath / onItemClick(path)` pattern, changing variants later should mostly mean replacing the component file and preserving everything else."
+                noteText: "If you keep your route data in one shared nav-data file and keep your parent layout on the `activePath / onItemClick(path)` pattern, changing variants later should mostly mean replacing the component file and preserving everything else."
               }
             ]
           }
@@ -414,12 +420,12 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "shared-contract",
             label: "Shared navigation model",
-            summary: "The shared contract lives in navigation.js, not in a separate framework abstraction. Keep the object shape stable and the variants stay easy to swap.",
+            summary: "The shared contract lives in your nav-data file, not in a separate framework abstraction. Keep the object shape stable and the variants stay easy to swap.",
             elements: [
               {
                 type: "syntaxSnippet",
                 snippetKey: "navContract",
-                title: "navigation.js",
+                title: "navigation-data.js",
                 hint: "The same array can power your sidebar and bottom nav"
               }
             ]
@@ -448,7 +454,7 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "sidebar-sharing",
             label: "Share the same data with the sidebar",
-            summary: "The same NAV_ITEMS array should power your sidebar too. That keeps labels, paths, icons, badges, and disabled states consistent across desktop and mobile.",
+            summary: "The same items array should power your sidebar too. That keeps labels, paths, icons, badges, and disabled states consistent across desktop and mobile.",
             elements: [
               {
                 type: "syntaxSnippet",
@@ -471,7 +477,7 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "infoCards",
                 cards: [
-                  { title: "Keep data separate", body: "Keep NAV_ITEMS outside the component so every variant can consume the same route data." },
+                  { title: "Keep data separate", body: "Keep your items array outside the component so every variant can consume the same route data." },
                   { title: "Keep activePath and onItemClick(path)", body: "Preserve the usage pattern so switching variants stays low-risk." }
                 ]
               }
@@ -480,12 +486,12 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "item-modeling",
             label: "Badges, disabled items, and labels",
-            summary: "Badges and disabled states are optional. Add them in navigation.js only when the product needs them.",
+            summary: "Badges and disabled states are optional. Add them in your nav-data file only when the product needs them.",
             elements: [
               {
                 type: "syntaxSnippet",
                 snippetKey: "badge",
-                title: "navigation.js",
+                title: "navigation-data.js",
                 hint: "Badges and disabled items are just extra fields"
               },
               {
@@ -509,7 +515,7 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "router-integration",
             label: "Router integration",
-            summary: "The recommended integration is simple: pass the current pathname into activePath and call your router inside onItemClick(path).",
+            summary: "The recommended integration is simple: pass the current pathname into activePath, pass your items array into the rail, and call your router inside onItemClick(path).",
             elements: [
               {
                 type: "syntaxSnippet",
@@ -563,7 +569,7 @@ export const DOC_GROUPS: DocGroup[] = [
                 items: [
                   "Render it directly in App.jsx if your app shell already lives there.",
                   "Render it in a route layout if you already have an authenticated or dashboard shell.",
-                  "Keep navigation.js separate either way, so your layout file does not become your source of truth."
+                  "Keep the nav data in a separate file either way, so your layout file does not become your source of truth."
                 ]
               }
             ]
@@ -628,19 +634,19 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "icons-and-labels",
             label: "Icons and labels",
-            summary: "Icons and labels live in navigation.js. That means most teams can change them without touching the component source.",
+            summary: "Icons and labels live in your nav-data file. That means most teams can change them without touching the component source.",
             elements: [
               {
                 type: "syntaxSnippet",
                 snippetKey: "icon",
-                title: "navigation.js",
-                hint: "Edit imports and fields in navigation.js"
+                title: "navigation-data.js",
+                hint: "Edit imports and fields in your nav-data file"
               },
               {
                 type: "bulletList",
                 items: [
-                  "Change icons by changing the imported icon components in navigation.js.",
-                  "Change labels by editing the label field in navigation.js.",
+                  "Change icons by changing the imported icon components in your nav-data file.",
+                  "Change labels by editing the label field in your nav-data file.",
                   "Keep labels short. Longer labels can work, but you should visually test them on a real mobile width."
                 ]
               }
@@ -680,8 +686,8 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "bulletList",
                 items: [
-                  "Change icons by editing the imports and icon references in navigation.js.",
-                  "Change labels by editing the label field in navigation.js.",
+                  "Change icons by editing the imports and icon references in your nav-data file.",
+                  "Change labels by editing the label field in your nav-data file.",
                   "Change height by editing min-height, icon size, and text size classes together so the proportions stay balanced.",
                   "Change background and tone by editing the root shell classes in the component source.",
                   "Use the CSS variable hooks for Indicator and Cyber when you want a quick accent retune without rewriting the whole rail."
@@ -745,7 +751,7 @@ export const DOC_GROUPS: DocGroup[] = [
                 items: [
                   "Pass the current route into activePath, not an arbitrary tab id.",
                   "If nested routes should keep a parent tab active, derive a custom activePath before rendering the component.",
-                  "Make sure the path values in navigation.js match the real routes in your app."
+                  "Make sure the path values in your nav-data file match the real routes in your app."
                 ]
               }
             ]
@@ -862,7 +868,7 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "component-props",
             label: "Component props",
-            summary: "The generated public component surface is intentionally small. The parent tells the nav what path is active and what to do when a tab is clicked.",
+            summary: "The generated public component surface is intentionally small. The parent gives the nav its items, tells it what path is active, and decides what happens when a tab is clicked.",
             elements: [
               {
                 type: "docsTable",
@@ -873,7 +879,7 @@ export const DOC_GROUPS: DocGroup[] = [
           {
             id: "nav-item-shape",
             label: "NavItem shape",
-            summary: "navigation.js is the real source of truth for labels, icons, paths, badges, and disabled states.",
+            summary: "Your nav-data file is the real source of truth for labels, icons, paths, badges, and disabled states.",
             elements: [
               {
                 type: "docsTable",
