@@ -1,10 +1,10 @@
 {
-  "name": "navis-ui",
+  "name": "navisui",
   "private": false,
   "version": "0.0.1",
   "type": "module",
   "bin": {
-    "navis-ui": "./bin/navis-ui.js"
+    "navisui": "./bin/navis-ui.js"
   },
   "files": [
     "bin",
