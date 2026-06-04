@@ -100,7 +100,7 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
     [SelectedBottomNav, activeId, selectedVariant, visibleItems]
   );
 
-  const installCommand = `npx navis-ui add ${activeVariant.fileName}`;
+  const installCommand = `npx navisui add ${activeVariant.fileName}`;
 
   const publicComponentSource = useMemo(
     () => buildPublicComponentSource(selectedVariant, componentSourceByVariant[selectedVariant]),
