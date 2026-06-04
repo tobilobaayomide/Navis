@@ -16,21 +16,21 @@ import { BottomNavMinimal } from "../bottom-nav/bottom-nav-minimal";
 import { BottomNavOrbit } from "../bottom-nav/bottom-nav-orbit";
 import { BottomNavPill } from "../bottom-nav/bottom-nav-pill";
 import { BottomNavTactile } from "../bottom-nav/bottom-nav-tactile";
-import bottomNavActionSource from "../bottom-nav/bottom-nav-action.tsx?raw";
-import bottomNavAuraSource from "../bottom-nav/bottom-nav-aura.tsx?raw";
-import bottomNavBrutalistSource from "../bottom-nav/bottom-nav-brutalist.tsx?raw";
-import bottomNavCyberSource from "../bottom-nav/bottom-nav-cyber.tsx?raw";
-import bottomNavDockSource from "../bottom-nav/bottom-nav-dock.tsx?raw";
-import bottomNavExpandSource from "../bottom-nav/bottom-nav-expand.tsx?raw";
-import bottomNavFloatingSource from "../bottom-nav/bottom-nav-floating.tsx?raw";
-import bottomNavFluidSource from "../bottom-nav/bottom-nav-fluid.tsx?raw";
-import bottomNavGlassSource from "../bottom-nav/bottom-nav-glass.tsx?raw";
-import bottomNavIndicatorSource from "../bottom-nav/bottom-nav-indicator.tsx?raw";
-import bottomNavIslandSource from "../bottom-nav/bottom-nav-island.tsx?raw";
-import bottomNavMinimalSource from "../bottom-nav/bottom-nav-minimal.tsx?raw";
-import bottomNavOrbitSource from "../bottom-nav/bottom-nav-orbit.tsx?raw";
-import bottomNavPillSource from "../bottom-nav/bottom-nav-pill.tsx?raw";
-import bottomNavTactileSource from "../bottom-nav/bottom-nav-tactile.tsx?raw";
+import bottomNavFloatingSource from "../../packages/registry/components/bottom-nav-floating.jsx?raw";
+import bottomNavMinimalSource from "../../packages/registry/components/bottom-nav-minimal.jsx?raw";
+import bottomNavPillSource from "../../packages/registry/components/bottom-nav-pill.jsx?raw";
+import bottomNavIndicatorSource from "../../packages/registry/components/bottom-nav-indicator.jsx?raw";
+import bottomNavGlassSource from "../../packages/registry/components/bottom-nav-glass.jsx?raw";
+import bottomNavIslandSource from "../../packages/registry/components/bottom-nav-island.jsx?raw";
+import bottomNavBrutalistSource from "../../packages/registry/components/bottom-nav-brutalist.jsx?raw";
+import bottomNavDockSource from "../../packages/registry/components/bottom-nav-dock.jsx?raw";
+import bottomNavCyberSource from "../../packages/registry/components/bottom-nav-cyber.jsx?raw";
+import bottomNavOrbitSource from "../../packages/registry/components/bottom-nav-orbit.jsx?raw";
+import bottomNavActionSource from "../../packages/registry/components/bottom-nav-action.jsx?raw";
+import bottomNavAuraSource from "../../packages/registry/components/bottom-nav-aura.jsx?raw";
+import bottomNavExpandSource from "../../packages/registry/components/bottom-nav-expand.jsx?raw";
+import bottomNavFluidSource from "../../packages/registry/components/bottom-nav-fluid.jsx?raw";
+import bottomNavTactileSource from "../../packages/registry/components/bottom-nav-tactile.jsx?raw";
 
 export type VariantId =
   | "minimal"
@@ -231,24 +231,6 @@ export const componentSourceByVariant: Record<VariantId, string> = {
   expand: bottomNavExpandSource,
   fluid: bottomNavFluidSource,
   tactile: bottomNavTactileSource
-};
-
-export const publicReactImports: Record<VariantId, string> = {
-  minimal: "",
-  floating: 'import { useLayoutEffect, useMemo, useRef, useState } from "react";',
-  pill: 'import { useLayoutEffect, useRef, useState } from "react";',
-  indicator: "",
-  glass: "",
-  island: "",
-  brutalist: "",
-  dock: "",
-  cyber: "",
-  orbit: 'import { useMemo } from "react";',
-  action: "",
-  aura: 'import { useLayoutEffect, useRef, useState } from "react";',
-  expand: 'import { useEffect, useRef, useState } from "react";',
-  fluid: 'import { useLayoutEffect, useRef, useState } from "react";',
-  tactile: 'import { useLayoutEffect, useRef, useState } from "react";'
 };
 
 export function getItemsForVariant(variantId: VariantId) {
