@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import { FLOATING_NAV_ITEMS, NAV_ITEMS, PILL_NAV_ITEMS } from "../data/nav-items";
-import type { BottomNavProps } from "../nav/nav.types";
 import { BottomNavAction } from "../bottom-nav/bottom-nav-action";
 import { BottomNavAura } from "../bottom-nav/bottom-nav-aura";
 import { BottomNavBrutalist } from "../bottom-nav/bottom-nav-brutalist";
@@ -197,7 +196,7 @@ export const VARIANTS: NavVariant[] = [
   }
 ];
 
-export const navRenderers: Record<VariantId, (props: BottomNavProps) => ReactElement> = {
+export const navRenderers: Record<VariantId, (props: any) => ReactElement> = {
   minimal: BottomNavMinimal,
   floating: BottomNavFloating,
   pill: BottomNavPill,
