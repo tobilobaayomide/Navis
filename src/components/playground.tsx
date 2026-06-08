@@ -257,7 +257,10 @@ export function Playground({
           </div>
 
           <div className="flex w-full items-center justify-center pt-16 pb-6 lg:min-h-0 lg:pt-0 lg:pb-0">
-            <div className="w-full max-w-[420px] scale-[0.82] sm:scale-[0.9] lg:scale-100 origin-center">
+            <div className={cn(
+              "w-full max-w-[420px] scale-[0.82] sm:scale-[0.9] lg:scale-100 origin-center",
+              activeVariant.id === "island" && "translate-y-3 sm:translate-y-4 lg:translate-y-5"
+            )}>
               {previewNav}
             </div>
           </div>
