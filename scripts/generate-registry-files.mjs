@@ -39,10 +39,12 @@ function publicize(source) {
 
   let body = source
     .replace(/^import .*\n/gm, "")
+    .replace(/^"use client";\n\n?/, "")
     .replace(/^\s*\/\*\*[\s\S]*?\*\/\n/m, "")
     .replace(/^type [\s\S]*?^};\n\n/gm, "")
     .replace(/export function (\w+)\(/, "export default function $1(")
     .replace(/: BottomNavProps(?: & \{ style\?: CSSProperties \})?/g, "")
+    .replace(/: [A-Za-z0-9_]+Props/g, "")
     .replace(/: CSSProperties/g, "")
     .replace(/: React\.SVGProps<SVGSVGElement>/g, "")
     .replace(/: HTMLButtonElement \| null/g, "")
