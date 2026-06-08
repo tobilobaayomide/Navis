@@ -6,6 +6,7 @@ import { cn } from "../lib/cn";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CopyIcon } from "@hugeicons/core-free-icons";
 import { getItemsForVariant, navRenderers, VARIANTS, type VariantId } from "../variants/registry";
+import type { NavItem } from "../nav/nav.types";
 
 type CardProps = {
   variant: typeof VARIANTS[number];
@@ -92,17 +93,28 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
           On mobile we scale to ~0.55, on sm to ~0.68, on lg full 1.0.
         */}
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 w-[380px] -translate-x-1/2 -translate-y-1/2
-                     scale-[0.75] sm:scale-[0.78] lg:scale-100
-                     transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]"
+          className={cn(
+            "pointer-events-none absolute left-1/2 top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
+            "scale-[0.75] sm:scale-[0.78] lg:scale-100",
+            "transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]",
+            variant.id === "island" && "translate-y-[30px]"
+          )}
         >
           <SelectedBottomNav
             activeId={activeId}
             className={
-              variant.id === "minimal" || variant.id === "glass" ? "!static" : undefined
+              variant.id === "pill"
+                ? "!static [&>nav]:!block [&>nav]:sm:!block"
+                : variant.id === "island"
+                  ? "sm:!flex"
+                  : variant.id === "minimal" ||
+                      variant.id === "glass" ||
+                      variant.id === "dock"
+                    ? "sm:!block !static"
+                    : undefined
             }
             items={items}
-            onItemClick={(item) => setActiveId(item.id)}
+            onItemClick={(item: NavItem) => setActiveId(item.id)}
             style={accentStyles}
           />
         </div>
@@ -251,18 +263,29 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
             )}
           >
             <div
-              className="pointer-events-none absolute left-1/2 top-1/2 w-[440px] -translate-x-1/2 -translate-y-1/2
-                         scale-[0.65] sm:scale-[0.75] md:scale-90 lg:scale-100
-                         transition-transform duration-300"
+              className={cn(
+                "pointer-events-none absolute left-1/2 top-1/2 w-[440px] -translate-x-1/2 -translate-y-1/2",
+                "scale-[0.65] sm:scale-[0.75] md:scale-90 lg:scale-100",
+                "transition-transform duration-300",
+                variant.id === "island" && "translate-y-[30px]"
+              )}
             >
-              <SelectedBottomNav
-                activeId={activeId}
-                className={
-                  variant.id === "minimal" || variant.id === "glass" ? "!static" : undefined
-                }
-                items={items}
-                onItemClick={(item) => setActiveId(item.id)}
-                style={accentStyles}
+          <SelectedBottomNav
+            activeId={activeId}
+            className={
+              variant.id === "pill"
+                ? "!static [&>nav]:!block [&>nav]:sm:!block"
+                : variant.id === "island"
+                  ? "sm:!flex"
+                  : variant.id === "minimal" ||
+                      variant.id === "glass" ||
+                      variant.id === "dock"
+                    ? "sm:!block !static"
+                    : undefined
+            }
+            items={items}
+            onItemClick={(item: NavItem) => setActiveId(item.id)}
+            style={accentStyles}
               />
             </div>
           </div>
