@@ -1,51 +1,19 @@
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
-import { insetBottomStyle } from "./shared";
 
-/**
- * ============================================================================
- * BOTTOM NAVIGATION MINIMAL (Plug-and-Play React Component)
- * ============================================================================
- * 
- * DESIGN SPECIFICATION:
- * - A flat, quiet, content-first tab rail engineered for mobile viewports.
- * - Integrates soft radial ambient backing glows that transition via spring curves.
- * - Hardware-accelerated CSS animations configured for 60fps responsive rendering.
- * 
- * DEVELOPER RULES & COMPONENT RULES:
- * 1. Single Source of Truth Config:
- *    Always map the `items` prop from a shared configuration file (e.g., `src/data/navigation.ts`).
- *    Pass the exact same navigation config to both your Desktop Sidebar and Mobile Bottom Bar.
- * 
- * 2. Route-Aware Synchronization:
- *    For active tab tracking, NEVER use standalone local state inside the component in production.
- *    Instead, bind `activeId` directly to your router's location segment (e.g., `location.pathname`).
- *    Set `onItemClick` to trigger your router's navigation handler (e.g., `navigate(item.path)`).
- * 
- * 3. Safe-Area Layout Fallback:
- *    Uses `insetBottomStyle` to calculate device home bar offsets dynamically. On iOS and modern
- *    Androids, it respects `env(safe-area-inset-bottom)` to prevent keyway overlap.
- * 
- * 4. Content Cutoff Prevention:
- *    When rendering this navbar fixed mobile-scale-nav at the bottom of your layout, remember to place a spacer
- *    component at the bottom of your main layout: `<div className="md:hidden h-20" aria-hidden="true" />`
- *    This reserves physical viewport margins so scrollable lists do not get hidden behind the bar.
- * 
- * ============================================================================
- */
 export function BottomNavMinimal({ items, activeId, onItemClick, className, style }: BottomNavProps) {
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
-      aria-label="Mobile primary navigation"
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-30 overflow-hidden border-x-0 border-b-0 border-t border-slate-300/80 dark:border-white/20 bg-white/90 dark:bg-black/90 px-3 pt-2 shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-        className
-      )}
-      style={{
-        ...insetBottomStyle(8),
-        ...style
-      }}
-    >
+        aria-label="Mobile primary navigation"
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-30 overflow-hidden border-x-0 border-b-0 border-t border-slate-300/80 dark:border-white/20 bg-white/90 dark:bg-black/90 px-3 pt-2 shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+          className
+        )}
+        style={{
+          ...style
+        }}
+      >
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.46)_0%,rgba(255,255,255,0)_38%)] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_38%)]"
@@ -108,5 +76,6 @@ export function BottomNavMinimal({ items, activeId, onItemClick, className, styl
         })}
       </ul>
     </nav>
+    </div>
   );
 }
