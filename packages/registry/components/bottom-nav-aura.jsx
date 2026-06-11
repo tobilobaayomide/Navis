@@ -23,6 +23,7 @@ export default function BottomNavAura({ items, activePath, onItemClick, classNam
   }, [activePath, items]);
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
@@ -78,5 +79,6 @@ export default function BottomNavAura({ items, activePath, onItemClick, classNam
         })}
       </div>
     </nav>
+    </div>
   );
 }

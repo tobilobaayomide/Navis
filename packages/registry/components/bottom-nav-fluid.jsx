@@ -23,6 +23,7 @@ export default function BottomNavFluid({ items, activePath, onItemClick, classNa
   }, [activePath, items]);
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
@@ -72,5 +73,6 @@ export default function BottomNavFluid({ items, activePath, onItemClick, classNa
         })}
       </div>
     </nav>
+    </div>
   );
 }

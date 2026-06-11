@@ -12,6 +12,7 @@ export default function BottomNavOrbit({ items, activePath, onItemClick, classNa
   const lastItem = useMemo(() => items[items.length - 1], [items]);
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
@@ -67,5 +68,6 @@ export default function BottomNavOrbit({ items, activePath, onItemClick, classNa
         </button>
       )}
     </nav>
+    </div>
   );
 }
