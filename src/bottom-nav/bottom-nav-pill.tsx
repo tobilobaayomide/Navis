@@ -3,7 +3,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
-
 export function BottomNavPill({ items, activeId, onItemClick, className, style }: BottomNavProps) {
   const resolvedActiveId = activeId ?? items[0]?.id;
 
@@ -48,11 +47,11 @@ export function BottomNavPill({ items, activeId, onItemClick, className, style }
   }, [resolvedActiveId, items]);
 
   return (
-    <div className={cn("fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]", className)}>
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "sm:hidden relative isolate mx-auto w-full overflow-hidden rounded-[1.95rem]",
+          "relative isolate mx-auto w-full overflow-hidden rounded-[1.95rem]",
           "border border-slate-200/80 dark:border-white/10",
           "bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.59rem]",
           "shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]",
