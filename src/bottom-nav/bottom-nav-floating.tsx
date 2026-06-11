@@ -2,39 +2,6 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
 
-
-/**
- * ============================================================================
- * BOTTOM NAVIGATION FLOATING (Sliding Capsule - Plug-and-Play React Component)
- * ============================================================================
- * 
- * DESIGN SPECIFICATION:
- * - A premium detached sliding capsule tab rail designed for bezel-less mobile screens.
- * - Leverages browser-native ResizeObservers and layout measurements to coordinate
- *   fluid capsule morphing transitions in real-time.
- * - Combines translucent backing sheets with physical card shadow metrics.
- * 
- * DEVELOPER RULES & COMPONENT RULES:
- * 1. Single Source of Truth Config:
- *    Always map the `items` prop from a shared configuration file (e.g., `src/data/navigation.ts`).
- *    Pass the exact same navigation config to both your Desktop Sidebar and Mobile Bottom Bar.
- * 
- * 2. Dynamic Sliding Measurement:
- *    Uses a `useLayoutEffect` to track changes in the active index. It calculates list boundary 
- *    dimensions and positions a physical sliding HTML capsule (`.floating-nav-capsule`) directly 
- *    behind the active item, avoiding fragile hardcoded pixel offsets.
- * 
- * 3. Route-Aware Synchronization:
- *    For active tab tracking, NEVER use standalone local state inside the component in production.
- *    Instead, bind `activeId` directly to your router's location segment (e.g., `location.pathname`).
- *    Set `onItemClick` to trigger your router's navigation handler (e.g., `navigate(item.path)`).
- * 
- * 4. Content Cutoff Prevention:
- *    Place a spacer at the bottom of your layout view to prevent the floating bar from overlapping
- *    vital page content: `<div className="md:hidden h-20" aria-hidden="true" />`
- * 
- * ============================================================================
- */
 type CapsuleMetrics = {
   width: number;
   x: number;
@@ -110,14 +77,15 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
   }, [activeId, items, trackColumns]);
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
-      aria-label="Mobile primary navigation"
-      className={cn(
-        "floating-nav-shell mobile-scale-nav relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
-        className
-      )}
-      style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
-    >
+        aria-label="Mobile primary navigation"
+        className={cn(
+          "floating-nav-shell mobile-scale-nav relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+          className
+        )}
+        style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
+      >
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.08)_36%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_36%,rgba(255,255,255,0)_100%)] opacity-95"
@@ -191,5 +159,6 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
         })}
       </ul>
     </nav>
+    </div>
   );
 }
