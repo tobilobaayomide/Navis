@@ -6,10 +6,10 @@ export function BottomNavIsland({ items, activeId, onItemClick, className, style
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
-      <nav
+    <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "sm:hidden relative isolate mx-auto flex w-fit items-center justify-center overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-1.5 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+          "relative isolate mx-auto flex w-fit items-center justify-center overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-1.5 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
           className
         )}
         style={style}
@@ -61,7 +61,7 @@ export function BottomNavIsland({ items, activeId, onItemClick, className, style
             );
           })}
         </ul>
-      </nav>
+    </nav>
     </div>
   );
 }
