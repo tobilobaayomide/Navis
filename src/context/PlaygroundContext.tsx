@@ -86,26 +86,13 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
 
   const previewNav = useMemo(
     () => (
-      <div className={selectedVariant === "island" ? "translate-y-[30px]" : undefined}>
-        <SelectedBottomNav
-          activeId={activeId}
-          className={
-            selectedVariant === "pill"
-              ? "!static [&>nav]:!block [&>nav]:sm:!block"
-              : selectedVariant === "island"
-                ? "sm:!flex"
-                : selectedVariant === "minimal" ||
-                  selectedVariant === "glass" ||
-                  selectedVariant === "dock"
-                  ? "sm:!block !static"
-                  : undefined
-          }
-          items={visibleItems}
-          onItemClick={(item: { id: string }) => setActiveId(item.id)}
-        />
-      </div>
+      <SelectedBottomNav
+        activeId={activeId}
+        items={visibleItems}
+        onItemClick={(item: { id: string }) => setActiveId(item.id)}
+      />
     ),
-    [SelectedBottomNav, activeId, selectedVariant, visibleItems]
+    [SelectedBottomNav, activeId, visibleItems]
   );
 
   const installCommand = `npx navisinit add ${activeVariant.fileName}`;
