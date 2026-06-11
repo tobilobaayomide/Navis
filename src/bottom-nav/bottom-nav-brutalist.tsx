@@ -7,6 +7,7 @@ export function BottomNavBrutalist({ items, activeId, onItemClick, className, st
   const maxWidth = items.length === 3 ? 320 : items.length === 4 ? 385 : 440;
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
       aria-label="Mobile primary navigation"
       className={cn(
@@ -63,5 +64,6 @@ export function BottomNavBrutalist({ items, activeId, onItemClick, className, st
         })}
       </ul>
     </nav>
+    </div>
   );
 }
