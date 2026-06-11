@@ -19,11 +19,12 @@ export function BottomNavTactile({ items, activeId, onItemClick, className, styl
   }, [activeId, items]);
 
   return (
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
     <nav
-      aria-label="Mobile primary navigation"
-      className={cn(
-        "tactile-nav-shell mobile-scale-nav relative mx-auto w-full max-w-max",
-        className
+        aria-label="Mobile primary navigation"
+        className={cn(
+          "tactile-nav-shell mobile-scale-nav relative mx-auto w-full max-w-max",
+          className
       )}
       style={style}
     >
@@ -69,5 +70,6 @@ export function BottomNavTactile({ items, activeId, onItemClick, className, styl
         })}
       </div>
     </nav>
+    </div>
   );
 }
