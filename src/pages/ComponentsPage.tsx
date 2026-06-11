@@ -31,13 +31,9 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
   }, [items]);
 
   const accentStyles = useMemo(() => {
-    if (variant.id !== "indicator" && variant.id !== "glass") return {};
+    if (variant.id !== "indicator") return {};
     return {
       "--indicator-nav-accent-rgb": "79, 70, 229",
-      "--glass-nav-center-bg-start": "#0f172a",
-      "--glass-nav-center-bg-end": "#1e293b",
-      "--glass-nav-dot-color": "#4f46e5",
-      "--glass-nav-text-active": "#4f46e5",
       "--indicator-nav-bg": "rgba(15, 23, 42, 0.1)"
     } as React.CSSProperties;
   }, [variant.id]);
@@ -94,25 +90,13 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
         */}
         <div
           className={cn(
-            "pointer-events-none absolute left-1/2 top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
+            "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
             "scale-[0.75] sm:scale-[0.78] lg:scale-100",
-            "transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]",
-            variant.id === "island" && "translate-y-[30px]"
+            "transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]"
           )}
         >
           <SelectedBottomNav
             activeId={activeId}
-            className={
-              variant.id === "pill"
-                ? "!static [&>nav]:!block [&>nav]:sm:!block"
-                : variant.id === "island"
-                  ? "sm:!flex"
-                  : variant.id === "minimal" ||
-                      variant.id === "glass" ||
-                      variant.id === "dock"
-                    ? "sm:!block !static"
-                    : undefined
-            }
             items={items}
             onItemClick={(item: NavItem) => setActiveId(item.id)}
             style={accentStyles}
@@ -153,13 +137,9 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
   }, [variant, items]);
 
   const accentStyles = useMemo(() => {
-    if (!variant || (variant.id !== "indicator" && variant.id !== "glass")) return {};
+    if (!variant || variant.id !== "indicator") return {};
     return {
       "--indicator-nav-accent-rgb": "79, 70, 229",
-      "--glass-nav-center-bg-start": "#0f172a",
-      "--glass-nav-center-bg-end": "#1e293b",
-      "--glass-nav-dot-color": "#4f46e5",
-      "--glass-nav-text-active": "#4f46e5",
       "--indicator-nav-bg": "rgba(15, 23, 42, 0.1)"
     } as React.CSSProperties;
   }, [variant]);
@@ -264,28 +244,16 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
           >
             <div
               className={cn(
-                "pointer-events-none absolute left-1/2 top-1/2 w-[440px] -translate-x-1/2 -translate-y-1/2",
+                "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[440px] -translate-x-1/2 -translate-y-1/2",
                 "scale-[0.65] sm:scale-[0.75] md:scale-90 lg:scale-100",
-                "transition-transform duration-300",
-                variant.id === "island" && "translate-y-[30px]"
+                "transition-transform duration-300"
               )}
             >
-          <SelectedBottomNav
-            activeId={activeId}
-            className={
-              variant.id === "pill"
-                ? "!static [&>nav]:!block [&>nav]:sm:!block"
-                : variant.id === "island"
-                  ? "sm:!flex"
-                  : variant.id === "minimal" ||
-                      variant.id === "glass" ||
-                      variant.id === "dock"
-                    ? "sm:!block !static"
-                    : undefined
-            }
-            items={items}
-            onItemClick={(item: NavItem) => setActiveId(item.id)}
-            style={accentStyles}
+              <SelectedBottomNav
+                activeId={activeId}
+                items={items}
+                onItemClick={(item: NavItem) => setActiveId(item.id)}
+                style={accentStyles}
               />
             </div>
           </div>
