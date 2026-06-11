@@ -8,4 +8,3 @@ export function insetBottomStyle(extraPadding = 12): CSSProperties {
     paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${extraPadding}px)`
   };
 }
-
