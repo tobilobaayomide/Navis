@@ -19,7 +19,7 @@ export default function BottomNavGlass({
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative z-30 flex h-[80px] w-full items-start justify-center border-t border-white/40 bg-white/20 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_32px_rgba(0,0,0,0.05)] backdrop-blur-3xl dark:border-white/10 dark:bg-[#050505]/40 dark:shadow-[0_-8px_32px_rgba(0,0,0,0.4)]",
+          "relative z-30 flex h-[90px] w-full items-start justify-center border-t border-white/40 bg-white/20 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_32px_rgba(0,0,0,0.05)] backdrop-blur-3xl dark:border-white/10 dark:bg-[#050505]/40 dark:shadow-[0_-8px_32px_rgba(0,0,0,0.4)]",
           className
         )}
         style={style}
