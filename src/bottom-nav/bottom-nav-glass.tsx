@@ -1,7 +1,6 @@
 import { type CSSProperties } from "react";
 import { cn } from "../lib/cn";
 import type { BottomNavProps } from "../nav/nav.types";
-import { insetBottomStyle } from "./shared";
 
 export function BottomNavGlass({
   items,
@@ -14,87 +13,71 @@ export function BottomNavGlass({
   const centerIndex = Math.floor(items.length / 2);
 
   return (
-    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
-    <nav
-      aria-label="Mobile primary navigation"
-      className={cn(
-        "glass-nav-container mobile-scale-nav fixed inset-x-0 bottom-0 z-30 border-x-0 border-b-0 border-t border-slate-300/80 dark:border-white/20 bg-white/70 dark:bg-[#0a0a0a]/70 px-3 shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-[transform,background-color,border-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
-        className
-      )}
-      style={{
-        ...insetBottomStyle(8),
-        ...style
-      }}
-    >
-      <ul
-        className="glass-nav-list relative mx-auto grid w-full max-w-[760px] items-end"
-        style={
-          {
-            gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`
-          } as CSSProperties
-        }
+    <div className="fixed inset-x-0 bottom-0 z-50">
+      <nav
+        aria-label="Mobile primary navigation"
+        className={cn(
+          "relative z-30 flex h-[90px] w-full items-start justify-center border-t border-white/40 bg-white/20 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_32px_rgba(0,0,0,0.05)] backdrop-blur-3xl dark:border-white/10 dark:bg-[#050505]/40 dark:shadow-[0_-8px_32px_rgba(0,0,0,0.4)]",
+          className
+        )}
+        style={style}
       >
-        {items.map((item, index) => {
-          const isActive = item.id === resolvedActiveId;
-          const Icon = item.icon;
-          const isCenter = index === centerIndex;
+        <ul className="relative mx-auto flex w-full max-w-md items-center justify-between px-6 pt-2">
+          {items.map((item, index) => {
+            const isActive = item.id === resolvedActiveId;
+            const Icon = item.icon;
+            const isCenter = index === centerIndex;
 
-          if (isCenter) {
+            if (isCenter) {
+              return (
+                <li key={item.id} className="relative z-50 flex w-[4.25rem] shrink-0 items-center justify-center">
+                  <div className="absolute -top-[3.5rem] left-1/2 -translate-x-1/2">
+                    <button
+                      aria-current={isActive ? "page" : undefined}
+                      aria-label={item.label}
+                      className="group relative flex h-[4.25rem] w-[4.25rem] items-center justify-center rounded-full border border-white/50 bg-gradient-to-b from-white/80 to-white/40 p-1 shadow-[0_8px_32px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.2)] active:scale-95 dark:border-white/20 dark:from-white/10 dark:to-white/5 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] dark:hover:shadow-[0_16px_40px_rgba(255,255,255,0.1)]"
+                      disabled={item.disabled}
+                      onClick={() => onItemClick?.(item)}
+                      type="button"
+                    >
+                      {/* High-tech pulsing inner ring */}
+                      <span className="absolute inset-1 rounded-full border border-slate-900/10 transition-transform duration-700 group-hover:scale-[1.05] dark:border-white/20" />
+                      
+                      <div className="relative flex h-full w-full items-center justify-center rounded-full bg-slate-900 shadow-inner dark:bg-white">
+                        <Icon className="h-7 w-7 text-white transition-transform duration-500 group-hover:rotate-90 group-hover:scale-110 dark:text-slate-900" />
+                      </div>
+                    </button>
+                  </div>
+                </li>
+              );
+            }
+
             return (
-              <li key={item.id} className="glass-nav-item relative z-10 flex h-[85px] items-center justify-center">
+              <li key={item.id} className="relative z-10 flex flex-1 items-center justify-center">
                 <button
                   aria-current={isActive ? "page" : undefined}
-                  aria-label={item.label}
-                  className="glass-nav-center-button absolute bottom-[2.4rem] left-1/2 z-20 h-16 w-16 -translate-x-1/2 rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-1.5 shadow-[0_16px_32px_-8px_rgba(0,0,0,0.16)] dark:shadow-[0_16px_32px_-8px_rgba(0,0,0,0.8)] backdrop-blur-md transition-[transform,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none active:scale-[0.93] hover:motion-safe:-translate-y-[2px]"
+                  className={cn(
+                    "group relative flex flex-col items-center justify-center gap-1.5 rounded-2xl p-2 transition-all duration-300 active:scale-95",
+                    item.disabled && "cursor-not-allowed opacity-40"
+                  )}
                   disabled={item.disabled}
                   onClick={() => onItemClick?.(item)}
                   type="button"
                 >
-                  <span className="glass-nav-center-inner flex h-full w-full items-center justify-center rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] transition-[background-color,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                    <Icon className="h-[1.75rem] w-[1.75rem] text-current" />
-                  </span>
+                  <Icon
+                    className={cn(
+                      "relative z-10 h-[1.6rem] w-[1.6rem] transition-all duration-300",
+                      isActive
+                        ? "text-slate-900 dark:text-white"
+                        : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+                    )}
+                  />
                 </button>
               </li>
             );
-          }
-
-          return (
-            <li key={item.id} className="glass-nav-item relative z-[1] flex h-[85px] items-center justify-center">
-              <button
-                aria-current={isActive ? "page" : undefined}
-                className={cn(
-                  "pressable glass-nav-hit group flex h-full w-full flex-col items-center justify-center gap-1 px-2 pb-2 pt-2 text-center transition-[transform,color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none active:scale-[0.965]",
-                  isActive ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300",
-                  item.disabled && "cursor-not-allowed opacity-40"
-                )}
-                disabled={item.disabled}
-                onClick={() => onItemClick?.(item)}
-                type="button"
-              >
-                <span className="relative flex h-10 w-10 items-center justify-center">
-                  {/* Subtle ambient active light under standard icons */}
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "absolute inset-[5px] rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.14)_0%,rgba(15,23,42,0.06)_52%,rgba(15,23,42,0)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.06)_52%,rgba(255,255,255,0)_100%)] blur-[10px] transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] pointer-events-none",
-                      isActive ? "scale-100 opacity-100" : "scale-[0.62] opacity-0"
-                    )}
-                  />
-                  {/* Icon sizing matches minimal nav standard tabs */}
-                  <Icon
-                    className={cn(
-                      "relative z-[1] h-[1.4rem] w-[1.4rem] transition-[transform,color,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                      isActive ? "-translate-y-[1px] scale-[1.08] text-slate-900 dark:text-white" : "scale-100 text-current opacity-[0.68] group-hover:-translate-y-[2px]"
-                    )}
-                  />
-
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }
