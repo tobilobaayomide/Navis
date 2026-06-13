@@ -6,66 +6,76 @@ function cn(...classes) {
 
 export default function BottomNavBrutalist({ items, activePath, onItemClick, className, style }) {
   const resolvedActivePath = activePath ?? items[0]?.path;
-  const maxWidth = items.length === 3 ? 320 : items.length === 4 ? 385 : 440;
+  const activeIndex = items.findIndex((item) => item.path === resolvedActivePath);
+  const safeActiveIndex = activeIndex >= 0 ? activeIndex : 0;
 
   return (
-    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
-    <nav
-      aria-label="Mobile primary navigation"
-      className={cn(
-        "brutalist-nav-shell mobile-scale-nav mx-auto w-full border-[2px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
-        className
-      )}
-      style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
-    >
-      <ul
-        className="grid w-full"
-        style={
-          {
-            gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`
-          }
-        }
+    <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4">
+      {/* Outer wrapper for liquid floating effect */}
+      <nav
+        aria-label="Mobile primary navigation"
+        className={cn(
+          "relative flex w-auto items-center justify-center rounded-[2rem] border border-white/20 bg-white/40 px-1 py-1 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_12px_32px_-4px_rgba(0,0,0,0.1)] backdrop-blur-[48px] dark:border-white/10 dark:bg-[#121212]/40 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_-4px_rgba(0,0,0,0.5)]",
+          className
+        )}
+        style={style}
       >
-        {items.map((item, index) => {
-          const isActive = item.path === resolvedActivePath;
-          const Icon = item.icon;
+        {/* Subtle inner gloss highlight for refraction */}
+        <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-b from-white/20 to-transparent dark:from-white/5" />
 
-          return (
-            <li
-              key={item.path}
-              className={cn(
-                "relative flex h-[4.2rem] items-center justify-center border-black dark:border-white",
-                index !== items.length - 1 && "border-r-[2px]"
-              )}
-            >
-              <button
-                aria-current={isActive ? "page" : undefined}
-                aria-label={item.label}
-                className={cn(
-                  "pressable group flex h-full w-full flex-col items-center justify-center gap-1 transition-colors duration-150 motion-reduce:transition-none active:bg-black/10 dark:active:bg-white/10",
-                  isActive ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black hover:bg-black/5 dark:text-white dark:hover:bg-white/10",
-                  item.disabled && "cursor-not-allowed opacity-40"
-                )}
-                disabled={item.disabled}
-                onClick={() => onItemClick?.(item.path)}
-                type="button"
-              >
-                <Icon
+        <ul className="relative flex items-center gap-1">
+          {/* Liquid Sliding Indicator */}
+          <div
+            className="absolute bottom-0 left-0 top-0 w-14 rounded-full bg-black/[0.06] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] dark:bg-white/[0.08]"
+            style={{
+              transform: `translateX(calc(${safeActiveIndex * 100}% + ${safeActiveIndex * 0.25}rem))`
+            }}
+          />
+
+          {items.map((item) => {
+            const isActive = item.path === resolvedActivePath;
+            const Icon = item.icon;
+
+            return (
+              <li key={item.path} className="relative z-10 flex">
+                <button
+                  aria-current={isActive ? "page" : undefined}
+                  aria-label={item.label}
                   className={cn(
-                    "h-5 w-5 transition-transform duration-150 motion-reduce:transition-none group-hover:scale-110",
-                    isActive && "scale-110"
+                    "group relative flex w-14 flex-col items-center justify-center gap-1 rounded-full py-1.5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-90 motion-reduce:transition-none",
+                    item.disabled && "cursor-not-allowed opacity-40"
                   )}
-                  fill={isActive ? "currentColor" : "none"}
-                />
-                <span className="text-[9px] font-bold uppercase tracking-[0.1em] [font-family:'IBM_Plex_Mono',monospace]">
-                  {item.label}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+                  disabled={item.disabled}
+                  onClick={() => onItemClick?.(item.path)}
+                  type="button"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <Icon
+                      className={cn(
+                        "relative z-10 h-5 w-5 transition-colors duration-300",
+                        isActive
+                          ? "text-[#007AFF] dark:text-[#0A84FF]"
+                          : "text-[#000000] dark:text-[#FFFFFF]"
+                      )}
+                      fill={isActive ? "currentColor" : "none"}
+                    />
+                  </div>
+                  <span
+                    className={cn(
+                      "w-full truncate text-center text-[9px] font-medium tracking-wide transition-colors duration-300",
+                      isActive
+                        ? "text-[#007AFF] dark:text-[#0A84FF]"
+                        : "text-[#000000] dark:text-[#FFFFFF]"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }
