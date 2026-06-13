@@ -62,7 +62,7 @@ export default function BottomNavBrutalist({ items, activePath, onItemClick, cla
                   </div>
                   <span
                     className={cn(
-                      "w-full truncate text-center text-[9px] font-medium tracking-wide transition-colors duration-300",
+                      "w-full truncate px-1.5 text-center text-[9px] font-medium tracking-wide transition-colors duration-300",
                       isActive
                         ? "text-[#007AFF] dark:text-[#0A84FF]"
                         : "text-[#000000] dark:text-[#FFFFFF]"
