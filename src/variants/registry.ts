@@ -115,12 +115,12 @@ export const VARIANTS: NavVariant[] = [
   },
   {
     id: "brutalist",
-    label: "Brutalist",
+    label: "Telegram Liquid Glass",
     componentName: "BottomNavBrutalist",
     fileName: "bottom-nav-brutalist",
-    blurb: "Rigid edges, stark contrast, and heavy hard shadows.",
-    useFor: "Developer tools, crypto, technical products",
-    note: "Raw aesthetic utilizing IBM Plex Mono."
+    blurb: "A floating pill with extreme liquid glass blur, based on Telegram's Android UI.",
+    useFor: "Messaging apps, native app ports, modern consumer apps",
+    note: "Features rounded floating cards and softer icon spacing."
   },
   {
     id: "dock",
