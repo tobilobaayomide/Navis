@@ -11,19 +11,17 @@ const cwd = process.cwd();
 const HELP_TEXT = `Navis UI
 
 Usage:
-  npx navisinit add bottom-nav-minimal
+  npx navisinit add <component-name>
+
+Examples:
+  npx navisinit add bottom-nav-fluid
+  npx navisinit add fluid
+  npx navisinit add BottomNavFluid
 
 Options:
   --force   overwrite an existing file
   --help    show this message
 `;
-
-const registryFiles = {
-  "bottom-nav-minimal": "bottom-nav-minimal.jsx",
-  minimal: "bottom-nav-minimal.jsx",
-  "bottom-nav-floating": "bottom-nav-floating.jsx",
-  floating: "bottom-nav-floating.jsx"
-};
 
 function printHelp() {
   process.stdout.write(`${HELP_TEXT}\n`);
@@ -54,12 +52,41 @@ function main(argv) {
     return 1;
   }
 
-  const slug = rawSlug.toLowerCase();
-  const sourceFileName = registryFiles[slug];
+  // Dynamically load available components
+  let availableFiles = [];
+  try {
+    availableFiles = fs.readdirSync(registryDir).filter(f => f.endsWith('.jsx'));
+  } catch (err) {
+    process.stderr.write(`Failed to read registry directory: ${err.message}\n`);
+    return 1;
+  }
+
+  const registryFiles = {};
+  const componentNames = [];
+
+  for (const file of availableFiles) {
+    const base = file.replace('.jsx', ''); // e.g. BottomNavFluid
+    const lower = base.toLowerCase();
+    
+    registryFiles[lower] = file;
+    componentNames.push(base);
+
+    if (base.startsWith("BottomNav")) {
+        const variant = base.substring(9).toLowerCase(); // e.g. fluid
+        registryFiles[variant] = file;
+        registryFiles[`bottom-nav-${variant}`] = file;
+        registryFiles[`bottomnav${variant}`] = file;
+    }
+  }
+
+  const slug = rawSlug.toLowerCase().replace(/[^a-z0-9-]/g, "");
+  
+  // Try to find a match
+  const sourceFileName = registryFiles[slug] || registryFiles[rawSlug.toLowerCase()];
 
   if (!sourceFileName) {
     process.stderr.write(`Unknown component: ${rawSlug}\n`);
-    process.stderr.write("Available components: bottom-nav-minimal, bottom-nav-floating\n");
+    process.stderr.write(`Available components:\n  ${componentNames.join(', ')}\n`);
     return 1;
   }
 
@@ -80,7 +107,7 @@ function main(argv) {
   fs.mkdirSync(path.dirname(targetPath), { recursive: true });
   fs.copyFileSync(sourcePath, targetPath);
 
-  process.stdout.write(`Added ${rawSlug} to ${path.relative(cwd, targetPath)}\n`);
+  process.stdout.write(`✅ Added ${sourceFileName.replace('.jsx', '')} to ${path.relative(cwd, targetPath)}\n`);
   return 0;
 }
 
