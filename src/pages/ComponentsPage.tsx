@@ -12,9 +12,10 @@ type CardProps = {
   variant: typeof VARIANTS[number];
   isLight: boolean;
   onClick: () => void;
+  index: number;
 };
 
-function NavbarCard({ variant, isLight, onClick }: CardProps) {
+function NavbarCard({ variant, isLight, onClick, index }: CardProps) {
   const items = useMemo(() => getItemsForVariant(variant.id), [variant.id]);
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? "home");
@@ -42,21 +43,26 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
 
   const softBorderClass = isLight ? "border-[rgba(15,23,42,0.06)]" : "border-white/[0.06]";
   const headingClass = isLight ? "text-slate-950" : "text-white";
+  const mutedClass = isLight ? "text-slate-500" : "text-slate-400";
 
   const cardStyle = isLight
     ? "border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.72)] hover:bg-[rgba(255,255,255,0.95)] hover:border-slate-300 shadow-[0_12px_24px_-10px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.1)]"
     : "border-white/[0.08] bg-[rgba(12,16,24,0.64)] hover:bg-[rgba(16,21,31,0.86)] hover:border-white/20 shadow-[0_12px_24px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_48px_-10px_rgba(0,0,0,0.5)]";
 
-  const previewStageBg = isLight ? "bg-white" : "bg-black";
+  const previewStageBg = isLight ? "bg-slate-100" : "bg-white/[0.05]";
 
   return (
     <div
       onClick={onClick}
       className={cn(
-        "group relative flex flex-col overflow-hidden border p-4 transition-all duration-300 active:scale-[0.99] cursor-pointer",
+        "card-stagger-in group relative flex flex-col overflow-hidden rounded-2xl border p-4 transition-all duration-300 active:scale-[0.99] cursor-pointer",
         cardStyle
       )}
+      style={{ animationDelay: `${index * 50}ms` }}
     >
+      {/* Shimmer top-border line on hover */}
+      <div className={cn("card-shimmer-line", isLight && "card-shimmer-line-light")} />
+
       {/* Hover gradient overlay */}
       <div
         className={cn(
@@ -67,26 +73,34 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
         )}
       />
 
-      {/* Title */}
-      <div className="flex items-center justify-between sm:pb-3 border-b border-slate-500/5">
-        <h3 className={cn("text-base font-normal tracking-wide font-sans", headingClass)}>
-          {variant.label}
-        </h3>
+      {/* Title + Blurb */}
+      <div className="flex flex-col sm:pb-3 border-b border-slate-500/5">
+        <div className="flex items-center justify-between">
+          <h3 className={cn("text-base font-normal tracking-wide font-sans", headingClass)}>
+            {variant.label}
+          </h3>
+        </div>
+        <p className={cn(
+          "text-[12px] sm:text-[13px] font-light leading-relaxed mt-1.5 line-clamp-2",
+          mutedClass
+        )}>
+          {variant.blurb}
+        </p>
       </div>
 
       {/* Preview stage — fixed height with scaled nav inside */}
       <div
         className={cn(
-          "relative flex items-center justify-center overflow-hidden border transition-all duration-300 mt-2 sm:mt-4",
+          "relative flex items-center justify-center overflow-hidden border rounded-xl transition-all duration-300 mt-2 sm:mt-4",
           "h-[140px] sm:h-[180px] lg:h-[220px]",
           previewStageBg,
-          softBorderClass
+          softBorderClass,
+          isLight ? "dot-grid-light" : "dot-grid-dark"
         )}
       >
         {/*
           The nav is rendered at full desktop width (380px) then scaled down
           to fit the card — same technique used elsewhere in the codebase.
-          On mobile we scale to ~0.55, on sm to ~0.68, on lg full 1.0.
         */}
         <div
           className={cn(
@@ -101,6 +115,26 @@ function NavbarCard({ variant, isLight, onClick }: CardProps) {
             onItemClick={(item: NavItem) => setActiveId(item.id)}
             style={accentStyles}
           />
+        </div>
+
+        {/* Active-item indicator dots */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {items.slice(0, 5).map((item) => (
+            <span
+              key={item.id}
+              className={cn(
+                "block h-[4px] w-[4px] rounded-full transition-all duration-500",
+                item.id === activeId
+                  ? cn(
+                      isLight ? "bg-indigo-500" : "bg-indigo-400",
+                      "active-dot"
+                    )
+                  : isLight
+                    ? "bg-slate-300"
+                    : "bg-white/15"
+              )}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -168,7 +202,6 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
 
   const softBorderClass = isLight ? "border-[rgba(15,23,42,0.06)]" : "border-white/[0.06]";
   const headingClass = isLight ? "text-slate-950" : "text-white";
-  const bodyClass = isLight ? "text-slate-600" : "text-slate-300";
   const mutedClass = isLight ? "text-slate-500" : "text-slate-400";
 
   return createPortal(
@@ -178,9 +211,9 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
         isOpen ? "opacity-100 pointer-events-auto" : "opacity-0"
       )}
     >
-      {/* Backdrop */}
+      {/* Backdrop with blur */}
       <div
-        className="absolute inset-0 bg-black/40 transition-opacity pointer-events-auto"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity pointer-events-auto"
         onClick={onClose}
       />
 
@@ -215,7 +248,7 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
           <button
             onClick={onClose}
             className={cn(
-              "flex items-center justify-center transition-all active:scale-[0.96]",
+              "flex items-center justify-center rounded-xl p-1.5 transition-all active:scale-[0.96]",
               isLight
                 ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-800 hover:bg-slate-50"
                 : "border-white/[0.08] bg-neutral-900 text-slate-200 hover:bg-neutral-800"
@@ -232,19 +265,46 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
 
+          {/* Blurb pull-quote */}
+          <div
+            className="drawer-detail-stagger"
+            style={{ animationDelay: "100ms" }}
+          >
+            <p className={cn(
+              "text-[15px] sm:text-[17px] font-light leading-relaxed italic",
+              isLight ? "text-slate-600" : "text-slate-300",
+              "border-l-2 pl-4 sm:pl-5",
+              isLight ? "border-indigo-300/50" : "border-indigo-400/30"
+            )}>
+              "{variant.blurb}"
+            </p>
+          </div>
+
           {/* Nav preview — scaled down on mobile, full size on sm+ */}
           <div
             className={cn(
-              "relative flex items-center justify-center overflow-hidden rounded-2xl border transition-colors duration-300 shadow-inner",
+              "drawer-detail-stagger relative flex items-center justify-center overflow-hidden rounded-2xl border transition-colors duration-300 shadow-inner",
               // Shorter on mobile, taller on desktop
               "h-[130px] sm:h-[220px]",
               isLight ? "bg-slate-50" : "bg-black",
-              softBorderClass
+              softBorderClass,
+              isLight ? "dot-grid-light" : "dot-grid-dark"
             )}
+            style={{ animationDelay: "200ms" }}
           >
+            {/* Floating variant label badge */}
+            <span className={cn(
+              "absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-[0.14em]",
+              isLight
+                ? "bg-white/80 text-slate-500 border border-slate-200/60 backdrop-blur-sm"
+                : "bg-white/[0.06] text-slate-400 border border-white/[0.06] backdrop-blur-sm"
+            )}>
+              {variant.label}
+            </span>
+
             <div
               className={cn(
-                "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[440px] -translate-x-1/2 -translate-y-1/2",
+                "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
                 "scale-[0.65] sm:scale-[0.75] md:scale-90 lg:scale-100",
                 "transition-transform duration-300"
               )}
@@ -262,35 +322,54 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
           <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
             <div
               className={cn(
-                "rounded-[20px] border p-4 sm:p-5 transition-colors",
+                "drawer-detail-stagger rounded-[20px] border p-4 sm:p-5 transition-colors",
                 isLight ? "border-slate-500/10 bg-slate-50" : "border-white/[0.04] bg-[#0a0a0a]"
               )}
+              style={{ animationDelay: "300ms" }}
             >
-              <span className={cn("text-[10px] uppercase tracking-[0.16em] font-semibold", mutedClass)}>
-                Best For Projects
-              </span>
-              <p className={cn("text-[14px] sm:text-[16px] font-extralight mt-2", headingClass)}>
+              <div className="flex items-center gap-2 mb-2">
+                {/* Target icon for "Best For" */}
+                <svg className={cn("h-3.5 w-3.5", mutedClass)} fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" />
+                </svg>
+                <span className={cn("text-[10px] uppercase tracking-[0.16em] font-semibold", mutedClass)}>
+                  Best For Projects
+                </span>
+              </div>
+              <p className={cn("text-[14px] sm:text-[16px] font-extralight mt-1", headingClass)}>
                 {variant.useFor}
               </p>
             </div>
 
             <div
               className={cn(
-                "rounded-[20px] border p-4 sm:p-5 transition-colors",
+                "drawer-detail-stagger rounded-[20px] border p-4 sm:p-5 transition-colors",
                 isLight ? "border-slate-500/10 bg-slate-50" : "border-white/[0.04] bg-[#0a0a0a]"
               )}
+              style={{ animationDelay: "380ms" }}
             >
-              <span className={cn("text-[10px] uppercase tracking-[0.16em] font-semibold", mutedClass)}>
-                Aesthetic & Motion Traits
-              </span>
-              <p className={cn("text-[14px] sm:text-[16px] font-extralight mt-2", headingClass)}>
+              <div className="flex items-center gap-2 mb-2">
+                {/* Sparkle icon for "Aesthetic & Motion" */}
+                <svg className={cn("h-3.5 w-3.5", mutedClass)} fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" />
+                </svg>
+                <span className={cn("text-[10px] uppercase tracking-[0.16em] font-semibold", mutedClass)}>
+                  Aesthetic & Motion Traits
+                </span>
+              </div>
+              <p className={cn("text-[14px] sm:text-[16px] font-extralight mt-1", headingClass)}>
                 {variant.note}
               </p>
             </div>
           </div>
 
           {/* CLI strip */}
-          <div className="space-y-3">
+          <div
+            className="drawer-detail-stagger space-y-3"
+            style={{ animationDelay: "460ms" }}
+          >
             <span className={cn("text-[11px] font-semibold uppercase tracking-[0.18em]", mutedClass)}>
               CLI Installation
             </span>
@@ -303,15 +382,22 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
               )}
               type="button"
             >
-              <span className="truncate">{installCommand}</span>
-              <span className="shrink-0 flex items-center justify-center p-2 rounded-lg border border-slate-500/10 bg-slate-500/5">
-                <HugeiconsIcon
-                  absoluteStrokeWidth
-                  className={cn("h-4 w-4 transition-opacity", copied ? "opacity-100" : "opacity-80")}
-                  icon={CopyIcon}
-                  size={16}
-                  strokeWidth={1.7}
-                />
+              <span className="truncate"><span className="terminal-prompt">$</span> {installCommand}</span>
+              <span className={cn(
+                "shrink-0 flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-500/10 bg-slate-500/5 transition-all duration-300",
+                copied && "bg-emerald-500/10 border-emerald-500/20"
+              )}>
+                {copied ? (
+                  <span className="text-[10px] font-semibold text-emerald-500 uppercase tracking-wider">Copied</span>
+                ) : (
+                  <HugeiconsIcon
+                    absoluteStrokeWidth
+                    className="h-4 w-4 opacity-80"
+                    icon={CopyIcon}
+                    size={16}
+                    strokeWidth={1.7}
+                  />
+                )}
               </span>
             </button>
           </div>
@@ -322,10 +408,11 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
           <button
             onClick={onClose}
             className={cn(
-              "rounded-full border px-6 py-3 sm:py-3.5 text-sm font-semibold transition-all active:scale-[0.98]",
+              "rounded-full border px-6 py-3 sm:py-3.5 text-sm font-semibold transition-all duration-200 active:scale-[0.98]",
+              "hover:-translate-y-[1px]",
               isLight
-                ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-800 hover:bg-slate-50"
-                : "border-white/[0.08] bg-neutral-900 text-slate-200 hover:bg-neutral-800"
+                ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-800 hover:bg-slate-50 hover:shadow-[0_4px_12px_-4px_rgba(15,23,42,0.1)]"
+                : "border-white/[0.08] bg-neutral-900 text-slate-200 hover:bg-neutral-800 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.3)]"
             )}
             type="button"
           >
@@ -334,10 +421,11 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
           <button
             onClick={() => onConfigure(variant.id)}
             className={cn(
-              "rounded-full border px-6 sm:px-8 py-3 sm:py-3.5 text-sm font-semibold transition-all active:scale-[0.98]",
+              "rounded-full border px-6 sm:px-8 py-3 sm:py-3.5 text-sm font-semibold transition-all duration-200 active:scale-[0.98]",
+              "hover:-translate-y-[1px]",
               isLight
-                ? "bg-slate-900 border-slate-900 text-white hover:bg-slate-800 shadow-md"
-                : "bg-white border-white text-slate-950 hover:bg-[#ececea] shadow-md"
+                ? "bg-slate-900 border-slate-900 text-white hover:bg-slate-800 shadow-md hover:shadow-lg"
+                : "bg-white border-white text-slate-950 hover:bg-[#ececea] shadow-md hover:shadow-lg"
             )}
             type="button"
           >
@@ -359,36 +447,56 @@ export function ComponentsPage() {
     window.scrollTo({ top: 0, left: 0 });
   }, []);
 
-  const softBorderClass = isLight ? "border-[rgba(15,23,42,0.06)]" : "border-white/[0.06]";
   const headingClass = isLight ? "text-slate-950" : "text-white";
   const bodyClass = isLight ? "text-slate-600" : "text-slate-300";
+  const mutedClass = isLight ? "text-slate-500" : "text-slate-400";
 
   const handleConfigure = (variantId: VariantId) => {
     setSelectedVariant(variantId);
     setSelectedDrawerVariant(null);
-    navigate("/playground");
+    navigate("/Playground");
   };
 
   return (
-    <div className="mx-auto w-full py-8 space-y-12">
+    <div className="mx-auto w-full -py-2 md:py-8 space-y-12">
       {/* Header */}
-      <header className={cn("text-left border-b pb-6", softBorderClass)}>
-        <h1 className={cn("text-2xl sm:text-3xl font-medium tracking-[0.03em] Outfit", headingClass)}>
-          Components
-        </h1>
-        <p className={cn("mt-2 max-w-max text-[16px] sm:text-[18px] lg:text-[20px] font-light leading-relaxed", bodyClass)}>
+      <header className="text-left pb-6">
+        <div className="flex items-center gap-3 header-stagger-1">
+          <h1 className={cn("text-2xl sm:text-3xl font-medium tracking-[0.03em] Outfit", headingClass)}>
+            Components
+          </h1>
+          <span className={cn(
+            "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide",
+            isLight
+              ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
+              : "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+          )}>
+            {VARIANTS.length} variants
+          </span>
+        </div>
+        <p className={cn(
+          "header-stagger-2 mt-2 max-w-max text-[16px] sm:text-[18px] lg:text-[20px] font-light leading-relaxed",
+          bodyClass
+        )}>
           Explore and interact with responsive bottom navigation layout variants. Click on any navbar card to reveal a spacious preview deck equipped with detail traits, installation code, and global playground options.
         </p>
+        {/* Gradient divider */}
+        <div className={cn(
+          "header-stagger-3 mt-6",
+          "gradient-divider",
+          isLight && "gradient-divider-light"
+        )} />
       </header>
 
       {/* Cards grid — 1 col mobile, 2 col md, 3 col lg */}
       <div className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {VARIANTS.map((variant) => (
+        {VARIANTS.map((variant, index) => (
           <NavbarCard
             key={variant.id}
             variant={variant}
             isLight={isLight}
             onClick={() => setSelectedDrawerVariant(variant)}
+            index={index}
           />
         ))}
       </div>
