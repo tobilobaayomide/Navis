@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "../../lib/cn";
-import { SyntaxSnippet, tokenizeSnippet } from "../syntax-snippet";
+import { SyntaxSnippet, tokenizeSnippet } from "../SyntaxSnippet";
 import { navContractSnippet } from "../../data/snippets";
 import type { DocPage } from "./types";
 import { apiRows, navItemRows, customVarsRows } from "../../data/docsContent";
@@ -29,7 +29,7 @@ const SNIPPETS_REGISTRY: Record<string, any> = {
 src/
   components/
     ui/
-      bottom-nav-minimal.jsx
+      BottomNavMinimal.jsx
       sidebar.jsx
   constants/
     navigation.js
@@ -73,10 +73,11 @@ function formatText(text: string) {
 
 function DocsSection({ id, title, summary, isLight, children }: { id: string; title: string; summary: string; isLight: boolean; children: React.ReactNode }) {
   return (
-    <section className="scroll-mt-32 space-y-4 sm:space-y-5" id={id}>
-      <div className="space-y-3">
-        <h2 className={cn("text-[1.35rem] font-semibold tracking-[0.02em] sm:text-2xl", isLight ? "text-slate-950" : "text-white")}>{title}</h2>
-        <p className={cn("max-w-[72ch] text-base font-light leading-7 sm:text-[18px] sm:leading-8", isLight ? "text-slate-600" : "text-slate-300")}>{summary}</p>
+    <section className="scroll-mt-32 space-y-6 sm:space-y-8" id={id}>
+      <div className="space-y-4">
+        <div className={cn("h-px w-16", isLight ? "bg-blue-600/40" : "bg-blue-400/40")} />
+        <h2 className={cn("text-2xl sm:text-[1.75rem] font-semibold tracking-tight leading-tight", isLight ? "text-slate-900" : "text-white")}>{title}</h2>
+        <p className={cn("max-w-[64ch] text-[15px] sm:text-base leading-relaxed", isLight ? "text-slate-500" : "text-slate-400")}>{summary}</p>
       </div>
       {children}
     </section>
@@ -87,12 +88,14 @@ function InfoCard({ title, body, isLight }: { title: string; body: string; isLig
   return (
     <div
       className={cn(
-        "rounded-2xl border p-4 sm:p-5",
-        isLight ? "border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.86)]" : "border-white/[0.08] bg-[rgba(255,255,255,0.03)]"
+        "group rounded-2xl border p-5 sm:p-6 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1",
+        isLight
+          ? "border-slate-200/80 bg-white shadow-sm hover:border-blue-300 hover:shadow-lg hover:shadow-blue-500/[0.06]"
+          : "border-white/[0.06] bg-white/[0.02] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-blue-500/30 hover:bg-blue-500/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.06]"
       )}
     >
-      <h3 className={cn("text-base font-semibold", isLight ? "text-slate-950" : "text-white")}>{title}</h3>
-      <p className={cn("mt-2 text-sm leading-6 sm:leading-7", isLight ? "text-slate-600" : "text-slate-300")}>{body}</p>
+      <h3 className={cn("text-[15px] font-semibold transition-colors duration-300", isLight ? "text-slate-900 group-hover:text-blue-600" : "text-white group-hover:text-blue-400")}>{title}</h3>
+      <p className={cn("mt-2.5 text-[13.5px] leading-[1.7]", isLight ? "text-slate-500" : "text-slate-400")}>{body}</p>
     </div>
   );
 }
@@ -101,28 +104,33 @@ function NoteCard({ title, children, isLight }: { title: string; children: React
   return (
     <div
       className={cn(
-        "rounded-2xl border p-4 sm:p-5",
-        isLight ? "border-[rgba(15,23,42,0.08)] bg-[rgba(248,250,252,0.9)]" : "border-white/[0.08] bg-[rgba(255,255,255,0.04)]"
+        "flex rounded-2xl border overflow-hidden",
+        isLight
+          ? "border-blue-200/60 bg-gradient-to-br from-blue-50/80 to-white shadow-sm"
+          : "border-blue-500/15 bg-gradient-to-br from-blue-500/[0.04] to-transparent"
       )}
     >
-      <p className={cn("text-[11px] font-semibold uppercase tracking-[0.18em]", isLight ? "text-slate-500" : "text-slate-400")}>{title}</p>
-      <div className={cn("mt-3 text-[15px] leading-7 sm:text-[16px]", isLight ? "text-slate-600" : "text-slate-300")}>{children}</div>
+      <div className={cn("w-1 shrink-0", isLight ? "bg-blue-500" : "bg-blue-400")} />
+      <div className="p-5 sm:p-6">
+        <p className={cn("text-[11px] font-bold uppercase tracking-[0.2em]", isLight ? "text-blue-600" : "text-blue-400")}>{title}</p>
+        <div className={cn("mt-3 text-[14px] sm:text-[15px] leading-relaxed", isLight ? "text-slate-600" : "text-slate-300")}>{children}</div>
+      </div>
     </div>
   );
 }
 
 function BulletList({ items, isLight }: { items: string[]; isLight: boolean }) {
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-4">
       {items.map((item) => (
-        <li className="flex items-start gap-3" key={item}>
+        <li className="flex items-start gap-3.5" key={item}>
           <span
             className={cn(
-              "mt-2 h-1.5 w-1.5 rounded-full",
-              isLight ? "bg-slate-400" : "bg-slate-500"
+              "mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full",
+              isLight ? "bg-blue-500/60" : "bg-blue-400/50"
             )}
           />
-          <span className={cn("text-base font-light leading-7 sm:text-[18px]", isLight ? "text-slate-600" : "text-slate-300")}>
+          <span className={cn("text-[14.5px] sm:text-[15px] leading-relaxed", isLight ? "text-slate-600" : "text-slate-400")}>
             {formatText(item)}
           </span>
         </li>
@@ -133,20 +141,20 @@ function BulletList({ items, isLight }: { items: string[]; isLight: boolean }) {
 
 function DocsTable({ headers, rows, isLight }: { headers: string[]; rows: React.ReactNode[][]; isLight: boolean }) {
   const tableShell = isLight
-    ? "border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.82)] shadow-[0_20px_38px_-28px_rgba(15,23,42,0.16)]"
-    : "border-white/[0.08] bg-[rgba(14,18,26,0.88)] shadow-[0_18px_34px_-20px_rgba(0,0,0,0.68)]";
+    ? "border-slate-200/80 bg-white shadow-[0_4px_24px_-8px_rgba(15,23,42,0.08)]"
+    : "border-white/[0.06] bg-white/[0.015] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_4px_24px_-8px_rgba(0,0,0,0.4)]";
   const tableHead = isLight
-    ? "bg-[rgba(15,23,42,0.03)] text-slate-500 border-b border-[rgba(15,23,42,0.08)]"
-    : "bg-[rgba(255,255,255,0.04)] text-slate-300 border-b border-white/[0.08]";
-  const tableBody = isLight ? "divide-y divide-[rgba(15,23,42,0.05)]" : "divide-y divide-white/[0.06]";
+    ? "bg-slate-50/80 text-slate-500 border-b border-slate-200/80"
+    : "bg-white/[0.03] text-slate-400 border-b border-white/[0.06]";
+  const tableBody = isLight ? "divide-y divide-slate-100" : "divide-y divide-white/[0.04]";
 
   return (
     <div className={cn("overflow-x-auto rounded-2xl border", tableShell)}>
-      <table className="min-w-[620px] w-full border-collapse text-left text-xs sm:text-sm">
+      <table className="min-w-[620px] w-full border-collapse text-left text-[13px] sm:text-sm">
         <thead className={tableHead}>
           <tr>
             {headers.map((header) => (
-              <th className="px-3 py-3 font-semibold sm:px-4" key={header}>
+              <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-[0.1em] sm:px-5" key={header}>
                 {header}
               </th>
             ))}
@@ -156,13 +164,13 @@ function DocsTable({ headers, rows, isLight }: { headers: string[]; rows: React.
           {rows.map((row, rowIndex) => (
             <tr
               className={cn(
-                "transition-colors",
-                isLight ? "hover:bg-[rgba(15,23,42,0.025)]" : "hover:bg-[rgba(255,255,255,0.035)]"
+                "transition-colors duration-200",
+                isLight ? "hover:bg-blue-50/30" : "hover:bg-blue-500/[0.02]"
               )}
               key={`row-${rowIndex}`}
             >
               {row.map((cell, cellIndex) => (
-                <td className="px-3 py-4 align-top sm:px-4" key={`cell-${rowIndex}-${cellIndex}`}>
+                <td className="px-4 py-4 align-top sm:px-5" key={`cell-${rowIndex}-${cellIndex}`}>
                   {cell}
                 </td>
               ))}
@@ -180,7 +188,7 @@ export default function DocsArticle({ currentPage, isLight, installCommand, copy
   const mutedClass = isLight ? "text-slate-500" : "text-slate-400";
 
   return (
-    <div className="space-y-10 sm:space-y-12">
+    <div className="space-y-16 sm:space-y-24">
       {currentPage.sections.map((section) => (
         <DocsSection
           id={section.id}
@@ -256,7 +264,7 @@ export default function DocsArticle({ currentPage, isLight, installCommand, copy
                     rows={rowsData.map((row: any, rIdx) => {
                       if (el.tableType === "customVars") {
                         return [
-                          <code className="code-face font-semibold text-indigo-400" key={`${row.variable}-variable`}>
+                          <code className={cn("code-face font-semibold", isLight ? "text-blue-600" : "text-blue-400")} key={`${row.variable}-variable`}>
                             {row.variable}
                           </code>,
                           <span className={cn("font-semibold", headingClass)} key={`${row.variable}-component`}>
@@ -271,7 +279,7 @@ export default function DocsArticle({ currentPage, isLight, installCommand, copy
                           <span className={cn("font-semibold", headingClass)} key={`${row.property}-property`}>
                             {row.property}
                           </span>,
-                          <code className="code-face text-indigo-400" key={`${row.property}-type`}>
+                          <code className={cn("code-face", isLight ? "text-blue-600" : "text-blue-400")} key={`${row.property}-type`}>
                             {row.type}
                           </code>,
                           <span className={mutedClass} key={`${row.property}-required`}>
@@ -291,22 +299,22 @@ export default function DocsArticle({ currentPage, isLight, installCommand, copy
                 return (
                   <button
                     className={cn(
-                      "group flex w-full max-w-xl items-center justify-between gap-3 rounded-2xl border px-4 py-4 text-left transition-colors sm:px-5",
+                      "group flex w-full max-w-xl items-center justify-between gap-4 rounded-2xl border px-5 py-4.5 text-left transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 active:scale-[0.98]",
                       isLight
-                        ? "border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.88)] hover:bg-white"
-                        : "border-white/[0.08] bg-[rgba(15,19,28,0.82)] hover:bg-[rgba(20,26,36,0.9)]"
+                        ? "border-slate-200/80 bg-white shadow-sm hover:border-blue-300 hover:shadow-lg hover:shadow-blue-500/[0.06]"
+                        : "border-white/[0.06] bg-white/[0.02] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/[0.06]"
                     )}
                     key={index}
                     onClick={() => copyToClipboard(installCommand, "docs-install")}
                     type="button"
                   >
-                    <code className={cn("code-face min-w-0 overflow-x-auto whitespace-nowrap text-xs sm:text-sm", isLight ? "text-slate-700" : "text-slate-100")}>
+                    <code className={cn("code-face min-w-0 overflow-x-auto whitespace-nowrap text-[13px] sm:text-sm transition-colors duration-300", isLight ? "text-slate-700 group-hover:text-blue-700" : "text-slate-200 group-hover:text-blue-300")}>
                       {installCommand}
                     </code>
                     <span
                       className={cn(
-                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
-                        isLight ? "bg-[rgba(15,23,42,0.05)] text-slate-500" : "bg-[rgba(255,255,255,0.06)] text-slate-300"
+                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300",
+                        isLight ? "bg-slate-100 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600" : "bg-white/[0.06] text-slate-500 group-hover:bg-blue-500/20 group-hover:text-blue-400"
                       )}
                     >
                       <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
