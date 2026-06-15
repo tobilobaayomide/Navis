@@ -1,35 +1,35 @@
 import type { ReactElement } from "react";
-import { FLOATING_NAV_ITEMS, NAV_ITEMS, PILL_NAV_ITEMS } from "../data/nav-items";
-import { BottomNavAction } from "../bottom-nav/bottom-nav-action";
-import { BottomNavAura } from "../bottom-nav/bottom-nav-aura";
-import { BottomNavBrutalist } from "../bottom-nav/bottom-nav-brutalist";
-import { BottomNavCyber } from "../bottom-nav/bottom-nav-cyber";
-import { BottomNavDock } from "../bottom-nav/bottom-nav-dock";
-import { BottomNavExpand } from "../bottom-nav/bottom-nav-expand";
-import { BottomNavFloating } from "../bottom-nav/bottom-nav-floating";
-import { BottomNavFluid } from "../bottom-nav/bottom-nav-fluid";
-import { BottomNavGlass } from "../bottom-nav/bottom-nav-glass";
-import { BottomNavIndicator } from "../bottom-nav/bottom-nav-indicator";
-import { BottomNavIsland } from "../bottom-nav/bottom-nav-island";
-import { BottomNavMinimal } from "../bottom-nav/bottom-nav-minimal";
-import { BottomNavOrbit } from "../bottom-nav/bottom-nav-orbit";
-import { BottomNavPill } from "../bottom-nav/bottom-nav-pill";
-import { BottomNavTactile } from "../bottom-nav/bottom-nav-tactile";
-import bottomNavFloatingSource from "../../packages/registry/components/bottom-nav-floating.jsx?raw";
-import bottomNavMinimalSource from "../../packages/registry/components/bottom-nav-minimal.jsx?raw";
-import bottomNavPillSource from "../../packages/registry/components/bottom-nav-pill.jsx?raw";
-import bottomNavIndicatorSource from "../../packages/registry/components/bottom-nav-indicator.jsx?raw";
-import bottomNavGlassSource from "../../packages/registry/components/bottom-nav-glass.jsx?raw";
-import bottomNavIslandSource from "../../packages/registry/components/bottom-nav-island.jsx?raw";
-import bottomNavBrutalistSource from "../../packages/registry/components/bottom-nav-brutalist.jsx?raw";
-import bottomNavDockSource from "../../packages/registry/components/bottom-nav-dock.jsx?raw";
-import bottomNavCyberSource from "../../packages/registry/components/bottom-nav-cyber.jsx?raw";
-import bottomNavOrbitSource from "../../packages/registry/components/bottom-nav-orbit.jsx?raw";
-import bottomNavActionSource from "../../packages/registry/components/bottom-nav-action.jsx?raw";
-import bottomNavAuraSource from "../../packages/registry/components/bottom-nav-aura.jsx?raw";
-import bottomNavExpandSource from "../../packages/registry/components/bottom-nav-expand.jsx?raw";
-import bottomNavFluidSource from "../../packages/registry/components/bottom-nav-fluid.jsx?raw";
-import bottomNavTactileSource from "../../packages/registry/components/bottom-nav-tactile.jsx?raw";
+import { FLOATING_NAV_ITEMS, NAV_ITEMS, PILL_NAV_ITEMS } from "../data/NavItems";
+import { BottomNavAction } from "../bottom-nav/BottomNavAction";
+import { BottomNavAura } from "../bottom-nav/BottomNavAura";
+import { BottomNavLiquid } from "../bottom-nav/BottomNavLiquid";
+import { BottomNavCyber } from "../bottom-nav/BottomNavCyber";
+import { BottomNavDock } from "../bottom-nav/BottomNavDock";
+import { BottomNavExpand } from "../bottom-nav/BottomNavExpand";
+import { BottomNavFloating } from "../bottom-nav/BottomNavFloating";
+import { BottomNavFluid } from "../bottom-nav/BottomNavFluid";
+import { BottomNavGlass } from "../bottom-nav/BottomNavGlass";
+import { BottomNavIndicator } from "../bottom-nav/BottomNavIndicator";
+import { BottomNavIsland } from "../bottom-nav/BottomNavIsland";
+import { BottomNavMinimal } from "../bottom-nav/BottomNavMinimal";
+import { BottomNavOrbit } from "../bottom-nav/BottomNavOrbit";
+import { BottomNavPill } from "../bottom-nav/BottomNavPill";
+import { BottomNavTactile } from "../bottom-nav/BottomNavTactile";
+import bottomNavFloatingSource from "../../packages/registry/components/BottomNavFloating.jsx?raw";
+import bottomNavMinimalSource from "../../packages/registry/components/BottomNavMinimal.jsx?raw";
+import bottomNavPillSource from "../../packages/registry/components/BottomNavPill.jsx?raw";
+import bottomNavIndicatorSource from "../../packages/registry/components/BottomNavIndicator.jsx?raw";
+import bottomNavGlassSource from "../../packages/registry/components/BottomNavGlass.jsx?raw";
+import bottomNavIslandSource from "../../packages/registry/components/BottomNavIsland.jsx?raw";
+import bottomNavLiquidSource from "../../packages/registry/components/BottomNavLiquid.jsx?raw";
+import bottomNavDockSource from "../../packages/registry/components/BottomNavDock.jsx?raw";
+import bottomNavCyberSource from "../../packages/registry/components/BottomNavCyber.jsx?raw";
+import bottomNavOrbitSource from "../../packages/registry/components/BottomNavOrbit.jsx?raw";
+import bottomNavActionSource from "../../packages/registry/components/BottomNavAction.jsx?raw";
+import bottomNavAuraSource from "../../packages/registry/components/BottomNavAura.jsx?raw";
+import bottomNavExpandSource from "../../packages/registry/components/BottomNavExpand.jsx?raw";
+import bottomNavFluidSource from "../../packages/registry/components/BottomNavFluid.jsx?raw";
+import bottomNavTactileSource from "../../packages/registry/components/BottomNavTactile.jsx?raw";
 
 export type VariantId =
   | "minimal"
@@ -38,7 +38,7 @@ export type VariantId =
   | "indicator"
   | "glass"
   | "island"
-  | "brutalist"
+  | "liquid"
   | "dock"
   | "cyber"
   | "orbit"
@@ -63,7 +63,7 @@ export const VARIANTS: NavVariant[] = [
     id: "minimal",
     label: "Minimal",
     componentName: "BottomNavMinimal",
-    fileName: "bottom-nav-minimal",
+    fileName: "BottomNavMinimal",
     blurb: "Flat and quiet. The perfect clean slate baseline.",
     useFor: "Admin panels, data dashboards, lightweight tools",
     note: "Understated active states that keep content first."
@@ -72,7 +72,7 @@ export const VARIANTS: NavVariant[] = [
     id: "floating",
     label: "Floating",
     componentName: "BottomNavFloating",
-    fileName: "bottom-nav-floating",
+    fileName: "BottomNavFloating",
     blurb: "A detached glass rail with a kinetic active capsule.",
     useFor: "Inbox-first interfaces, consumer apps, feed layouts",
     note: "Active capsules expand dynamically to fit the path label."
@@ -81,7 +81,7 @@ export const VARIANTS: NavVariant[] = [
     id: "pill",
     label: "Pill",
     componentName: "BottomNavPill",
-    fileName: "bottom-nav-pill",
+    fileName: "BottomNavPill",
     blurb: "Concentric segments with rich ambient backing glows.",
     useFor: "Education portals, community spaces, profile-first apps",
     note: "Warmer, tactile active states that slide elegantly on active switches."
@@ -90,7 +90,7 @@ export const VARIANTS: NavVariant[] = [
     id: "indicator",
     label: "Indicator",
     componentName: "BottomNavIndicator",
-    fileName: "bottom-nav-indicator",
+    fileName: "BottomNavIndicator",
     blurb: "High contrast with a dedicated floating active indicator line.",
     useFor: "Operations monitoring, active utilities, developer tools",
     note: "Highly recognizable active state indicator with direct accent customizability."
@@ -99,7 +99,7 @@ export const VARIANTS: NavVariant[] = [
     id: "glass",
     label: "Glass",
     componentName: "BottomNavGlass",
-    fileName: "bottom-nav-glass",
+    fileName: "BottomNavGlass",
     blurb: "Premium double-bezel concentric layout with raised primary center button.",
     useFor: "Brand-led products, media applications, discovery-heavy tools",
     note: "A 72px raised circle acts as the primary layout signature."
@@ -108,16 +108,16 @@ export const VARIANTS: NavVariant[] = [
     id: "island",
     label: "Dynamic Island",
     componentName: "BottomNavIsland",
-    fileName: "bottom-nav-island",
+    fileName: "BottomNavIsland",
     blurb: "A floating pill where only the active item expands to show text.",
     useFor: "Modern iOS-style apps, consumer tools",
     note: "Highly trendy, smooth active expansions."
   },
   {
-    id: "brutalist",
+    id: "liquid",
     label: "Telegram Liquid Glass",
-    componentName: "BottomNavBrutalist",
-    fileName: "bottom-nav-brutalist",
+    componentName: "BottomNavLiquid",
+    fileName: "BottomNavLiquid",
     blurb: "A floating pill with extreme liquid glass blur, based on Telegram's Android UI.",
     useFor: "Messaging apps, native app ports, modern consumer apps",
     note: "Features rounded floating cards and softer icon spacing."
@@ -126,7 +126,7 @@ export const VARIANTS: NavVariant[] = [
     id: "dock",
     label: "Mac Dock",
     componentName: "BottomNavDock",
-    fileName: "bottom-nav-dock",
+    fileName: "BottomNavDock",
     blurb: "Closely-packed icons sitting on a clean glass shelf.",
     useFor: "Desktop-like experiences, productivity tools",
     note: "Icons magnify fluidly on hover."
@@ -135,7 +135,7 @@ export const VARIANTS: NavVariant[] = [
     id: "cyber",
     label: "Neon Cyber",
     componentName: "BottomNavCyber",
-    fileName: "bottom-nav-cyber",
+    fileName: "BottomNavCyber",
     blurb: "Intense neon glowing accents on deep dark backgrounds.",
     useFor: "Gaming platforms, dark-mode-first tech tools",
     note: "Vibrant glowing lines and drop shadows."
@@ -144,7 +144,7 @@ export const VARIANTS: NavVariant[] = [
     id: "orbit",
     label: "Orbit",
     componentName: "BottomNavOrbit",
-    fileName: "bottom-nav-orbit",
+    fileName: "BottomNavOrbit",
     blurb: "A split rail with a detached primary action item.",
     useFor: "Profile-heavy apps, tools with a main quick action",
     note: "Visually separates the final item with a divider."
@@ -153,7 +153,7 @@ export const VARIANTS: NavVariant[] = [
     id: "action",
     label: "Action Center",
     componentName: "BottomNavAction",
-    fileName: "bottom-nav-action",
+    fileName: "BottomNavAction",
     blurb: "Prominent raised center button for primary creation actions.",
     useFor: "Social apps, camera apps, primary-action driven flows",
     note: "The middle item physically breaks the rail bounds."
@@ -162,7 +162,7 @@ export const VARIANTS: NavVariant[] = [
     id: "aura",
     label: "Aura Glow",
     componentName: "BottomNavAura",
-    fileName: "bottom-nav-aura",
+    fileName: "BottomNavAura",
     blurb: "A magical sliding gradient aura with text reveals.",
     useFor: "Premium consumer tools, AI products, wellness apps",
     note: "Highly animated background gradient and morphing text."
@@ -171,7 +171,7 @@ export const VARIANTS: NavVariant[] = [
     id: "expand",
     label: "Expand",
     componentName: "BottomNavExpand",
-    fileName: "bottom-nav-expand",
+    fileName: "BottomNavExpand",
     blurb: "A floating menu button that pops out into a full navigation pill.",
     useFor: "Minimalist apps, map apps, space-saving layouts",
     note: "The active item becomes the toggle button when collapsed."
@@ -180,7 +180,7 @@ export const VARIANTS: NavVariant[] = [
     id: "fluid",
     label: "Fluid Elastic",
     componentName: "BottomNavFluid",
-    fileName: "bottom-nav-fluid",
+    fileName: "BottomNavFluid",
     blurb: "A highly elastic, bouncy active indicator.",
     useFor: "Playful consumer apps, youth products",
     note: "Uses exaggerated cubic-bezier spring physics."
@@ -189,7 +189,7 @@ export const VARIANTS: NavVariant[] = [
     id: "tactile",
     label: "Tactile Neumorphic",
     componentName: "BottomNavTactile",
-    fileName: "bottom-nav-tactile",
+    fileName: "BottomNavTactile",
     blurb: "A physical, iOS-inspired indented hardware button bar.",
     useFor: "High-end tools, music apps, premium control centers",
     note: "Relies on precise skeuomorphic inset shadows."
@@ -203,7 +203,7 @@ export const navRenderers: Record<VariantId, (props: any) => ReactElement> = {
   indicator: BottomNavIndicator,
   glass: BottomNavGlass,
   island: BottomNavIsland,
-  brutalist: BottomNavBrutalist,
+  liquid: BottomNavLiquid,
   dock: BottomNavDock,
   cyber: BottomNavCyber,
   orbit: BottomNavOrbit,
@@ -221,7 +221,7 @@ export const componentSourceByVariant: Record<VariantId, string> = {
   indicator: bottomNavIndicatorSource,
   glass: bottomNavGlassSource,
   island: bottomNavIslandSource,
-  brutalist: bottomNavBrutalistSource,
+  liquid: bottomNavLiquidSource,
   dock: bottomNavDockSource,
   cyber: bottomNavCyberSource,
   orbit: bottomNavOrbitSource,
