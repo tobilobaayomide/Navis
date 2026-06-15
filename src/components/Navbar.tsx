@@ -50,7 +50,7 @@ export function Navbar({
   const [isDocsDrawerVisible, setIsDocsDrawerVisible] = useState(false);
   const location = useLocation();
   const path = location.pathname;
-  const isDocs = path.startsWith("/Docs");
+  const isDocs = path.toLowerCase().startsWith("/docs");
   const currentDocSlug = isDocs ? path.split("/")[2] ?? "introduction" : "";
 
   // Close menu on route change
