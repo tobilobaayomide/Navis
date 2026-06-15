@@ -1,4 +1,4 @@
-import type { SyntaxToken } from "../components/syntax-snippet";
+import type { SyntaxToken } from "../components/SyntaxSnippet";
 
 export const navContractSnippet: SyntaxToken[][] = [
   [
