@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { Navbar } from "./components/navbar";
+import { Navbar } from "./components/Navbar";
 import { CopyToast } from "./components/CopyToast";
 import { PlaygroundProvider, usePlayground } from "./context/PlaygroundContext";
 import { DocsPage } from "./pages/DocsPage";

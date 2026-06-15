@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Playground } from "../components/playground";
+import { Playground } from "../components/Playground";
 import { usePlayground } from "../context/PlaygroundContext";
 
 export function PlaygroundPage() {
