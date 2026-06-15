@@ -3,19 +3,21 @@ import path from "node:path";
 
 const ROOT = "/Users/hunkymanie/Documents/Navis";
 const VARIANTS = [
-  ["bottom-nav-indicator.tsx", "bottom-nav-indicator.jsx"],
-  ["bottom-nav-pill.tsx", "bottom-nav-pill.jsx"],
-  ["bottom-nav-glass.tsx", "bottom-nav-glass.jsx"],
-  ["bottom-nav-cyber.tsx", "bottom-nav-cyber.jsx"],
-  ["bottom-nav-orbit.tsx", "bottom-nav-orbit.jsx"],
-  ["bottom-nav-action.tsx", "bottom-nav-action.jsx"],
-  ["bottom-nav-dock.tsx", "bottom-nav-dock.jsx"],
-  ["bottom-nav-aura.tsx", "bottom-nav-aura.jsx"],
-  ["bottom-nav-expand.tsx", "bottom-nav-expand.jsx"],
-  ["bottom-nav-fluid.tsx", "bottom-nav-fluid.jsx"],
-  ["bottom-nav-tactile.tsx", "bottom-nav-tactile.jsx"],
-  ["bottom-nav-brutalist.tsx", "bottom-nav-brutalist.jsx"],
-  ["bottom-nav-island.tsx", "bottom-nav-island.jsx"]
+  ["BottomNavIndicator.tsx", "BottomNavIndicator.jsx"],
+  ["BottomNavFloating.tsx", "BottomNavFloating.jsx"],
+  ["BottomNavPill.tsx", "BottomNavPill.jsx"],
+  ["BottomNavGlass.tsx", "BottomNavGlass.jsx"],
+  ["BottomNavCyber.tsx", "BottomNavCyber.jsx"],
+  ["BottomNavOrbit.tsx", "BottomNavOrbit.jsx"],
+  ["BottomNavAction.tsx", "BottomNavAction.jsx"],
+  ["BottomNavDock.tsx", "BottomNavDock.jsx"],
+  ["BottomNavAura.tsx", "BottomNavAura.jsx"],
+  ["BottomNavExpand.tsx", "BottomNavExpand.jsx"],
+  ["BottomNavFluid.tsx", "BottomNavFluid.jsx"],
+  ["BottomNavTactile.tsx", "BottomNavTactile.jsx"],
+  ["BottomNavLiquid.tsx", "BottomNavLiquid.jsx"],
+  ["BottomNavIsland.tsx", "BottomNavIsland.jsx"],
+  ["BottomNavMinimal.tsx", "BottomNavMinimal.jsx"]
 ];
 
 function publicize(source) {
