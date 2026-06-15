@@ -1,7 +1,7 @@
-import { tokenizeSnippet } from "../components/syntax-snippet";
+import { tokenizeSnippet } from "../components/SyntaxSnippet";
 
 export const quickStart = `import { useLocation, useNavigate } from "react-router-dom";
-import BottomNavMinimal from "@/components/ui/bottom-nav-minimal";
+import BottomNavMinimal from "@/components/ui/BottomNavMinimal";
 import { items } from "./navigation-data";
 
 export default function AppLayout({ children }) {
@@ -25,7 +25,7 @@ export default function AppLayout({ children }) {
 `;
 
 export const installLayout = `// navigation-data.js
-import { HomeIcon, DiscoverIcon, BellIcon, ProfileIcon } from "@/components/icons/dashboard-icons";
+import { HomeIcon, DiscoverIcon, BellIcon, ProfileIcon } from "@/components/icons/DashboardIcons";
 
 export const items = [
   { id: "home", label: "Home", path: "/home", icon: HomeIcon },
@@ -101,7 +101,7 @@ export default function Sidebar({ pathname }) {
 `;
 
 export const nextRouter = `import { usePathname, useRouter } from "next/navigation";
-import BottomNavPill from "@/components/ui/bottom-nav-pill";
+import BottomNavPill from "@/components/ui/BottomNavPill";
 import { items } from "./navigation-data";
 
 export default function AppShell({ children }) {
@@ -125,7 +125,7 @@ export default function AppShell({ children }) {
 `;
 
 export const localState = `import { useState } from "react";
-import BottomNavIndicator from "@/components/ui/bottom-nav-indicator";
+import BottomNavIndicator from "@/components/ui/BottomNavIndicator";
 import { items } from "./navigation-data";
 
 export default function DemoShell() {
@@ -141,7 +141,7 @@ export default function DemoShell() {
 }
 `;
 
-export const height = `// bottom-nav-minimal.jsx
+export const height = `// BottomNavMinimal.jsx
 
 "min-h-[64px]" -> "min-h-[72px]"
 "h-10 w-10"    -> "h-11 w-11"
@@ -152,7 +152,7 @@ export const height = `// bottom-nav-minimal.jsx
 `;
 
 export const icon = `// navigation-data.js
-import { HomeIcon, WalletIcon, BellIcon } from "@/components/icons/dashboard-icons";
+import { HomeIcon, WalletIcon, BellIcon } from "@/components/icons/DashboardIcons";
 
 export const items = [
   { id: "home", label: "Home", path: "/home", icon: HomeIcon },
@@ -161,7 +161,7 @@ export const items = [
 ];
 `;
 
-export const background = `// bottom-nav-floating.jsx
+export const background = `// BottomNavFloating.jsx
 
 "bg-[rgba(255,255,255,0.22)]"
 -> "bg-[rgba(15,23,42,0.22)]"
@@ -176,7 +176,7 @@ export const background = `// bottom-nav-floating.jsx
 export const styling = `// Typical edits happen directly in the copied component source.
 // Change the rail height, icon size, label size, and shell tone together.
 
-// Example: bottom-nav-minimal.jsx
+// Example: BottomNavMinimal.jsx
 "min-h-[64px]" -> "min-h-[72px]"
 "h-10 w-10"    -> "h-11 w-11"
 "text-[11px]"  -> "text-[12px]"
