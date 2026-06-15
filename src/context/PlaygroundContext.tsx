@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { buildPublicComponentSource } from "../codegen/build-public-component-source";
-import type { CodeArtifact } from "../components/code-artifact-viewer";
+import type { CodeArtifact } from "../components/CodeArtifactViewer";
 import { useClipboardState } from "../hooks/useClipboardState";
 import { useSiteTheme } from "../hooks/useSiteTheme";
 import type { BottomNavProps } from "../nav/nav.types";
@@ -60,7 +60,7 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
   const { isLight, theme, toggleTheme } = useSiteTheme();
   const { copiedState, copiedNonce, copyToClipboard } = useClipboardState();
 
-  const [selectedVariant, setSelectedVariant] = useState<VariantId>("minimal");
+  const [selectedVariant, setSelectedVariant] = useState<VariantId>("liquid");
   const activeVariant = VARIANTS.find((v) => v.id === selectedVariant) ?? VARIANTS[0];
   const SelectedBottomNav = navRenderers[selectedVariant];
 
@@ -115,7 +115,7 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
     [activeVariant.fileName, publicComponentSource]
   );
 
-  const goToPlayground = () => navigate("/playground");
+  const goToPlayground = () => navigate("/Playground");
   const goToComponents = () => navigate("/components");
   const goToDocs = () => navigate("/docs/introduction");
 
