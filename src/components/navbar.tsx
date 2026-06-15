@@ -50,7 +50,7 @@ export function Navbar({
   const [isDocsDrawerVisible, setIsDocsDrawerVisible] = useState(false);
   const location = useLocation();
   const path = location.pathname;
-  const isDocs = path.startsWith("/docs");
+  const isDocs = path.startsWith("/Docs");
   const currentDocSlug = isDocs ? path.split("/")[2] ?? "introduction" : "";
 
   // Close menu on route change
@@ -158,10 +158,10 @@ export function Navbar({
       <nav className="fixed top-5 left-0 right-0 z-50 mx-auto w-full max-w-[1600px] px-4 animate-fade-in hidden lg:block">
         <div
           className={cn(
-            "flex h-16 items-center justify-between rounded-full px-5 sm:px-8 py-2.5 backdrop-blur-xl transition-colors duration-300",
+            "flex h-16 items-center justify-between rounded-full px-5 sm:px-8 py-2.5 transition-colors duration-300",
             isLight
-              ? "border border-[rgba(15,23,42,0.08)] bg-[rgba(255,255,255,0.78)]"
-              : "border border-white/[0.08] bg-[rgba(10,13,19,0.76)]"
+              ? "border border-[rgba(15,23,42,0.08)] bg-white shadow-sm"
+              : "border border-white/[0.08] bg-[#0a0d13] shadow-md"
           )}
         >
           {/* Brand */}
@@ -169,11 +169,12 @@ export function Navbar({
             to="/"
             className="flex cursor-pointer items-center gap-2 sm:gap-3 transition-transform active:scale-[0.98]"
           >
-            <LuAtom className={cn("h-6 w-6 sm:h-7 sm:w-7", isLight ? "text-slate-900" : "text-white")} strokeWidth={1.8} />
+            <LuAtom className="h-6 w-6 sm:h-7 sm:w-7 text-blue-500" strokeWidth={1.8} />
             <span className="flex items-center gap-1">
               <span className={cn("text-base sm:text-lg font-semibold tracking-tight font-sans", isLight ? "text-slate-950" : "text-white")}>Navis UI</span>
+              <span className={cn("ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider", isLight ? "bg-slate-100 text-slate-600" : "bg-white/10 text-white/70")}>v1.0</span>
               {isDocs && (
-                <span className={cn("text-base sm:text-lg font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
+                <span className={cn("ml-1 text-base sm:text-lg font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
               )}
             </span>
           </Link>
@@ -188,7 +189,7 @@ export function Navbar({
               Documentation
             </NavLink>
             <NavLink className={navLinkClassName} to="/components">Components</NavLink>
-            <NavLink className={navLinkClassName} to="/playground">Playground</NavLink>
+            <NavLink className={navLinkClassName} to="/Playground">Playground</NavLink>
             
           </div>
 
@@ -209,17 +210,17 @@ export function Navbar({
             </button>
 
             <a
-              href="https://github.com/HunkyManie/Navis"
+              href="https://github.com/tobilobaayomide/Navis"
               rel="noreferrer"
               target="_blank"
               className={cn(
                 "group relative flex items-center justify-between gap-3.5 rounded-full border pl-5 pr-5 py-2.5 text-[16px] font-normal transition-all active:scale-[0.98]",
-                isLight
-                  ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-900 shadow-[0_18px_34px_-24px_rgba(15,23,42,0.2)] hover:bg-[rgba(15,23,42,0.05)]"
-                  : "border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.035)_100%)] text-white shadow-[0_20px_38px_-24px_rgba(0,0,0,0.62),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.05)_100%)]"
-              )}
+                 isLight
+                  ? "border-slate-900 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20"
+                  : "border-white bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-white/10"
+             )}
             >
-              <LuGithub className={cn("h-3.5 w-3.5", isLight ? "text-slate-900" : "text-white")} strokeWidth={1.8} />
+              <LuGithub className={cn("h-3.5 w-3.5", isLight ? "text-white" : "text-slate-900")} strokeWidth={1.8} />
               Star on Github
             </a>
           </div>
@@ -229,9 +230,9 @@ export function Navbar({
       {/* ─── Mobile navbar (flat, full-width) ─── */}
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-5 lg:hidden transition-colors duration-300 backdrop-blur-xl",
+          "fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-5 lg:hidden transition-colors duration-300",
           isLight
-            ? "bg-[rgba(255,255,255,0.84)] border-b border-[rgba(15,23,42,0.06)]"
+            ? "bg-white border-b border-[rgba(15,23,42,0.06)]"
             : "bg-[#0a0d13] border-b border-white/[0.08]"
         )}
       >
@@ -240,11 +241,12 @@ export function Navbar({
           to="/"
           className="flex cursor-pointer items-center gap-2.5 transition-transform active:scale-[0.98]"
         >
-          <LuAtom className={cn("h-6 w-6", isLight ? "text-slate-900" : "text-white")} strokeWidth={1.8} />
+          <LuAtom className="h-6 w-6 text-blue-500" strokeWidth={1.8} />
           <span className="flex items-center gap-1">
             <span className={cn("text-base font-semibold tracking-tight font-sans", isLight ? "text-slate-950" : "text-white")}>Navis UI</span>
+            <span className={cn("ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider", isLight ? "bg-slate-100 text-slate-600" : "bg-white/10 text-white/70")}>v1.0</span>
             {isDocs && (
-              <span className={cn("text-base font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
+              <span className={cn("ml-1 text-base font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
             )}
           </span>
         </Link>
@@ -303,7 +305,7 @@ export function Navbar({
         <div
           className={cn(
             "fixed inset-0 z-40 lg:hidden flex flex-col transition-all duration-300",
-            isLight ? "bg-[rgba(248,250,252,0.96)]" : "bg-[#0a0d13]"
+            isLight ? "bg-slate-50" : "bg-[#0a0d13]"
           )}
           style={{
             opacity: isMenuVisible ? 1 : 0,
@@ -340,7 +342,7 @@ export function Navbar({
             <NavLink
               onClick={closeMenu}
               className={mobileLinkClassName}
-              to="/playground"
+              to="/Playground"
             >
               Playground
             </NavLink>
