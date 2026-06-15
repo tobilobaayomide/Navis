@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { usePlayground } from "../context/PlaygroundContext";
-import { LandingHero } from "../components/landing-hero";
-import { BentoGallery } from "../components/bento-gallery";
-import { LandingFeatures } from "../components/landing-features";
-import { LandingFooter } from "../components/landing-footer";
+import { LandingHero } from "../components/LandingHero";
+import { BentoGallery } from "../components/BentoGallery";
+import { LandingFeatures } from "../components/LandingFeatures";
+import { LandingFooter } from "../components/LandingFooter";
 
 export function HomePage() {
   const { isLight, goToComponents, goToDocs, installCommand, copyToClipboard, copiedState } =
