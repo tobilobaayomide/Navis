@@ -9,7 +9,7 @@ import {
   AlertsIcon,
   ProfileIcon,
   LibraryIcon
-} from "../icons/dashboard-icons";
+} from "../icons/DashboardIcons";
 import type { DocGroup } from "../components/docs/types";
 
 export const apiRows = [
@@ -585,6 +585,21 @@ export const DOC_GROUPS: DocGroup[] = [
                 noteText: "If the user lands directly on a nested URL, the parent layout should still derive the same activePath the user would have seen after tapping the tab normally."
               }
             ]
+          },
+          {
+            id: "preloading-data",
+            label: "Preloading data",
+            summary: "Modern React frameworks rely on prefetching to keep navigation instant. You can wire this directly into the nav item interactions.",
+            elements: [
+              {
+                type: "bulletList",
+                items: [
+                  "For Next.js, you can trigger router.prefetch(path) when a user hovers over the button or inside onItemClick.",
+                  "If you need to fetch data before navigation, handle it inside the onItemClick callback before pushing the route.",
+                  "The component source uses standard HTML elements, so you can easily attach onMouseEnter or onTouchStart for aggressive preloading."
+                ]
+              }
+            ]
           }
         ]
       },
@@ -626,7 +641,7 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "syntaxSnippet",
                 snippetKey: "height",
-                title: "bottom-nav-minimal.jsx",
+                title: "BottomNavMinimal.jsx",
                 hint: "Make proportional edits instead of changing one class in isolation"
               }
             ]
@@ -660,7 +675,7 @@ export const DOC_GROUPS: DocGroup[] = [
               {
                 type: "syntaxSnippet",
                 snippetKey: "background",
-                title: "bottom-nav-floating.jsx",
+                title: "BottomNavFloating.jsx",
                 hint: "Edit the shell and text classes directly in the copied source"
               }
             ]
@@ -706,6 +721,33 @@ export const DOC_GROUPS: DocGroup[] = [
                   "Leave insetBottomStyle in place for variants that use it so the bar still respects device safe areas.",
                   "Keep reduced-motion classes when you edit transitions or hover states.",
                   "If you make the bar taller, also re-check the bottom spacer in the layout so content still clears the nav."
+                ]
+              }
+            ]
+          },
+          {
+            id: "pwa-safe-areas",
+            label: "PWA & iOS Safe Areas",
+            summary: "The components use env(safe-area-inset-bottom) to handle device notches and home indicators automatically.",
+            elements: [
+              {
+                type: "noteCard",
+                noteTitle: "Meta viewport requirement",
+                noteText: "For the safe area variables to work on iOS Safari and PWAs, your document head must include viewport-fit=cover:\n\n`<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />`"
+              }
+            ]
+          },
+          {
+            id: "advanced-motion",
+            label: "Advanced Motion (Framer Motion)",
+            summary: "Navis UI uses optimized CSS transitions by default to remain lightweight. However, you are entirely free to upgrade the components to use physics-based spring animations.",
+            elements: [
+              {
+                type: "bulletList",
+                items: [
+                  "Replace the moving indicator <div> with a <motion.div> and use layoutId for flawless spring transitions.",
+                  "You own the code, so adding Framer Motion is as simple as running npm install framer-motion and editing the copied variant.",
+                  "Keep the CSS transitions for color and opacity, and use Framer Motion specifically for layout and transform changes."
                 ]
               }
             ]
@@ -782,6 +824,36 @@ export const DOC_GROUPS: DocGroup[] = [
                   "Keep the bottom spacer from the usage example so the end of a scroll view stays visible.",
                   "If you made the bar taller, also increase the spacer height in the parent layout.",
                   "On devices with a home indicator, keep the safe-area padding helpers in place."
+                ]
+              }
+            ]
+          },
+          {
+            id: "theme-glitches",
+            label: "Theme toggling glitches",
+            summary: "When you switch from light to dark mode, some CSS transitions can create unwanted intermediate frames or muddy grey colors.",
+            elements: [
+              {
+                type: "bulletList",
+                items: [
+                  "If text turns grey during a theme switch, remove 'transition-colors duration-500' from the text element so it snaps instantly between black and white.",
+                  "If a double-inset shadow (like in Tactile) blooms strangely during a theme switch, change 'transition-all' to 'transition-[left,width]' on the shadow element.",
+                  "Generally, backgrounds and borders transition smoothly, but text and complex box-shadows should snap instantly."
+                ]
+              }
+            ]
+          },
+          {
+            id: "z-index-overlays",
+            label: "Z-Index and overlays",
+            summary: "The components use a default z-index of 50 to ensure they sit above normal page content.",
+            elements: [
+              {
+                type: "bulletList",
+                items: [
+                  "If a toast notification or modal appears underneath the bottom nav, check the z-index of your modal portal.",
+                  "Ensure global overlays use z-[100] or higher so they correctly mask the navigation bar.",
+                  "If you use a bottom sheet, consider hiding the bottom nav or dropping its z-index while the sheet is open."
                 ]
               }
             ]
