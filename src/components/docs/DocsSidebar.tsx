@@ -27,11 +27,11 @@ export function DocsSidebar({ currentPage, isLight, mobile = false }: { currentP
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-3.5 text-[13px] font-medium transition-colors",
+                    "inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-3.5 text-[13px] font-medium transition-all duration-300",
                     isActive || isCurrent
                       ? isLight
-                        ? "border-[rgba(15,23,42,0.1)] bg-slate-950 text-white"
-                        : "border-white/[0.14] bg-white text-slate-950"
+                        ? "border-blue-600 bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                        : "border-blue-500/50 bg-blue-500/20 text-blue-50 shadow-md shadow-blue-500/10"
                       : isLight
                         ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-950"
                         : "border-white/[0.08] bg-white/[0.04] text-slate-300 hover:bg-white/[0.08] hover:text-white"
@@ -54,8 +54,8 @@ export function DocsSidebar({ currentPage, isLight, mobile = false }: { currentP
     <nav
       aria-label="Documentation navigation"
       className={cn(
-        "fixed top-28 left-[max(2.5rem,calc((100vw-1600px)/2+2.5rem))] z-20 w-[260px] space-y-8 border-r pr-6",
-        isLight ? "border-[rgba(15,23,42,0.06)]" : "border-white/[0.06]"
+        "fixed top-28 left-[max(2.5rem,calc((100vw-1600px)/2+2.5rem))] z-20 w-[260px] space-y-7 border-r pr-6",
+        isLight ? "border-slate-200/60" : "border-white/[0.06]"
       )}
     >
       {DOC_GROUPS.map((group) => (
@@ -63,7 +63,7 @@ export function DocsSidebar({ currentPage, isLight, mobile = false }: { currentP
           <h4
             className={cn(
               "text-[10px] font-bold uppercase tracking-[0.2em]",
-              isLight ? "text-slate-500" : "text-slate-400"
+              isLight ? "text-slate-400" : "text-slate-500"
             )}
           >
             {group.title}
@@ -77,15 +77,15 @@ export function DocsSidebar({ currentPage, isLight, mobile = false }: { currentP
                   <NavLink
                     className={({ isActive }) =>
                       cn(
-                        "transition-colors",
-                        "flex items-center rounded-lg border px-3 py-2.5 text-sm font-medium",
+                        "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                        "flex items-center rounded-xl border px-3 py-2.5 text-[13.5px] font-medium",
                         isActive
                           ? isLight
-                            ? "border-[rgba(15,23,42,0.08)] bg-[rgba(15,23,42,0.04)] text-slate-950"
-                            : "border-white/[0.1] bg-[rgba(255,255,255,0.05)] text-white"
+                            ? "border-blue-200/60 bg-blue-50/60 text-blue-600"
+                            : "border-blue-500/20 bg-blue-500/[0.08] text-blue-400"
                           : isLight
-                            ? "border-transparent text-slate-500 hover:border-[rgba(15,23,42,0.06)] hover:bg-[rgba(15,23,42,0.025)] hover:text-slate-950"
-                            : "border-transparent text-slate-400 hover:border-white/[0.06] hover:bg-[rgba(255,255,255,0.03)] hover:text-slate-100"
+                            ? "border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-50"
+                            : "border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.03]"
                       )
                     }
                     to={`/docs/${item.slug}`}
@@ -93,11 +93,11 @@ export function DocsSidebar({ currentPage, isLight, mobile = false }: { currentP
                     <span className="flex items-center gap-2.5">
                       <ItemIcon
                         className={cn(
-                          "h-4 w-4 shrink-0",
+                          "h-4 w-4 shrink-0 transition-colors duration-300",
                           item.slug === currentPage.slug
                             ? isLight
-                              ? "text-slate-900"
-                              : "text-slate-100"
+                              ? "text-blue-600"
+                              : "text-blue-400"
                             : isLight
                               ? "text-slate-400"
                               : "text-slate-500"
