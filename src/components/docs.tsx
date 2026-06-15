@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, useParams } from "react-router-dom";
+import { cn } from "../lib/cn";
 import DocsSidebar from "./docs/DocsSidebar";
 import DocsOnThisPage from "./docs/DocsOnThisPage";
 import DocsArticle from "./docs/DocsArticle";
@@ -65,34 +66,51 @@ export default function Docs({ isLight, installCommand, copyToClipboard }: Props
   const nextPage = DOC_PAGES[currentIndex + 1];
 
   return (
-    <div className="grid items-start gap-8 pb-14 pt-0 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 lg:pt-2 xl:grid-cols-[260px_minmax(0,1fr)_220px]">
-      <aside className="hidden lg:block" aria-hidden="true">
-        <DocsSidebar currentPage={currentPage} isLight={isLight} />
-      </aside>
+    <div className="relative">
+      <div 
+        className={cn(
+          "pointer-events-none absolute left-[20%] top-0 -z-10 -translate-x-1/2 -translate-y-[20%] w-[600px] h-[400px] rounded-[100%] blur-[120px] transition-opacity duration-1000",
+          isLight ? "bg-blue-400/20" : "bg-blue-600/15"
+        )} 
+        aria-hidden="true" 
+      />
 
-      <div className="min-w-0 max-w-4xl space-y-8 lg:space-y-10">
-        <header className={isLight ? "space-y-4 border-b pb-8 sm:pb-10 border-[rgba(15,23,42,0.06)]" : "space-y-4 border-b pb-8 sm:pb-10 border-white/[0.06]"}>
-          <h1 className={isLight ? "text-[2.2rem] font-semibold tracking-[0.02em] leading-[1.05] text-slate-950 sm:text-[2.75rem]" : "text-[2.2rem] font-semibold tracking-[0.02em] leading-[1.05] text-white sm:text-[2.75rem]"}>
-            {currentPage.title}
-          </h1>
-          <p className={isLight ? "max-w-[72ch] text-base leading-7 text-slate-600 sm:text-[18px] sm:leading-8" : "max-w-[72ch] text-base leading-7 text-slate-300 sm:text-[18px] sm:leading-8"}>
-            {currentPage.description}
-          </p>
-        </header>
+      <div className="grid items-start gap-8 pb-14 pt-0 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 lg:pt-2 xl:grid-cols-[260px_minmax(0,1fr)_220px]">
+        <aside className="hidden lg:block" aria-hidden="true">
+          <DocsSidebar currentPage={currentPage} isLight={isLight} />
+        </aside>
 
-        <article className="space-y-12">
-          <DocsArticle copyToClipboard={copyToClipboard} currentPage={currentPage} installCommand={installCommand} isLight={isLight} />
-        </article>
+        <div className="min-w-0 max-w-4xl space-y-8 lg:space-y-10">
+          <header className="relative space-y-5 pb-10 sm:pb-14 pt-2 sm:pt-6">
+            <h1 className={cn(
+              "text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-semibold tracking-tight leading-[1.1]",
+              isLight ? "text-slate-950" : "text-white"
+            )}>
+              {currentPage.title}
+            </h1>
+            <p className={cn(
+              "max-w-[60ch] text-[15px] sm:text-[17px] leading-relaxed",
+              isLight ? "text-slate-500" : "text-slate-400"
+            )}>
+              {currentPage.description}
+            </p>
+            <div className={cn("h-px w-full mt-4", isLight ? "bg-slate-200/60" : "bg-white/[0.06]")} />
+          </header>
 
-        <div className={isLight ? "grid gap-3 border-t pt-6 sm:grid-cols-2 border-[rgba(15,23,42,0.06)]" : "grid gap-3 border-t pt-6 sm:grid-cols-2 border-white/[0.06]"}>
+          <article>
+            <DocsArticle copyToClipboard={copyToClipboard} currentPage={currentPage} installCommand={installCommand} isLight={isLight} />
+          </article>
+
+          <div className={cn("mt-16 sm:mt-24 grid gap-4 border-t pt-8 sm:grid-cols-2", isLight ? "border-slate-200/60" : "border-white/[0.06]")}>
           <DocsPager align="left" href={previousPage ? `/docs/${previousPage.slug}` : undefined} isLight={isLight} label="Previous" title={previousPage?.title ?? ""} />
           <DocsPager align="right" href={nextPage ? `/docs/${nextPage.slug}` : undefined} isLight={isLight} label="Next" title={nextPage?.title ?? ""} />
-        </div>
+          </div>
       </div>
 
       <div className="hidden xl:block" aria-hidden="true">
         <DocsOnThisPage activeSection={activeSection} currentPage={currentPage} isLight={isLight} />
       </div>
+    </div>
     </div>
   );
 }
