@@ -140,7 +140,6 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
               isLight ? "text-slate-950" : "text-white",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[18px]"
             )}
-            style={{ transitionDelay: "80ms" }}
           >
             15 Distinct{" "}
             <span className={cn(
@@ -215,7 +214,7 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
                     isFeatured ? "h-[200px] sm:h-[260px] lg:h-[300px]" : "h-[160px] sm:h-[220px] lg:h-[240px]",
                     isLight 
                       ? "bg-gradient-to-b from-slate-50 to-slate-100 border-slate-900/5" 
-                      : "bg-gradient-to-b from-[#0c0e14] to-[#080a0f] border-white/5"
+                      : "bg-white/[0.06] border-none"
                   )}>
                     <div className={cn(
                       "pointer-events-none absolute left-1/2 w-[380px] -translate-x-1/2",
