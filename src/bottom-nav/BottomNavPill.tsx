@@ -51,7 +51,7 @@ export function BottomNavPill({ items, activeId, onItemClick, className, style }
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto w-full overflow-hidden rounded-[1.95rem]",
+          "relative isolate mx-auto w-full rounded-[1.95rem]",
           "border border-slate-200/80 dark:border-white/10",
           "bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.59rem]",
           "shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]",
@@ -141,7 +141,7 @@ export function BottomNavPill({ items, activeId, onItemClick, className, style }
                         />
                         <Icon
                           className={cn(
-                            "relative z-[1] h-[1.3rem] w-[1.3rem]",
+                            "relative z-[1] h-[1.3rem] w-[1.3rem] translate-z-0",
                             "transition-[transform,opacity,color,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
                             "motion-reduce:transform-none motion-reduce:transition-none",
                             isActive

@@ -81,7 +81,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
     <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+          "relative isolate mx-auto max-w-full rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
           className
         )}
         style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
@@ -148,7 +148,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
                 >
                   <Icon
                     className={cn(
-                      "h-[1.45rem] w-[1.45rem] transition-[transform,opacity,filter] duration-220 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+                      "h-[1.45rem] w-[1.45rem] transition-[transform,opacity,filter] duration-220 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none translate-z-0",
                       isActive ? "scale-[0.92] opacity-0 blur-[2px]" : "scale-100 group-hover:-translate-y-[0.5px] group-hover:scale-[1.035]"
                     )}
                   />

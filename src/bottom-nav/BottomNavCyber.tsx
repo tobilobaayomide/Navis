@@ -11,7 +11,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto w-full overflow-hidden border-t border-slate-200 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.05)] dark:border-[#1a1a1a] dark:bg-[#050505] dark:shadow-none",
+          "relative isolate mx-auto w-full border-t border-slate-200 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.05)] dark:border-[#1a1a1a] dark:bg-[#050505] dark:shadow-none",
           className
         )}
         style={style}
@@ -59,7 +59,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
                   <div className="relative flex h-6 w-6 items-center justify-center">
                     <Icon
                       className={cn(
-                        "relative z-10 h-5 w-5 transition-transform duration-200 group-hover:scale-110",
+                        "relative z-10 h-5 w-5 transition-transform duration-200 group-hover:scale-110 translate-z-0",
                         isActive ? "scale-110 text-white dark:text-[#050505]" : "text-slate-500 hover:text-slate-800 dark:text-slate-500 dark:hover:text-slate-300"
                       )}
                       fill={isActive ? "currentColor" : "none"}
