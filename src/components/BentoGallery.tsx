@@ -220,7 +220,8 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
                       "pointer-events-none absolute left-1/2 w-[380px] -translate-x-1/2",
                       isFeatured ? "top-[60%] -translate-y-1/2 scale-[0.82] sm:scale-90 lg:scale-100" : "top-[62%] -translate-y-1/2 scale-[0.68] sm:scale-75 lg:scale-[0.88]",
                       "transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[0.72] sm:group-hover:scale-[0.82] lg:group-hover:scale-95",
-                      isFeatured && "lg:group-hover:scale-105"
+                      isFeatured && "lg:group-hover:scale-105",
+                      "override-safe-area-preview"
                     )}>
                       <card.Nav
                         items={card.items}

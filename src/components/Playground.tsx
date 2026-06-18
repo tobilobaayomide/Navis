@@ -346,6 +346,7 @@ export function Playground({
                 key={variantKey}
                 className={cn(
                   "variant-crossfade relative w-[380px] h-[100px] shrink-0 scale-[0.85] sm:scale-[0.95] lg:scale-100 origin-center",
+                  "override-safe-area-preview"
                 )}
               >
                 {previewNav}

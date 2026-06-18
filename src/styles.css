@@ -485,7 +485,10 @@ a {
   }
 }
 
-
+/* Strip safe-area padding inside preview wrappers to prevent mobile clipping */
+.override-safe-area-preview [class*="pb-[env(safe-area-inset-bottom)]"] {
+  padding-bottom: 0 !important;
+}
 
 /* ─── Components Page: Card Stagger Entrance ─── */
 @keyframes staggerFadeIn {

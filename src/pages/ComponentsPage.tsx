@@ -106,7 +106,8 @@ function NavbarCard({ variant, isLight, onClick, index }: CardProps) {
           className={cn(
             "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
             "scale-[0.75] sm:scale-[0.78] lg:scale-100",
-            "transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]"
+            "transition-transform duration-500 group-hover:scale-[0.6] sm:group-hover:scale-[0.74] lg:group-hover:scale-[1.04]",
+            "override-safe-area-preview"
           )}
         >
           <SelectedBottomNav
@@ -306,7 +307,8 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
               className={cn(
                 "pointer-events-none absolute left-1/2 top-2/3 md:top-40 w-[380px] -translate-x-1/2 -translate-y-1/2",
                 "scale-[0.65] sm:scale-[0.75] md:scale-90 lg:scale-100",
-                "transition-transform duration-300"
+                "transition-transform duration-300",
+                "override-safe-area-preview"
               )}
             >
               <SelectedBottomNav
