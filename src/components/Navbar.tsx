@@ -19,7 +19,7 @@ import {
   LuSun,
   LuWrench,
   LuX,
-  LuZap
+  LuZap,
 } from "react-icons/lu";
 import type { IconType } from "react-icons";
 import { DOC_GROUPS } from "../data/docsContent";
@@ -34,12 +34,12 @@ const DOC_DRAWER_ICONS: Record<string, IconType> = {
   styling: LuPalette,
   troubleshooting: LuWrench,
   accessibility: LuAccessibility,
-  api: LuCode
+  api: LuCode,
 };
 
 export function Navbar({
   isLight,
-  onThemeToggle
+  onThemeToggle,
 }: {
   isLight: boolean;
   onThemeToggle: () => void;
@@ -51,7 +51,7 @@ export function Navbar({
   const location = useLocation();
   const path = location.pathname;
   const isDocs = path.toLowerCase().startsWith("/docs");
-  const currentDocSlug = isDocs ? path.split("/")[2] ?? "introduction" : "";
+  const currentDocSlug = isDocs ? (path.split("/")[2] ?? "introduction") : "";
 
   // Close menu on route change
   useEffect(() => {
@@ -132,7 +132,7 @@ export function Navbar({
           : "text-white"
         : isLight
           ? "text-slate-500 hover:text-slate-950"
-          : "text-slate-400 hover:text-slate-100"
+          : "text-slate-400 hover:text-slate-100",
     );
 
   const mobileLinkClassName = ({ isActive }: { isActive: boolean }) =>
@@ -144,24 +144,26 @@ export function Navbar({
           : "text-white"
         : isLight
           ? "text-slate-400 hover:text-slate-900"
-          : "text-slate-500 hover:text-white"
+          : "text-slate-500 hover:text-white",
     );
 
   const mobileIconButtonClass = cn(
     "flex h-9 w-9 items-center justify-center transition-all active:scale-[0.98]",
-    isLight ? "text-slate-900 hover:text-slate-700" : "text-white hover:text-slate-200"
+    isLight
+      ? "text-slate-900 hover:text-slate-700"
+      : "text-white hover:text-slate-200",
   );
 
   return (
     <>
       {/* ─── Desktop navbar (pill) ─── */}
-      <nav className="fixed top-5 left-0 right-0 z-50 mx-auto w-full max-w-[1600px] px-4 animate-fade-in hidden lg:block">
+      <nav className="fixed top-5 left-0 right-0 z-50 mx-auto w-full max-w-[1500px] px-4 animate-fade-in hidden lg:block">
         <div
           className={cn(
             "flex h-16 items-center justify-between rounded-full px-5 sm:px-8 py-2.5 transition-colors duration-300",
             isLight
-              ? "border border-[rgba(15,23,42,0.08)] bg-white shadow-sm"
-              : "border border-white/[0.08] bg-[#0a0d13] shadow-md"
+              ? "border border-white/20 bg-white/95 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
+              : "border border-white/10 bg-black/85 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
           )}
         >
           {/* Brand */}
@@ -169,44 +171,83 @@ export function Navbar({
             to="/"
             className="flex cursor-pointer items-center gap-2 sm:gap-3 transition-transform active:scale-[0.98]"
           >
-            <LuAtom className="h-6 w-6 sm:h-7 sm:w-7 text-blue-500" strokeWidth={1.8} />
+            <LuAtom
+              className="h-6 w-6 sm:h-7 sm:w-7 text-blue-500"
+              strokeWidth={1.8}
+            />
             <span className="flex items-center gap-1">
-              <span className={cn("text-base sm:text-lg font-semibold tracking-tight font-sans", isLight ? "text-slate-950" : "text-white")}>Navis UI</span>
-              <span className={cn("ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider", isLight ? "bg-slate-100 text-slate-600" : "bg-white/10 text-white/70")}>v1.0</span>
+              <span
+                className={cn(
+                  "text-base sm:text-lg font-semibold tracking-tight font-sans",
+                  isLight ? "text-slate-950" : "text-white",
+                )}
+              >
+                Navis UI
+              </span>
+              <span
+                className={cn(
+                  "ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                  isLight
+                    ? "bg-slate-100 text-slate-600"
+                    : "bg-white/10 text-white/70",
+                )}
+              >
+                v1.0
+              </span>
               {isDocs && (
-                <span className={cn("ml-1 text-base sm:text-lg font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
+                <span
+                  className={cn(
+                    "ml-1 text-base sm:text-lg font-normal tracking-tight font-sans",
+                    isLight ? "text-slate-600" : "text-slate-400",
+                  )}
+                >
+                  Docs
+                </span>
               )}
             </span>
           </Link>
 
           {/* Nav links */}
           <div className="flex items-center gap-10 xl:gap-16">
-            <NavLink className={navLinkClassName} end to="/">Overview</NavLink>
+            <NavLink className={navLinkClassName} end to="/">
+              Overview
+            </NavLink>
             <NavLink
-              className={({ isActive }) => navLinkClassName({ isActive: isActive || isDocs })}
+              className={({ isActive }) =>
+                navLinkClassName({ isActive: isActive || isDocs })
+              }
               to="/docs/introduction"
             >
               Documentation
             </NavLink>
-            <NavLink className={navLinkClassName} to="/components">Components</NavLink>
-            <NavLink className={navLinkClassName} to="/Playground">Playground</NavLink>
-            
+            <NavLink className={navLinkClassName} to="/components">
+              Components
+            </NavLink>
+            <NavLink className={navLinkClassName} to="/Playground">
+              Playground
+            </NavLink>
           </div>
 
           {/* Actions */}
           <div className="flex items-center gap-2">
             <button
-              aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+              aria-label={
+                isLight ? "Switch to dark mode" : "Switch to light mode"
+              }
               className={cn(
                 "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all active:scale-[0.98]",
                 isLight
                   ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-900 shadow-[0_18px_34px_-24px_rgba(15,23,42,0.2)] hover:bg-[rgba(15,23,42,0.05)]"
-                  : "border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.035)_100%)] text-white shadow-[0_20px_38px_-24px_rgba(0,0,0,0.62),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.05)_100%)]"
+                  : "border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.035)_100%)] text-white shadow-[0_20px_38px_-24px_rgba(0,0,0,0.62),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.05)_100%)]",
               )}
               onClick={onThemeToggle}
               type="button"
             >
-              {isLight ? <LuSun className="h-5 w-5 text-slate-900" strokeWidth={1.8} /> : <LuMoon className="h-5 w-5 text-white" strokeWidth={1.8} />}
+              {isLight ? (
+                <LuSun className="h-5 w-5 text-slate-900" strokeWidth={1.8} />
+              ) : (
+                <LuMoon className="h-5 w-5 text-white" strokeWidth={1.8} />
+              )}
             </button>
 
             <a
@@ -215,12 +256,18 @@ export function Navbar({
               target="_blank"
               className={cn(
                 "group relative flex items-center justify-between gap-3.5 rounded-full border pl-5 pr-5 py-2.5 text-[16px] font-normal transition-all active:scale-[0.98]",
-                 isLight
+                isLight
                   ? "border-slate-900 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20"
-                  : "border-white bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-white/10"
-             )}
+                  : "border-white bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-white/10",
+              )}
             >
-              <LuGithub className={cn("h-3.5 w-3.5", isLight ? "text-white" : "text-slate-900")} strokeWidth={1.8} />
+              <LuGithub
+                className={cn(
+                  "h-3.5 w-3.5",
+                  isLight ? "text-white" : "text-slate-900",
+                )}
+                strokeWidth={1.8}
+              />
               Star on Github
             </a>
           </div>
@@ -233,7 +280,7 @@ export function Navbar({
           "fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-5 lg:hidden transition-colors duration-300",
           isLight
             ? "bg-white border-b border-[rgba(15,23,42,0.06)]"
-            : "bg-[#0a0d13] border-b border-white/[0.08]"
+            : "bg-[#0a0d13] border-b border-white/[0.08]",
         )}
       >
         {/* Brand */}
@@ -243,10 +290,33 @@ export function Navbar({
         >
           <LuAtom className="h-6 w-6 text-blue-500" strokeWidth={1.8} />
           <span className="flex items-center gap-1">
-            <span className={cn("text-base font-semibold tracking-tight font-sans", isLight ? "text-slate-950" : "text-white")}>Navis UI</span>
-            <span className={cn("ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider", isLight ? "bg-slate-100 text-slate-600" : "bg-white/10 text-white/70")}>v1.0</span>
+            <span
+              className={cn(
+                "text-base font-semibold tracking-tight font-sans",
+                isLight ? "text-slate-950" : "text-white",
+              )}
+            >
+              Navis UI
+            </span>
+            <span
+              className={cn(
+                "ml-1.5 rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                isLight
+                  ? "bg-slate-100 text-slate-600"
+                  : "bg-white/10 text-white/70",
+              )}
+            >
+              v1.0
+            </span>
             {isDocs && (
-              <span className={cn("ml-1 text-base font-normal tracking-tight font-sans", isLight ? "text-slate-600" : "text-slate-400")}>Docs</span>
+              <span
+                className={cn(
+                  "ml-1 text-base font-normal tracking-tight font-sans",
+                  isLight ? "text-slate-600" : "text-slate-400",
+                )}
+              >
+                Docs
+              </span>
             )}
           </span>
         </Link>
@@ -255,33 +325,50 @@ export function Navbar({
         <div className="flex items-center gap-2">
           {isDocs && (
             <button
-              aria-label={isDocsDrawerOpen ? "Close documentation navigation" : "Open documentation navigation"}
+              aria-label={
+                isDocsDrawerOpen
+                  ? "Close documentation navigation"
+                  : "Open documentation navigation"
+              }
               aria-expanded={isDocsDrawerOpen}
               onClick={toggleDocsDrawer}
               className={cn(
                 mobileIconButtonClass,
-                isLight ? "text-black" : "text-white"
+                isLight ? "text-black" : "text-white",
               )}
               type="button"
             >
-              {isDocsDrawerOpen ? <LuX className="h-4.5 w-4.5" strokeWidth={2} /> : <LuPanelLeftOpen className="h-4.5 w-4.5" strokeWidth={1.9} />}
+              {isDocsDrawerOpen ? (
+                <LuX className="h-4.5 w-4.5" strokeWidth={2} />
+              ) : (
+                <LuPanelLeftOpen className="h-4.5 w-4.5" strokeWidth={1.9} />
+              )}
             </button>
           )}
 
           {isDocs && (
             <span
               aria-hidden="true"
-              className={cn("h-5 w-px", isLight ? "bg-slate-200" : "bg-white/10")}
+              className={cn(
+                "h-5 w-px",
+                isLight ? "bg-slate-200" : "bg-white/10",
+              )}
             />
           )}
 
           <button
-            aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+            aria-label={
+              isLight ? "Switch to dark mode" : "Switch to light mode"
+            }
             className={mobileIconButtonClass}
             onClick={onThemeToggle}
             type="button"
           >
-            {isLight ? <LuSun className="h-4.5 w-4.5" strokeWidth={1.9} /> : <LuMoon className="h-4.5 w-4.5" strokeWidth={1.9} />}
+            {isLight ? (
+              <LuSun className="h-4.5 w-4.5" strokeWidth={1.9} />
+            ) : (
+              <LuMoon className="h-4.5 w-4.5" strokeWidth={1.9} />
+            )}
           </button>
 
           <span
@@ -295,7 +382,11 @@ export function Navbar({
             className={mobileIconButtonClass}
             type="button"
           >
-            {isMobileMenuOpen ? <LuX className="h-5 w-5" strokeWidth={2} /> : <LuMenu className="h-5 w-5" strokeWidth={2} />}
+            {isMobileMenuOpen ? (
+              <LuX className="h-5 w-5" strokeWidth={2} />
+            ) : (
+              <LuMenu className="h-5 w-5" strokeWidth={2} />
+            )}
           </button>
         </div>
       </nav>
@@ -305,7 +396,7 @@ export function Navbar({
         <div
           className={cn(
             "fixed inset-0 z-40 lg:hidden flex flex-col transition-all duration-300",
-            isLight ? "bg-slate-50" : "bg-[#0a0d13]"
+            isLight ? "bg-slate-50" : "bg-[#0a0d13]",
           )}
           style={{
             opacity: isMenuVisible ? 1 : 0,
@@ -325,9 +416,11 @@ export function Navbar({
             >
               Overview
             </NavLink>
-               <NavLink
+            <NavLink
               onClick={closeMenu}
-              className={({ isActive }) => mobileLinkClassName({ isActive: isActive || isDocs })}
+              className={({ isActive }) =>
+                mobileLinkClassName({ isActive: isActive || isDocs })
+              }
               to="/docs/introduction"
             >
               Documentation
@@ -349,11 +442,17 @@ export function Navbar({
 
             {/* Divider */}
             <div
-              className={cn("my-6 h-px w-full", isLight ? "bg-slate-100" : "bg-white/10")}
+              className={cn(
+                "my-6 h-px w-full",
+                isLight ? "bg-slate-100" : "bg-white/10",
+              )}
             />
 
             <div
-              className={cn("my-6 h-px w-full", isLight ? "bg-slate-100" : "bg-white/10")}
+              className={cn(
+                "my-6 h-px w-full",
+                isLight ? "bg-slate-100" : "bg-white/10",
+              )}
             />
 
             {/* GitHub CTA */}
@@ -366,10 +465,16 @@ export function Navbar({
                 "flex items-center justify-center gap-2.5 rounded-full border py-3 text-[15px] font-medium transition-all active:scale-[0.98]",
                 isLight
                   ? "border-[rgba(15,23,42,0.1)] bg-slate-50 text-slate-900 hover:bg-slate-100"
-                  : "border-white/[0.08] bg-white/5 text-white hover:bg-white/10"
+                  : "border-white/[0.08] bg-white/5 text-white hover:bg-white/10",
               )}
             >
-              <LuGithub className={cn("h-4 w-4", isLight ? "text-slate-900" : "text-white")} strokeWidth={1.8} />
+              <LuGithub
+                className={cn(
+                  "h-4 w-4",
+                  isLight ? "text-slate-900" : "text-white",
+                )}
+                strokeWidth={1.8}
+              />
               Star on Github
             </a>
           </div>
@@ -384,7 +489,7 @@ export function Navbar({
             className={cn(
               "absolute inset-0 transition-opacity duration-200",
               isDocsDrawerVisible ? "opacity-100" : "opacity-0",
-              isLight ? "bg-slate-950/18" : "bg-black/45"
+              isLight ? "bg-slate-950/18" : "bg-black/45",
             )}
             onClick={closeDocsDrawer}
             type="button"
@@ -397,22 +502,40 @@ export function Navbar({
               isDocsDrawerVisible ? "translate-x-0" : "-translate-x-full",
               isLight
                 ? "border-[rgba(15,23,42,0.08)] bg-white text-slate-950"
-                : "border-white/[0.08] bg-[#0a0d13] text-white"
+                : "border-white/[0.08] bg-[#0a0d13] text-white",
             )}
           >
             <div className="mb-6">
-              <p className={cn("text-[10px] font-bold uppercase tracking-[0.2em]", isLight ? "text-slate-500" : "text-slate-400")}>
+              <p
+                className={cn(
+                  "text-[10px] font-bold uppercase tracking-[0.2em]",
+                  isLight ? "text-slate-500" : "text-slate-400",
+                )}
+              >
                 Documentation
               </p>
-              <p className={cn("mt-2 text-sm leading-6", isLight ? "text-slate-600" : "text-slate-300")}>
+              <p
+                className={cn(
+                  "mt-2 text-sm leading-6",
+                  isLight ? "text-slate-600" : "text-slate-300",
+                )}
+              >
                 Jump to a guide or reference page.
               </p>
             </div>
 
-            <nav className="min-h-0 flex-1 space-y-7 overflow-y-auto" aria-label="Documentation sections">
+            <nav
+              className="min-h-0 flex-1 space-y-7 overflow-y-auto"
+              aria-label="Documentation sections"
+            >
               {DOC_GROUPS.map((group) => (
                 <div key={group.title}>
-                  <p className={cn("text-[10px] font-bold uppercase tracking-[0.18em]", isLight ? "text-slate-400" : "text-slate-500")}>
+                  <p
+                    className={cn(
+                      "text-[10px] font-bold uppercase tracking-[0.18em]",
+                      isLight ? "text-slate-400" : "text-slate-500",
+                    )}
+                  >
                     {group.title}
                   </p>
                   <div className="mt-3 space-y-1">
@@ -427,11 +550,11 @@ export function Navbar({
                               "flex min-h-11 items-center gap-3 rounded-xl border px-3 text-sm font-medium transition-colors",
                               isActive || isCurrent
                                 ? isLight
-                            ? "border-[rgba(15,23,42,0.08)] bg-[rgba(15,23,42,0.04)] text-slate-950"
-                            : "border-white/[0.1] bg-[rgba(255,255,255,0.05)] text-white"
+                                  ? "border-[rgba(15,23,42,0.08)] bg-[rgba(15,23,42,0.04)] text-slate-950"
+                                  : "border-white/[0.1] bg-[rgba(255,255,255,0.05)] text-white"
                                 : isLight
                                   ? "border-transparent text-slate-600 hover:border-[rgba(15,23,42,0.06)] hover:bg-slate-50 hover:text-slate-950"
-                                  : "border-transparent text-slate-300 hover:border-white/[0.08] hover:bg-white/[0.05] hover:text-white"
+                                  : "border-transparent text-slate-300 hover:border-white/[0.08] hover:bg-white/[0.05] hover:text-white",
                             )
                           }
                           key={item.slug}
