@@ -21,7 +21,7 @@ function AppShell() {
      
       {!isPlayground && <Navbar isLight={isLight} onThemeToggle={toggleTheme} />}
 
-      <main className={isPlayground ? "w-full h-screen overflow-hidden" : "mx-auto max-w-[1600px] px-4 pt-24 sm:px-10"}>
+      <main className={isPlayground ? "w-full min-h-screen overflow-y-auto overflow-x-hidden lg:h-screen lg:overflow-hidden" : "mx-auto max-w-[1600px] px-4 pt-24 sm:px-10"}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/components" element={<ComponentsPage />} />
