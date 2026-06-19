@@ -100,7 +100,7 @@ export function BottomNavPill({ items, activeId, onItemClick, className, style }
                 ref={(el) => {
                   itemRefs.current[index] = el;
                 }}
-                className="relative z-[1] transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none"
+                className="relative z-[1] transition-[transform,opacity] duration-200  transform-gpu ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none"
                 style={{ transitionDelay: `${index * 22}ms` }}
               >
                 <button
@@ -141,7 +141,7 @@ export function BottomNavPill({ items, activeId, onItemClick, className, style }
                         />
                         <Icon
                           className={cn(
-                            "relative z-[1] h-[1.3rem] w-[1.3rem] translate-z-0",
+                            "relative z-[1] h-[1.3rem] w-[1.3rem]",
                             "transition-[transform,opacity,color,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
                             "motion-reduce:transform-none motion-reduce:transition-none",
                             isActive
