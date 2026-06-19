@@ -43,7 +43,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
             const Icon = item.icon;
 
             return (
-              <li key={item.id} className="relative z-[1] flex-1">
+              <li key={item.id} className="relative z-[1] flex-1 transform-gpu">
                 <button
                   aria-current={isActive ? "page" : undefined}
                   aria-label={item.label}
@@ -59,7 +59,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
                   <div className="relative flex h-6 w-6 items-center justify-center">
                     <Icon
                       className={cn(
-                        "relative z-10 h-5 w-5 transition-transform duration-200 group-hover:scale-110 translate-z-0",
+                        "relative z-10 h-5 w-5 transition-transform duration-200 group-hover:scale-110",
                         isActive ? "scale-110 text-white dark:text-[#050505]" : "text-slate-500 hover:text-slate-800 dark:text-slate-500 dark:hover:text-slate-300"
                       )}
                       fill={isActive ? "currentColor" : "none"}
