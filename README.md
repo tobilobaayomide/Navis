@@ -21,7 +21,7 @@ You can easily scaffold a component directly into your project using our CLI:
 
 ```bash
 # Example: Adding the Floating Navigation variant
-npx navisinit add bottom-nav-floating
+npx navisinit add BottomNavFloating
 ```
 
 This will automatically drop `BottomNavFloating.jsx` into your `src/components/ui/` directory.
