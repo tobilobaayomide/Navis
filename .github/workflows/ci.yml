@@ -13,7 +13,7 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Use Node
         uses: actions/setup-node@v4
         with:
@@ -21,7 +21,7 @@ jobs:
       - name: Install deps
         run: npm ci
       - name: Type check
-        run: npm run type-check || true
+        run: npm run typecheck || true
       - name: Lint
         run: npm run lint || true
       - name: Test
