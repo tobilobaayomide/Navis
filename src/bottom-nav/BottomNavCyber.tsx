@@ -8,6 +8,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
 
   return (
     <div className="fixed bottom-0 inset-x-0 z-50 flex justify-center pb-[env(safe-area-inset-bottom)]">
+      {/* Cyber bar — customize: border, bg, shadow; full-width edge-to-edge layout */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
@@ -38,6 +39,7 @@ export function BottomNavCyber({ items, activeId, onItemClick, className, style 
             <span className="absolute inset-0 bg-slate-900 dark:bg-white" />
           </li>
 
+          {/* Navigation items — customize: h for button height, text colors, font-family, fill */}
           {items.map((item) => {
             const isActive = item.id === resolvedActiveId;
             const Icon = item.icon;

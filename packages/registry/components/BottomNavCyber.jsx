@@ -10,10 +10,11 @@ export default function BottomNavCyber({ items, activePath, onItemClick, classNa
 
   return (
     <div className="fixed bottom-0 inset-x-0 z-50 flex justify-center pb-[env(safe-area-inset-bottom)]">
+      {/* Cyber bar — customize: border, bg, shadow; full-width edge-to-edge layout */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto w-full overflow-hidden border-t border-slate-200 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.05)] dark:border-[#1a1a1a] dark:bg-[#050505] dark:shadow-none",
+          "relative isolate mx-auto w-full border-t border-slate-200 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.05)] dark:border-[#1a1a1a] dark:bg-[#050505] dark:shadow-none",
           className
         )}
         style={style}
@@ -40,12 +41,13 @@ export default function BottomNavCyber({ items, activePath, onItemClick, classNa
             <span className="absolute inset-0 bg-slate-900 dark:bg-white" />
           </li>
 
+          {/* Navigation items — customize: h for button height, text colors, font-family, fill */}
           {items.map((item) => {
             const isActive = item.path === resolvedActivePath;
             const Icon = item.icon;
 
             return (
-              <li key={item.path} className="relative z-[1] flex-1">
+              <li key={item.path} className="relative z-[1] flex-1 transform-gpu">
                 <button
                   aria-current={isActive ? "page" : undefined}
                   aria-label={item.label}
