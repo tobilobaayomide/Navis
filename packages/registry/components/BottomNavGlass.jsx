@@ -16,6 +16,7 @@ export default function BottomNavGlass({
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50">
+      {/* Glass bar — customize: h, bg, border, shadow, backdrop-blur */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
@@ -30,6 +31,7 @@ export default function BottomNavGlass({
             const Icon = item.icon;
             const isCenter = index === centerIndex;
 
+            {/* Elevated center button — customize: h/w for size, bg gradient, shadow, rounded */}
             if (isCenter) {
               return (
                 <li key={item.path} className="relative z-50 flex w-[4.25rem] shrink-0 items-center justify-center">
@@ -54,12 +56,13 @@ export default function BottomNavGlass({
               );
             }
 
+            {/* Side navigation items — customize: icon h/w, text colors for active/inactive */}
             return (
               <li key={item.path} className="relative z-10 flex flex-1 items-center justify-center">
                 <button
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "group relative flex flex-col items-center justify-center gap-1.5 rounded-2xl p-2  active:scale-95",
+                    "group relative flex flex-col items-center justify-center gap-1.5 rounded-2xl p-2 active:scale-95",
                     item.disabled && "cursor-not-allowed opacity-40"
                   )}
                   disabled={item.disabled}
