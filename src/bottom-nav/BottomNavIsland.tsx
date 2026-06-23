@@ -6,6 +6,7 @@ export function BottomNavIsland({ items, activeId, onItemClick, className, style
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
+    {/* Island capsule — customize: w, rounded, bg, border, shadow, backdrop-blur */}
     <nav
         aria-label="Mobile primary navigation"
         className={cn(
@@ -14,6 +15,7 @@ export function BottomNavIsland({ items, activeId, onItemClick, className, style
         )}
         style={style}
       >
+        {/* Nav items — active pill expands with label; customize: bg, px, text colors, duration */}
         <ul className="relative z-[1] flex items-center justify-center gap-1.5">
           {items.map((item) => {
             const isActive = item.id === resolvedActiveId;
