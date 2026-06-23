@@ -36,7 +36,7 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
       const itemLeft = itemElement.offsetLeft;
 
       // Measure the exact rendered content width
-      const contentEl = list.querySelector(".floating-nav-capsule-content") as HTMLElement | null;
+      const contentEl = list.querySelector(".floating-nav-capsule-content");
       const contentWidth = contentEl ? contentEl.offsetWidth : itemWidth;
 
       // Position the capsule: flush-left on first tab, flush-right on last tab, centered on middle tabs
@@ -77,10 +77,11 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
+    {/* Floating container — customize: rounded, bg, border, shadow, backdrop-blur, p */}
     <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto max-w-full overflow-hidden rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+          "relative isolate mx-auto max-w-full rounded-full border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.48rem] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-[transform,opacity,box-shadow,backdrop-filter,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
           className
         )}
         style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
@@ -94,6 +95,7 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
         className="relative z-[1] grid min-h-[3.15rem] w-full items-center justify-center gap-[0.32rem]"
         style={{ gridTemplateColumns: trackColumns }}
       >
+        {/* Sliding capsule indicator — expands to show icon + label on active tab */}
         <li
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 z-0 transition-[transform,width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transform-none motion-reduce:transition-none"
@@ -102,7 +104,7 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
           <div className="absolute inset-0 flex items-center overflow-hidden rounded-full border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/10 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
             <span
               key={activeItem?.id}
-              className="w-max shrink-0 flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 dark:text-white motion-reduce:transform-none motion-reduce:transition-none"
+              className="floating-nav-capsule-content w-max shrink-0 flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 dark:text-white motion-reduce:transform-none motion-reduce:transition-none"
             >
               <span className="relative inline-flex h-[1.6rem] w-[1.6rem] shrink-0 items-center justify-center">
                 {ActiveIcon ? <ActiveIcon className="h-[1.45rem] w-[1.45rem]" /> : null}
@@ -114,6 +116,7 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
           </div>
         </li>
 
+        {/* Navigation items — customize: text colors, icon size, hover effects */}
         {items.map((item, index) => {
           const isActive = item.path === activePath;
           const Icon = item.icon;
@@ -147,7 +150,7 @@ export default function BottomNavFloating({ items, activePath, onItemClick, clas
                 >
                   <Icon
                     className={cn(
-                      "h-[1.45rem] w-[1.45rem] transition-[transform,opacity,filter] duration-220 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none",
+                      "h-[1.45rem] w-[1.45rem] transition-[transform,opacity,filter] duration-220 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none translate-z-0",
                       isActive ? "scale-[0.92] opacity-0 blur-[2px]" : "scale-100 group-hover:-translate-y-[0.5px] group-hover:scale-[1.035]"
                     )}
                   />

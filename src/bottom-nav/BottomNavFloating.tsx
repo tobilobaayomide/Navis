@@ -78,6 +78,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
+    {/* Floating container — customize: rounded, bg, border, shadow, backdrop-blur, p */}
     <nav
         aria-label="Mobile primary navigation"
         className={cn(
@@ -95,6 +96,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
         className="relative z-[1] grid min-h-[3.15rem] w-full items-center justify-center gap-[0.32rem]"
         style={{ gridTemplateColumns: trackColumns }}
       >
+        {/* Sliding capsule indicator — expands to show icon + label on active tab */}
         <li
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 z-0 transition-[transform,width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transform-none motion-reduce:transition-none"
@@ -103,7 +105,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
           <div className="absolute inset-0 flex items-center overflow-hidden rounded-full border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/10 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
             <span
               key={activeItem?.id}
-              className="w-max shrink-0 flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 dark:text-white motion-reduce:transform-none motion-reduce:transition-none"
+              className="floating-nav-capsule-content w-max shrink-0 flex items-center gap-[0.45rem] px-[0.92rem] pl-[0.82rem] text-slate-900 dark:text-white motion-reduce:transform-none motion-reduce:transition-none"
             >
               <span className="relative inline-flex h-[1.6rem] w-[1.6rem] shrink-0 items-center justify-center">
                 {ActiveIcon ? <ActiveIcon className="h-[1.45rem] w-[1.45rem]" /> : null}
@@ -115,6 +117,7 @@ export function BottomNavFloating({ items, activeId, onItemClick, className, sty
           </div>
         </li>
 
+        {/* Navigation items — customize: text colors, icon size, hover effects */}
         {items.map((item, index) => {
           const isActive = item.id === activeId;
           const Icon = item.icon;
