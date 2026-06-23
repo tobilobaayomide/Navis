@@ -1,6 +1,5 @@
 import {
   createContext,
-  type ReactElement,
   useContext,
   useEffect,
   useMemo,
@@ -8,21 +7,17 @@ import {
   type ReactNode
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { buildPublicComponentSource } from "../codegen/build-public-component-source";
-import type { CodeArtifact } from "../components/CodeArtifactViewer";
 import { useClipboardState } from "../hooks/useClipboardState";
 import { useSiteTheme } from "../hooks/useSiteTheme";
 import type { BottomNavProps } from "../nav/nav.types";
 import {
-  componentSourceByVariant,
   getItemsForVariant,
-  navRenderers,
   VARIANTS,
   type NavVariant,
   type VariantId
-} from "../variants/registry";
+} from "../variants/metadata";
 
-export type { NavVariant, VariantId } from "../variants/registry";
+export type { NavVariant, VariantId } from "../variants/metadata";
 
 export type SiteTheme = "dark" | "light";
 
@@ -36,9 +31,7 @@ type PlaygroundContextValue = {
   activeId: string;
   setActiveId: (id: string) => void;
   visibleItems: BottomNavProps["items"];
-  previewNav: ReactElement;
   installCommand: string;
-  implementationArtifacts: CodeArtifact[];
   copiedState: string | null;
   copiedNonce: number;
   copyToClipboard: (text: string, id: string) => void;
@@ -62,7 +55,6 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
 
   const [selectedVariant, setSelectedVariant] = useState<VariantId>("liquid");
   const activeVariant = VARIANTS.find((v) => v.id === selectedVariant) ?? VARIANTS[0];
-  const SelectedBottomNav = navRenderers[selectedVariant];
 
   const [activeId, setActiveId] = useState("home");
 
@@ -84,36 +76,7 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
     }
   }, [activeId, visibleItems]);
 
-  const previewNav = useMemo(
-    () => (
-      <SelectedBottomNav
-        activeId={activeId}
-        items={visibleItems}
-        onItemClick={(item: { id: string }) => setActiveId(item.id)}
-      />
-    ),
-    [SelectedBottomNav, activeId, visibleItems]
-  );
-
   const installCommand = `npx navisinit add ${activeVariant.fileName}`;
-
-  const publicComponentSource = useMemo(
-    () => buildPublicComponentSource(selectedVariant, componentSourceByVariant[selectedVariant]),
-    [selectedVariant]
-  );
-
-  const implementationArtifacts = useMemo<CodeArtifact[]>(
-    () => [
-      {
-        id: "component",
-        label: "Component",
-        fileName: `${activeVariant.fileName}.jsx`,
-        code: publicComponentSource,
-        description: "The CLI installs only this component source. Navigation data and parent-layout usage stay as docs examples for your app to wire."
-      }
-    ],
-    [activeVariant.fileName, publicComponentSource]
-  );
 
   const goToPlayground = () => navigate("/Playground");
   const goToComponents = () => navigate("/components");
@@ -129,9 +92,7 @@ export function PlaygroundProvider({ children }: { children: ReactNode }) {
     activeId,
     setActiveId,
     visibleItems,
-    previewNav,
     installCommand,
-    implementationArtifacts,
     copiedState,
     copiedNonce,
     copyToClipboard,
