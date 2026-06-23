@@ -28,6 +28,7 @@ export function BottomNavAura({ items, activeId, onItemClick, className, style }
       )}
       style={style}
     >
+      {/* Aura container — customize: rounded, bg, shadow, backdrop-blur, border */}
       <div className="relative flex items-center justify-center gap-1 rounded-full bg-white/50 p-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.1)] backdrop-blur-xl border border-white/40 dark:bg-black/40 dark:border-white/10 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]">
         
         {/* The Aura Radial Glow & Underline Indicator */}
@@ -45,6 +46,7 @@ export function BottomNavAura({ items, activeId, onItemClick, className, style }
           <div className="absolute bottom-0 inset-x-0 mx-auto h-[2px] w-6 rounded-t-full bg-indigo-600 shadow-[0_-2px_8px_rgba(79,70,229,0.8)] dark:bg-indigo-400 dark:shadow-[0_-2px_8px_rgba(129,140,248,0.8)]" />
         </div>
 
+        {/* Navigation items — customize: h/w for button size, text colors, icon scale/translate */}
         {items.map((item, index) => {
           const isActive = item.id === activeId;
           const Icon = item.icon;
