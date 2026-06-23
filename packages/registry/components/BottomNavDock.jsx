@@ -9,6 +9,7 @@ export default function BottomNavDock({ items, activePath, onItemClick, classNam
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
+      {/* Dock container — customize: rounded, bg, border, shadow, backdrop-blur, gap */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
@@ -17,6 +18,7 @@ export default function BottomNavDock({ items, activePath, onItemClick, classNam
         )}
         style={style}
       >
+        {/* Icon tiles — customize: w (aspect-square w-[3rem]), rounded, bg, shadow, ring */}
         <ul className="flex items-end justify-center gap-2">
           {items.map((item) => {
             const isActive = item.path === resolvedActivePath;
