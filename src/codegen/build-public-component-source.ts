@@ -1,4 +1,4 @@
-import type { VariantId } from "../variants/registry";
+import type { VariantId } from "../variants/metadata";
 
 export function buildPublicComponentSource(variantId: VariantId, source: string) {
   void variantId;
