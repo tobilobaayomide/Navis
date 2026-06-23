@@ -7,17 +7,19 @@ function cn(...classes) {
 export default function BottomNavMinimal({ items, activePath, onItemClick, className, style }) {
   return (
     <div className="fixed bottom-0 inset-x-0 z-50 border-t border-slate-200/50 bg-white/80 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#0a0a0a]/80">
+      {/* Full-width bar — customize: border, bg, backdrop-blur */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn("mx-auto w-full max-w-md px-2", className)}
         style={style}
       >
+        {/* Navigation grid — customize: h for bar height, text colors, icon scale */}
         <ul
           className="relative grid h-16 w-full"
           style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
         >
           {items.map((item) => {
-            const isActive = item.path === activePath || item.path === activePath;
+            const isActive = item.path === activePath;
             const Icon = item.icon;
 
             return (
