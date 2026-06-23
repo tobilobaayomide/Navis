@@ -1141,6 +1141,27 @@ a {
   color: rgba(15, 23, 42, 0.6);
 }
 
+/* ─── Bento Gallery: Dot-Grid Preview Backgrounds ─── */
+.bento-preview-dots-dark {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.bento-preview-dots-light {
+  background-image:
+    radial-gradient(circle, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-color: rgba(249, 250, 251, 1);
+}
+
+/* ─── Bento Gallery: Cursor Spotlight Card ─── */
+.bento-card-spotlight {
+  --spot-x: 50%;
+  --spot-y: 50%;
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
