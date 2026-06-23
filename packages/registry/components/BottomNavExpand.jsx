@@ -43,6 +43,7 @@ export default function BottomNavExpand({ items, activePath, onItemClick, classN
       )}
       style={style}
     >
+      {/* Expandable capsule — customize: h, rounded, bg, border, shadow, backdrop-blur */}
       <div
         ref={navRef}
         className={cn(
