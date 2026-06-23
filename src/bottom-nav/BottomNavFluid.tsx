@@ -37,6 +37,7 @@ export function BottomNavFluid({ items, activeId, onItemClick, className, style 
         )}
         style={style}
       >
+        {/* Fluid container — customize: rounded, bg, p, shadow, backdrop-blur */}
         <div className="relative flex w-full items-center justify-between rounded-full bg-white/80 p-2 shadow-xl backdrop-blur-2xl dark:border dark:border-white/10 dark:bg-[#111]/80 dark:shadow-2xl">
           
           {/* The Fluid Elastic Bubble */}
@@ -52,6 +53,7 @@ export function BottomNavFluid({ items, activeId, onItemClick, className, style 
             }}
           />
 
+          {/* Navigation items — customize: h for button height, text colors, icon size */}
           {items.map((item, index) => {
             const isActive = item.id === activeId;
             const Icon = item.icon;
