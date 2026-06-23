@@ -28,10 +28,11 @@ export default function BottomNavLiquid({ items, activePath, onItemClick, classN
           <div
             className="absolute bottom-0 left-0 top-0 w-14 rounded-full bg-black/[0.06] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] dark:bg-white/[0.08]"
             style={{
-              transform: `translateX(calc(${safeActiveIndex * 100}% + ${safeActiveIndex * 0.25}rem))`
+              transform: `translateX(calc(${safeActiveIndex} * (100% + 0.25rem)))`
             }}
           />
 
+          {/* Navigation items — customize: w for button width, text colors, icon fill, label size */}
           {items.map((item) => {
             const isActive = item.path === resolvedActivePath;
             const Icon = item.icon;
