@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = "/Users/hunkymanie/Documents/Navis";
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const VARIANTS = [
   ["BottomNavIndicator.tsx", "BottomNavIndicator.jsx"],
   ["BottomNavFloating.tsx", "BottomNavFloating.jsx"],
@@ -53,9 +54,7 @@ function publicize(source) {
     .replace(/: HTMLLIElement \| null/g, "")
     .replace(/: CapsuleMetrics/g, "")
     .replace(/: \{ left: number; width: number \}/g, "")
-    .replace(/ as CSSProperties/g, "")
-    .replace(/ as any/g, "")
-    .replace(/ as Node/g, "")
+    .replace(/\s+as\s+[A-Za-z0-9_]+(?:\s*\|\s*null)?/g, "")
     .replace(/: MouseEvent/g, "")
     .replace(/useRef<[^>]+>>\(/g, "useRef(")
     .replace(/useRef<[^>]+>\(/g, "useRef(")
