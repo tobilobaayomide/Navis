@@ -1,11 +1,26 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { CopyToast } from "./components/CopyToast";
 import { PlaygroundProvider, usePlayground } from "./context/PlaygroundContext";
-import { DocsPage } from "./pages/DocsPage";
 import { HomePage } from "./pages/HomePage";
-import { PlaygroundPage } from "./pages/PlaygroundPage";
-import { ComponentsPage } from "./pages/ComponentsPage";
+
+// Lazy load other pages to support bundle splitting
+const ComponentsPage = lazy(() => import("./pages/ComponentsPage").then(m => ({ default: m.ComponentsPage })));
+const PlaygroundPage = lazy(() => import("./pages/PlaygroundPage").then(m => ({ default: m.PlaygroundPage })));
+const DocsPage = lazy(() => import("./pages/DocsPage").then(m => ({ default: m.DocsPage })));
+
+function PageLoader() {
+  return (
+    <div className="flex min-h-[60vh] w-full items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        {/* Sleek dynamic spinner */}
+        <div className="h-6 w-6 animate-spin rounded-full border-[2px] border-indigo-500/20 border-t-indigo-500" />
+        <span className="text-[11px] font-medium tracking-[0.24em] text-slate-500 uppercase">Loading</span>
+      </div>
+    </div>
+  );
+}
 
 function AppShell() {
   const { copiedState, copiedNonce, isLight, toggleTheme } = usePlayground();
@@ -22,14 +37,16 @@ function AppShell() {
       {!isPlayground && <Navbar isLight={isLight} onThemeToggle={toggleTheme} />}
 
       <main className={isPlayground ? "w-full min-h-screen overflow-y-auto overflow-x-hidden lg:h-screen lg:overflow-hidden" : "mx-auto max-w-[1550px] px-4 pt-24 sm:px-10"}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/components" element={<ComponentsPage />} />
-          <Route path="/Playground" element={<PlaygroundPage />} />
-          <Route path="/Docs" element={<Navigate replace to="/docs/introduction" />} />
-          <Route path="/docs/:docSlug" element={<DocsPage />} />
-          <Route path="*" element={<Navigate replace to="/" />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/components" element={<ComponentsPage />} />
+            <Route path="/Playground" element={<PlaygroundPage />} />
+            <Route path="/Docs" element={<Navigate replace to="/docs/introduction" />} />
+            <Route path="/docs/:docSlug" element={<DocsPage />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <CopyToast copiedState={copiedState} copiedNonce={copiedNonce} isLight={isLight} />
