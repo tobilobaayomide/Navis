@@ -17,19 +17,7 @@ type CardProps = {
 
 function NavbarCard({ variant, isLight, onClick, index }: CardProps) {
   const items = useMemo(() => getItemsForVariant(variant.id), [variant.id]);
-
-  const [activeId, setActiveId] = useState(items[0]?.id ?? "home");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveId((prev) => {
-        const idx = items.findIndex((item) => item.id === prev);
-        const nextIdx = (idx + 1) % items.length;
-        return items[nextIdx]?.id ?? items[0]?.id;
-      });
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [items]);
+  const activeId = items[0]?.id ?? "home";
 
   const accentStyles = useMemo(() => {
     if (variant.id !== "indicator") return {};
@@ -114,7 +102,7 @@ function NavbarCard({ variant, isLight, onClick, index }: CardProps) {
           <SelectedBottomNav
             activeId={activeId}
             items={items}
-            onItemClick={(item: NavItem) => setActiveId(item.id)}
+            onItemClick={() => {}}
             style={accentStyles}
           />
         </div>
