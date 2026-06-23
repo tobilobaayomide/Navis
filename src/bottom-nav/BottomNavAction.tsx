@@ -14,15 +14,17 @@ export function BottomNavAction({ items, activeId, onItemClick, className, style
       )}
       style={style}
     >
+      {/* Bar container — customize: h, rounded, bg, border, shadow, backdrop-blur */}
       <div className="relative flex h-16 w-full items-center justify-between rounded-full border border-slate-200/50 bg-white/80 px-4 shadow-sm backdrop-blur-2xl dark:border-white/10 dark:bg-[#0a0a0a]/80">
         {items.map((item, index) => {
           const isActive = item.id === activeId;
           const isMiddle = index === middleIndex;
           const Icon = item.icon;
 
+          {/* Raised center action button — customize: h/w for size, bg, shadow, -top for lift amount */}
           if (isMiddle) {
             return (
-              <div key={item.path} className="relative -top-5 -mx-2 flex items-center justify-center">
+              <div key={item.id} className="relative -top-5 -mx-2 flex items-center justify-center">
                 <button
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
@@ -39,6 +41,7 @@ export function BottomNavAction({ items, activeId, onItemClick, className, style
             );
           }
 
+          {/* Side navigation items — customize: w for button width, text colors, icon scale */}
           return (
             <button
               key={item.id}
@@ -56,7 +59,7 @@ export function BottomNavAction({ items, activeId, onItemClick, className, style
               <div className="relative flex items-center justify-center">
                 <Icon
                   className={cn(
-                    "h-5 w-5 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                    "h-5 w-5 transition-transform ease-[cubic-bezier(0.34,1.56,0.64,1)]",
                     isActive ? "scale-110" : "group-hover:scale-110 group-active:scale-95"
                   )}
                 />
