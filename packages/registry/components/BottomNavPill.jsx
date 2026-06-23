@@ -51,10 +51,11 @@ export default function BottomNavPill({ items, activePath, onItemClick, classNam
 
   return (
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pb-[env(safe-area-inset-bottom)]">
+      {/* Pill container — customize: rounded, bg, border, shadow, backdrop-blur, p */}
       <nav
         aria-label="Mobile primary navigation"
         className={cn(
-          "relative isolate mx-auto w-full overflow-hidden rounded-[1.95rem]",
+          "relative isolate mx-auto w-full rounded-[1.95rem]",
           "border border-slate-200/80 dark:border-white/10",
           "bg-white/90 dark:bg-[#0a0a0a]/90 p-[0.59rem]",
           "shadow-[0_16px_40px_-16px_rgba(0,0,0,0.12)] dark:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]",
@@ -65,6 +66,7 @@ export default function BottomNavPill({ items, activePath, onItemClick, classNam
         )}
         style={{ maxWidth: `${maxWidth}px`, width: "100%", ...style }}
       >
+        {/* Glass highlight overlay */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.84)_0%,rgba(255,255,255,0.22)_28%,rgba(191,205,232,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_28%,rgba(255,255,255,0)_100%)] opacity-90"
@@ -79,6 +81,7 @@ export default function BottomNavPill({ items, activePath, onItemClick, classNam
           className="relative z-[1] grid h-12 gap-[0.34rem]"
           style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
         >
+          {/* Sliding active pill — customize: bg, shadow, rounded */}
           <li
             aria-hidden="true"
             className="pointer-events-none absolute inset-y-0 left-0 z-0 rounded-[1.45rem] bg-black dark:bg-white shadow-[0_14px_22px_-18px_rgba(15,23,42,0.42),inset_0_1px_0_rgba(255,255,255,0.16)] dark:shadow-[0_14px_22px_-18px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.8)] saturate-[1.03] transition-[transform,width,background-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transform-none motion-reduce:transition-none"
@@ -93,6 +96,7 @@ export default function BottomNavPill({ items, activePath, onItemClick, classNam
             />
           </li>
 
+          {/* Navigation items — customize: text colors, icon size, hover effects */}
           {items.map((item, index) => {
             const isActive = item.path === resolvedActivePath;
             const Icon = item.icon;
@@ -103,7 +107,7 @@ export default function BottomNavPill({ items, activePath, onItemClick, classNam
                 ref={(el) => {
                   itemRefs.current[index] = el;
                 }}
-                className="relative z-[1] transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none"
+                className="relative z-[1] transition-[transform,opacity] duration-200  transform-gpu ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transform-none motion-reduce:transition-none"
                 style={{ transitionDelay: `${index * 22}ms` }}
               >
                 <button
