@@ -12,7 +12,7 @@ export function LandingFooter({ isLight }: LandingFooterProps) {
   const textClass = isLight ? "text-slate-600" : "text-slate-400";
 
   return (
-    <footer className={cn("mt-16 border-t", borderClass)}>
+    <footer className={cn("mt-16 px-4 border-t", borderClass)}>
       <div className="mx-auto w-full py-0 pt-10 sm:py-12">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="space-y-4">
