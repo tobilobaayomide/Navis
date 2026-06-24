@@ -66,7 +66,7 @@ export default function Docs({ isLight, installCommand, copyToClipboard }: Props
   const nextPage = DOC_PAGES[currentIndex + 1];
 
   return (
-    <div className="relative">
+    <div className="relative px-4">
       <div 
         className={cn(
           "pointer-events-none absolute left-[20%] top-0 -z-10 -translate-x-1/2 -translate-y-[20%] w-[600px] h-[400px] rounded-[100%] blur-[120px] transition-opacity duration-1000",
