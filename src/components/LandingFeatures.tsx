@@ -147,10 +147,10 @@ export function LandingFeatures({ isLight }: LandingFeaturesProps) {
 
   return (
     // 300vh creates a long scrolling area so the sticky container remains pinned
-    <section ref={sectionRef} className="relative h-[300vh] w-full max-w-[100vw] bg-transparent">
+    <section ref={sectionRef} className="px-4 relative h-[300vh] w-full max-w-[100vw] bg-transparent">
       
       {/* Sticky Edge-to-Edge Container */}
-      <div className="sticky top-0 h-screen flex flex-col lg:flex-row items-center w-full overflow-hidden z-10">
+      <div className="sticky top-0 h-screen flex flex-col lg:flex-row items-center w-full overflow-hidden z-10 pt-24 lg:pt-0">
         
         {/* Editorial Left Side */}
         <div className="w-full lg:w-[55%] px-0 relative z-20 shrink-0">
@@ -185,12 +185,12 @@ export function LandingFeatures({ isLight }: LandingFeaturesProps) {
         </div>
 
         {/* Scrolling Cinematic Stage (Bleeding off right edge) */}
-        <div className="relative h-full w-full lg:w-[55%] flex items-center justify-center lg:justify-start mt-12 lg:mt-0">
+        <div className="relative h-auto lg:h-full w-full lg:w-[55%] flex items-start lg:items-center justify-center lg:justify-start mt-12 lg:mt-0">
           
           {/* Ambient Lighting for the Glass to refract */}
          
           {/* Cards Stack Container */}
-          <div className="relative w-full max-w-[570px] lg:max-w-[650px] h-[300px] lg:h-[420px] ml-0 lg:ml-12">
+          <div className="relative w-full max-w-[570px] lg:max-w-[650px] h-[360px] lg:h-[430px] ml-0 lg:ml-12">
             
             {/* Card 1: Data Foundation (Shows at peak 0.1) */}
             <div 
