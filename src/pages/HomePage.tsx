@@ -3,6 +3,7 @@ import { usePlayground } from "../context/PlaygroundContext";
 import { LandingHero } from "../components/LandingHero";
 import { BentoGallery } from "../components/BentoGallery";
 import { LandingFeatures } from "../components/LandingFeatures";
+import { CallToAction } from "../components/CallToAction";
 import { LandingFooter } from "../components/LandingFooter";
 
 export function HomePage() {
@@ -25,6 +26,11 @@ export function HomePage() {
       />
       <BentoGallery isLight={isLight} />
       <LandingFeatures isLight={isLight} />
+      <CallToAction 
+        isLight={isLight} 
+        onComponentsClick={goToComponents} 
+        onDocsClick={goToDocs} 
+      />
       <LandingFooter isLight={isLight} />
     </div>
   );
