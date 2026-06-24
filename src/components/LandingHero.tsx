@@ -75,7 +75,7 @@ export function LandingHero({
         "relative py-28 md:py-24"
       )}
     >
-      <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid px-4 items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         
         {/* Left Copy Side */}
         <div className="space-y-12">
