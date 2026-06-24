@@ -130,7 +130,7 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-36">
+    <section ref={sectionRef} className="px-4 py-24 md:py-36">
       <div className="space-y-20">
         {/* ── Section Header ── */}
         <div className="max-w-3xl space-y-5 text-left">
