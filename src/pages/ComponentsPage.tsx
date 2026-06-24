@@ -450,7 +450,7 @@ export function ComponentsPage() {
   };
 
   return (
-    <div className="mx-auto w-full -py-2 md:py-8 space-y-12">
+    <div className="mx-auto px-4 w-full -py-2 md:py-8 space-y-12">
       {/* Header */}
       <header className="text-left pb-6">
         <div className="flex items-center gap-3 header-stagger-1">
