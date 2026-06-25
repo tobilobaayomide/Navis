@@ -219,9 +219,9 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
       */}
       <div
         className={cn(
-          "relative flex w-full flex-col border-2 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform pointer-events-auto overflow-hidden",
+          "relative flex w-full flex-col border-t-2 border-x-2 sm:border-2 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform pointer-events-auto overflow-hidden",
           // Mobile: full-width bottom sheet, capped height
-          "max-h-[92dvh] rounded-t-2xl sm:rounded-2xl",
+          "max-h-[92dvh] rounded-t-2xl sm:rounded-2xl pb-[env(safe-area-inset-bottom,16px)] sm:pb-0",
           // sm+: constrained centered modal
           "sm:max-w-[800px] sm:max-h-[90vh]",
           isOpen
