@@ -52,6 +52,16 @@ export function Navbar({
   const path = location.pathname;
   const isDocs = path.toLowerCase().startsWith("/docs");
   const currentDocSlug = isDocs ? (path.split("/")[2] ?? "introduction") : "";
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close menu on route change
   useEffect(() => {
@@ -156,14 +166,24 @@ export function Navbar({
 
   return (
     <>
-      {/* ─── Desktop navbar (pill) ─── */}
-      <nav className="fixed top-5 left-0 right-0 z-50 mx-auto w-full max-w-[1500px] px-4 animate-fade-in hidden lg:block">
+      {/* ─── Desktop navbar (pill to full) ─── */}
+      <nav 
+        className={cn(
+          "fixed left-0 right-0 z-50 hidden md:flex justify-center w-full animate-fade-in lg:flex transition-all duration-200 ease-out",
+          isScrolled ? "top-0 px-0" : "top-5 px-4"
+        )}
+      >
         <div
           className={cn(
-            "flex h-16 items-center justify-between rounded-full px-5 sm:px-8 py-2.5 transition-colors duration-300",
+            "flex h-16 w-full items-center justify-between transition-all duration-200 ease-out",
+            isScrolled ? "rounded-none px-28 py-10 max-w-full" : "rounded-full px-5 sm:px-8 max-w-[1500px]",
             isLight
-              ? "border border-white/20 bg-white/95 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
-              : "border border-white/10 bg-black/85 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+              ? isScrolled 
+                ? "bg-white/95 backdrop-blur-2xl border-b border-[rgba(15,23,42,0.06)] shadow-sm"
+                : "border border-white/20 bg-white/95 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
+              : isScrolled
+                ? "bg-[#0a0d13]/95 backdrop-blur-2xl border-b border-white/[0.08]"
+                : "border border-white/10 bg-black/85 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
           )}
         >
           {/* Brand */}
@@ -441,13 +461,6 @@ export function Navbar({
             </NavLink>
 
             {/* Divider */}
-            <div
-              className={cn(
-                "my-6 h-px w-full",
-                isLight ? "bg-slate-100" : "bg-white/10",
-              )}
-            />
-
             <div
               className={cn(
                 "my-6 h-px w-full",
