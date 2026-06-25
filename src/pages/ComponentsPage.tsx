@@ -168,14 +168,19 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
     } as React.CSSProperties;
   }, [variant]);
 
-  // Lock body scroll while drawer is open
+  // Lock body and html scroll while drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [isOpen]);
 
   if (!variant) return null;
@@ -203,7 +208,7 @@ function DockDrawer({ variant, isOpen, isLight, onClose, onConfigure, copyToClip
     >
       {/* Backdrop with blur */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity pointer-events-auto"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity pointer-events-auto touch-none"
         onClick={onClose}
       />
 
