@@ -78,7 +78,7 @@ export function LandingHero({
       <div className="grid px-4 items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         
         {/* Left Copy Side */}
-        <div className="space-y-12">
+        <div className="space-y-8">
           <div className="space-y-6">
             <span
               className={cn(
@@ -91,7 +91,7 @@ export function LandingHero({
               Navis UI
             </span>
 
-            <div className="max-w-2xl space-y-6 hero-stagger-2">
+            <div className="max-w-2xl space-y-2 hero-stagger-2">
               <h1
                 className={cn(
                   "text-[2.75rem] font-medium tracking-[0.02em] leading-[1.05] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem]",
@@ -142,7 +142,7 @@ export function LandingHero({
           </div>
 
           {/* Quick CLI Copy */}
-          <div className="max-w-[28rem] pt-4 hero-stagger-4">
+          <div className="max-w-[28rem] hero-stagger-4">
             <button
               onClick={handleCopy}
               className={cn(
