@@ -29,7 +29,7 @@ export function LandingFooter({ isLight }: LandingFooterProps) {
               </span>
             </Link>
 
-            <p className={cn("max-w-max text-sm leading-7", textClass)}>
+            <p className={cn("max-w-max text-lg font-extralight leading-7", textClass)}>
               High-fidelity bottom navigation rails for modern mobile-first web apps.
             </p>
           </div>
@@ -47,7 +47,7 @@ export function LandingFooter({ isLight }: LandingFooterProps) {
                 ].map((item) => (
                   <Link
                     className={cn(
-                      "text-sm transition-colors",
+                      "text-lg font-extralight transition-colors",
                       isLight ? "text-slate-600 hover:text-slate-950" : "text-slate-400 hover:text-white"
                     )}
                     key={item.to}
@@ -68,7 +68,7 @@ export function LandingFooter({ isLight }: LandingFooterProps) {
                 rel="noopener noreferrer"
                 target="_blank"
                 className={cn(
-                  "inline-flex items-center gap-2 text-sm transition-colors",
+                  "inline-flex items-center gap-2 text-lg font-extralight transition-colors",
                   isLight ? "text-slate-600 hover:text-slate-950" : "text-slate-400 hover:text-white"
                 )}
               >
@@ -80,11 +80,11 @@ export function LandingFooter({ isLight }: LandingFooterProps) {
         </div>
 
         <div className={cn("mt-8 flex flex-col gap-3 border-t pt-5 sm:flex-row sm:items-center sm:justify-between", isLight ? "border-slate-200/80" : "border-white/10")}>
-          <p className={cn("text-sm leading-6", textClass)}>
+          <p className={cn("md:flex hidden text-lg font-extralight leading-6", textClass)}>
             Designed to stay calm, readable, and responsive.
           </p>
-          <p className={cn("text-sm leading-6", textClass)}>
-            © 2026 Navis UI. All rights reserved.
+          <p className={cn("text-base font-semibold leading-6", titleClass)}>
+            © {new Date().getFullYear()} Navis UI. All rights reserved.
           </p>
         </div>
       </div>
