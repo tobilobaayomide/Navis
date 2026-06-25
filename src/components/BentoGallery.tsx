@@ -133,7 +133,7 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
     <section ref={sectionRef} className="px-4 py-24 md:py-36">
       <div className="space-y-20">
         {/* ── Section Header ── */}
-        <div className="max-w-3xl space-y-5 text-left">
+        <div className="max-w-5xl space-y-5 text-left">
           <span
             className={cn(
               "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]",
@@ -151,11 +151,10 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
           </span>
           <h2
             className={cn(
-              "text-[2rem] font-medium tracking-[0.02em] leading-[1.1] sm:text-[3.5rem] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]",
+              "text-[2rem] font-medium tracking-[0.02em] leading-[1.1] sm:text-[3.5rem] ease-[cubic-bezier(0.23,1,0.32,1)]",
               isLight ? "text-slate-950" : "text-white",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[18px]"
             )}
-            style={{ transitionDelay: "60ms" }}
           >
             15 Distinct{" "}
             <span className={cn(
@@ -168,15 +167,12 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
           </h2>
           <p
             className={cn(
-              "text-[16px] font-light leading-relaxed sm:text-[18px] md:text-[22px] max-w-[52ch] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]",
+              "text-[16px] font-light leading-relaxed sm:text-[18px] md:text-[22px] ease-[cubic-bezier(0.23,1,0.32,1)]",
               isLight ? "text-slate-500" : "text-slate-400",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[18px]"
             )}
-            style={{ transitionDelay: "120ms" }}
           >
-            Every app has a different soul. Navis UI provides exactly the right
-            aesthetic out of the box, meticulously crafted so you don't have to
-            fiddle with padding and cubic-beziers.
+            Every app has a different soul. Navis UI starts with a clear point of view, so you're shaping a product instead of endlessly tweaking spacing, shadows, and motion curves.
           </p>
         </div>
 
@@ -221,18 +217,17 @@ export function BentoGallery({ isLight }: BentoGalleryProps) {
               navigate("/components");
             }}
             className={cn(
-              "group/cta relative inline-flex items-center gap-3 rounded-full py-4 pl-8 pr-6 text-sm font-semibold transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]",
+              "group/cta relative inline-flex items-center gap-3 rounded-full py-4 pl-8 pr-6 text-sm font-semibold ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]",
               isLight
-                ? "bg-white border border-slate-200 text-slate-900 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.06),0_12px_40px_-12px_rgba(15,23,42,0.08)] hover:border-slate-300 hover:shadow-[0_4px_12px_-4px_rgba(15,23,42,0.08),0_20px_50px_-16px_rgba(15,23,42,0.12)]"
-                : "bg-white/[0.04] border border-white/[0.08] text-slate-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:bg-white/[0.07] hover:border-white/[0.14] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_12px_32px_-8px_rgba(99,102,241,0.12)]",
+                ? "bg-white border border-slate-200 text-slate-900 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.06),0_12px_40px_-12px_rgba(15,23,42,0.08)] hover:border-slate-300"
+                : "bg-white/[0.04] border border-white/[0.08] text-slate-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:bg-white/[0.07] hover:border-white/[0.14]",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
-            style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             type="button"
           >
             <span>View All Components</span>
             <span className={cn(
-              "inline-flex items-center justify-center w-7 h-7 rounded-full transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/cta:translate-x-0.5",
+              "inline-flex items-center justify-center w-7 h-7 rounded-full ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/cta:translate-x-0.5",
               isLight ? "bg-slate-900/5 text-slate-700" : "bg-white/10 text-slate-200"
             )}>
               <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
@@ -291,7 +286,7 @@ function BentoCard({
       onClick={() => onOpen(card.id)}
       onMouseMove={handleMouseMove}
       className={cn(
-        "bento-card-spotlight group relative cursor-pointer rounded-[1.25rem] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden flex flex-col h-full",
+        "bento-card-spotlight group relative cursor-pointer rounded-[1.25rem] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden flex flex-col h-full",
         /* Grid span logic — 12-col grid for precise asymmetry */
         isFeatured && "sm:col-span-2 lg:col-span-8",
         isWide && "sm:col-span-2 lg:col-span-8",
@@ -302,7 +297,7 @@ function BentoCard({
           : "bg-[#0c0e14] border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] hover:border-white/[0.1] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_16px_48px_-12px_rgba(0,0,0,0.5)]",
         isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-[24px] scale-[0.97]"
       )}
-      style={{ transitionDelay: `${index * 80 + 180}ms` }}
+      style={{ transitionDelay: isVisible ? "0ms" : `${index * 80 + 180}ms` }}
     >
       {/* Cursor-tracking spotlight overlay (dark mode only) */}
       {!isLight && (
@@ -388,18 +383,7 @@ function BentoCard({
           )}>
             {card.label}
           </h3>
-          <svg
-            className={cn(
-              "h-4 w-4 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] opacity-0 -translate-x-2 group-hover:opacity-50 group-hover:translate-x-0",
-              isLight ? "text-slate-400" : "text-slate-500"
-            )}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-          </svg>
+       
         </div>
         <p className={cn(
           "mt-1.5 text-[12.5px] sm:text-[13px] font-light leading-relaxed line-clamp-2",
