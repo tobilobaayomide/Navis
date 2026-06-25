@@ -179,7 +179,7 @@ export function LandingFeatures({ isLight }: LandingFeaturesProps) {
               Design
             </span>{" "}
           </h2>
-          <p className={cn("text-lg font-light leading-relaxed sm:text-xl lg:text-2xl max-w-xl", isLight ? "text-slate-600" : "text-slate-400")}>
+          <p className={cn("max-w-[48ch] text-[16px] font-light leading-relaxed sm:text-[18px] md:text-[22px]", isLight ? "text-slate-600" : "text-slate-400")}>
             You own the code. You own the UI. Navis provides the raw, hardware-accelerated building blocks. Copy, paste, and compile your own premium aesthetic down to the exact cubic-bezier.
           </p>
         </div>
@@ -210,11 +210,9 @@ export function LandingFeatures({ isLight }: LandingFeaturesProps) {
 
             {/* Card 3: Rendered UI (Shows at peak 0.9) */}
             <div 
-              className="absolute inset-0 flex items-center bottom-20 justify-center transition-none"
+              className="absolute inset-0 flex items-center bottom-20 justify-center max-w-[400px] transition-none"
               style={getCardStyle(2)}
             >
-            
-                
                 <BottomNavFloating
                   items={NAV_ITEMS}
                   activeId={activeId}
